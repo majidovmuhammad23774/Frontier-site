@@ -15,7 +15,6 @@
             overflow-x: hidden;
         }
 
-        /* Анимированный фон */
         body::before {
             content: '';
             position: fixed;
@@ -28,7 +27,6 @@
             z-index: -1;
         }
 
-        /* Хедер */
         header {
             background: rgba(10, 14, 20, 0.95);
             backdrop-filter: blur(10px);
@@ -66,7 +64,6 @@
             color: #ffcc33;
         }
 
-        /* Главный блок */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
@@ -94,13 +91,19 @@
             letter-spacing: 1px;
         }
 
-        /* Кнопка скачивания */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .download-btn {
             display: inline-block;
             background: linear-gradient(135deg, #2a9d3c 0%, #1e7a2a 100%);
             color: white;
-            padding: 20px 60px;
-            font-size: 22px;
+            padding: 20px 50px;
+            font-size: 20px;
             font-weight: bold;
             text-decoration: none;
             border-radius: 12px;
@@ -116,7 +119,27 @@
             background: linear-gradient(135deg, #3dcc52 0%, #2a9d3c 100%);
         }
 
-        /* Секции */
+        .site-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #2a4d9d 0%, #1e3a7a 100%);
+            color: white;
+            padding: 20px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 12px;
+            border: 2px solid #3d6dcc;
+            box-shadow: 0 8px 30px rgba(42, 77, 157, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .site-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(42, 77, 157, 0.6);
+            background: linear-gradient(135deg, #3d6dcc 0%, #2a4d9d 100%);
+        }
+
         .section {
             max-width: 1200px;
             margin: 0 auto;
@@ -131,7 +154,6 @@
             letter-spacing: 2px;
         }
 
-        /* Карточки фич */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -168,7 +190,6 @@
             font-size: 15px;
         }
 
-        /* Инструкция */
         .steps {
             display: flex;
             flex-direction: column;
@@ -215,7 +236,6 @@
             font-size: 14px;
         }
 
-        /* Инфо-блок версии */
         .version-info {
             text-align: center;
             background: rgba(26, 35, 50, 0.6);
@@ -237,7 +257,27 @@
             font-weight: bold;
         }
 
-        /* Футер */
+        .contact-box {
+            text-align: center;
+            background: rgba(26, 35, 50, 0.6);
+            border: 1px solid rgba(255, 204, 51, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-box a {
+            color: #ffcc33;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
         footer {
             background: rgba(10, 14, 20, 0.95);
             border-top: 2px solid #ffcc33;
@@ -252,12 +292,11 @@
             margin-top: 8px;
         }
 
-        /* Мобильная адаптация */
         @media (max-width: 768px) {
             .hero h1 { font-size: 40px; letter-spacing: 2px; }
             .hero .slogan { font-size: 16px; }
             .section h2 { font-size: 26px; }
-            .download-btn { padding: 16px 40px; font-size: 18px; }
+            .download-btn, .site-btn { padding: 16px 35px; font-size: 17px; }
             header { padding: 15px 20px; }
             .logo { font-size: 22px; }
         }
@@ -265,7 +304,6 @@
 </head>
 <body>
 
-    <!-- ХЕДЕР -->
     <header>
         <div class="header-content">
             <div class="logo">🎖️ СТАЛЬНОЙ РУБЕЖ</div>
@@ -273,14 +311,19 @@
         </div>
     </header>
 
-    <!-- ГЛАВНЫЙ БЛОК -->
     <section class="hero">
         <h1>СТАЛЬНОЙ РУБЕЖ</h1>
         <p class="slogan">РУБЕЖ НЕ ЗНАЕТ ГРАНИЦ</p>
 
-        <a href="#" id="download-btn" class="download-btn" download>
-            📥 СКАЧАТЬ ИГРУ
-        </a>
+        <div class="btn-group">
+            <a href="#" id="download-btn" class="download-btn" download>
+                📥 СКАЧАТЬ ИГРУ
+            </a>
+            <a href="https://github.com/majidovmuhammad23774/Frontier-site" 
+               class="site-btn" target="_blank">
+                💻 GITHUB
+            </a>
+        </div>
 
         <div class="version-info" style="margin-top: 40px;">
             <p>Версия: <span id="ver-main">загрузка...</span></p>
@@ -288,7 +331,6 @@
         </div>
     </section>
 
-    <!-- ФИЧИ -->
     <section class="section">
         <h2>🎮 ОСОБЕННОСТИ ИГРЫ</h2>
         <div class="features">
@@ -328,14 +370,13 @@
                 <p>Никаких баннеров и навязчивых окон — чистая игра!</p>
             </div>
             <div class="feature-card">
-                <div class="icon">🎸</div>
-                <h3>Своя музыка</h3>
-                <p>Трек от разработчика — уникальное звучание игры!</p>
+                <div class="icon">🌐</div>
+                <h3>Официальный сайт</h3>
+                <p>Новости, обновления, скачивание — всё в одном месте!</p>
             </div>
         </div>
     </section>
 
-    <!-- ИНСТРУКЦИЯ -->
     <section class="section">
         <h2>📖 КАК ЗАПУСТИТЬ ИГРУ</h2>
         <div class="steps">
@@ -362,24 +403,30 @@
         </div>
     </section>
 
-    <!-- ФУТЕР -->
+    <section class="section">
+        <h2>📧 СВЯЗАТЬСЯ С РАЗРАБОТЧИКОМ</h2>
+        <div class="contact-box">
+            <p style="color: #a0a8b8; margin-bottom: 15px;">По вопросам, идеям и багам:</p>
+            <a href="mailto:majidovmuhammad39@gmail.com">
+                majidovmuhammad39@gmail.com
+            </a>
+        </div>
+    </section>
+
     <footer>
         <p>🌐 Официальный сайт игры «СТАЛЬНОЙ РУБЕЖ»</p>
-        <p>Контакты: support@steelline.com</p>
+        <p>📧 majidovmuhammad39@gmail.com</p>
         <p class="copyright">© Автор: Мухаммад. Все права защищены.</p>
     </footer>
 
-    <!-- ЗАГРУЗКА ВЕРСИИ ИЗ version.json -->
     <script>
         fetch('version.json?v=' + Date.now())
             .then(r => r.json())
             .then(data => {
-                // Версия в хедере и в главном блоке
                 document.getElementById('ver-header').textContent = data.version;
                 document.getElementById('ver-main').textContent = data.version;
                 document.getElementById('ver-date').textContent = data.date || '—';
 
-                // Ссылка на скачивание
                 const dl = document.getElementById('download-btn');
                 if (dl && data.download_url) {
                     dl.href = data.download_url;
