@@ -3,8 +3,8 @@ title = Steel Line
 package.name = steelline
 package.domain = org.steelline
 source.dir = .
-source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf
-version = 12.3.0
+source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,wav,mp3,ogg
+version = 12.3.1
 requirements = python3,kivy==2.2.1,pyjnius,android
 orientation = portrait
 fullscreen = 0
