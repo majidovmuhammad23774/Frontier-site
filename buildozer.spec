@@ -5,7 +5,7 @@ package.domain = org.bronelom
 source.dir = .
 source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,wav,mp3,ogg
 version = 12.3.1
-requirements = python3==3.11,kivy==2.2.1,pyjnius,android
+requirements = python3,kivy==2.2.1,pyjnius,android
 orientation = portrait
 fullscreen = 0
 android.api = 33
@@ -20,3 +20,6 @@ android.private_storage = True
 [buildozer]
 log_level = 2
 warn_on_root = 1
+
+[p4a]
+python_version = 3.11
