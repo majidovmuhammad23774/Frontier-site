@@ -16,10 +16,8 @@ android.allow_backup = True
 android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 android.accept_sdk_license = True
 android.private_storage = True
+p4a.python_version = 3.11
 
 [buildozer]
 log_level = 2
 warn_on_root = 1
-
-[p4a]
-python_version = 3.11
