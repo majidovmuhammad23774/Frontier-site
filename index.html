@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -15,16 +16,16 @@
             overflow-x: hidden;
         }
 
-        /* ФОН ВСЕГО САЙТА — картинка спецназовца */
+        /* ФОН САЙТА — CSS-градиент */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: url('specnaz.jpg');
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.15) blur(4px);
+            background:
+                radial-gradient(circle at 20% 30%, rgba(150, 20, 200, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(30, 80, 200, 0.15) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0e14 0%, #151b26 100%);
             z-index: -1;
         }
 
@@ -65,16 +66,11 @@
             color: #ffcc33;
         }
 
-        /* HERO-БЛОК — с картинкой танка */
         .hero {
-            max-width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 100px 40px 80px;
             text-align: center;
-            background-image: linear-gradient(rgba(10,14,20,0.75), rgba(10,14,20,0.95)), url('tank.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
         }
 
         .hero h1 {
@@ -282,7 +278,6 @@
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 60px 20px 50px; background-attachment: scroll; }
             .hero h1 { font-size: 40px; letter-spacing: 2px; }
             .hero .slogan { font-size: 16px; }
             .section h2 { font-size: 26px; }
