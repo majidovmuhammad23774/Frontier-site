@@ -1,11 +1,11 @@
 [app]
-title = Steel Line
-package.name = steelline
-package.domain = org.steelline
+title = Bronelom
+package.name = bronelom
+package.domain = org.bronelom
 source.dir = .
 source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,wav,mp3,ogg
 version = 12.3.1
-requirements = python3,kivy==2.2.1,pyjnius,android
+requirements = python3==3.11,kivy==2.2.1,pyjnius,android
 orientation = portrait
 fullscreen = 0
 android.api = 33
