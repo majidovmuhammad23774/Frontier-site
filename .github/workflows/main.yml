@@ -25,20 +25,25 @@ jobs:
             pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev
           pip install --upgrade pip
           pip install buildozer cython==0.29.36
-
-      - name: Fix cgi module (Python 3.13+)
-        run: |
           pip install legacy-cgi
-          python -c "import cgi; print('cgi OK')"
 
       - name: Build APK
         run: |
           yes | buildozer -v android debug 2>&1 | tail -200
+
+      - name: Find APK files
+        run: |
+          echo "=== Поиск APK ==="
+          find . -name "*.apk" -type f 2>/dev/null || echo "APK не найден"
+          echo "=== Содержимое bin/ ==="
+          ls -la bin/ 2>/dev/null || echo "Папки bin/ нет"
 
       - name: Upload APK
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: bronelom-apk
-          path: bin/*.apk
+          path: |
+            bin/*.apk
+            **/*.apk
           if-no-files-found: warn
