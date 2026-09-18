@@ -24,19 +24,16 @@ jobs:
           sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool \
             pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev
           pip install --upgrade pip
-          pip install buildozer cython==0.29.36
-          pip install legacy-cgi
+          pip install buildozer==1.5.0 cython==0.29.33
 
       - name: Build APK
         run: |
           yes | buildozer -v android debug 2>&1 | tail -200
 
-      - name: Find APK files
+      - name: Find APK
+        if: always()
         run: |
-          echo "=== Поиск APK ==="
-          find . -name "*.apk" -type f 2>/dev/null || echo "APK не найден"
-          echo "=== Содержимое bin/ ==="
-          ls -la bin/ 2>/dev/null || echo "Папки bin/ нет"
+          find /home/runner -name "*.apk" 2>/dev/null
 
       - name: Upload APK
         if: always()
