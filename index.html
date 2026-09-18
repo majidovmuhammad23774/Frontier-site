@@ -1,424 +1,210 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>БРОНЕЛОМ — Официальный сайт</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #0a0e14;
-            color: #e6e6e6;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ФОН САЙТА — CSS-градиент */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(150, 20, 200, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(30, 80, 200, 0.15) 0%, transparent 50%),
-                linear-gradient(135deg, #0a0e14 0%, #151b26 100%);
-            z-index: -1;
-        }
-
-        header {
-            background: rgba(10, 14, 20, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 40px;
-            border-bottom: 2px solid #ffcc33;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffcc33;
-            text-shadow: 0 0 20px rgba(255, 204, 51, 0.5);
-            letter-spacing: 2px;
-        }
-
-        .version-badge {
-            background: #1a2332;
-            border: 1px solid #ffcc33;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #ffcc33;
-        }
-
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 40px 80px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 64px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffcc33 0%, #ff8800 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            letter-spacing: 4px;
-            text-shadow: 0 0 40px rgba(255, 136, 0, 0.3);
-        }
-
-        .hero .slogan {
-            font-size: 22px;
-            color: #9966cc;
-            font-style: italic;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #2a9d3c 0%, #1e7a2a 100%);
-            color: white;
-            padding: 20px 60px;
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 12px;
-            border: 2px solid #3dcc52;
-            box-shadow: 0 8px 30px rgba(42, 157, 60, 0.4);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(42, 157, 60, 0.6);
-            background: linear-gradient(135deg, #3dcc52 0%, #2a9d3c 100%);
-        }
-
-        .section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        .section h2 {
-            font-size: 36px;
-            color: #ffcc33;
-            margin-bottom: 30px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-card {
-            background: rgba(26, 35, 50, 0.75);
-            border: 1px solid rgba(255, 204, 51, 0.2);
-            border-radius: 12px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .feature-card:hover {
-            border-color: #ffcc33;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 204, 51, 0.15);
-        }
-
-        .feature-card .icon {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-
-        .feature-card h3 {
-            font-size: 20px;
-            color: #ffcc33;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            color: #a0a8b8;
-            font-size: 15px;
-        }
-
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            background: rgba(26, 35, 50, 0.75);
-            padding: 20px 25px;
-            border-radius: 12px;
-            border-left: 4px solid #ffcc33;
-            backdrop-filter: blur(5px);
-        }
-
-        .step-number {
-            background: #ffcc33;
-            color: #0a0e14;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            color: #e6e6e6;
-            font-size: 16px;
-        }
-
-        .step-text code {
-            background: #0a0e14;
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: #ffcc33;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-        }
-
-        .version-info {
-            text-align: center;
-            background: rgba(26, 35, 50, 0.75);
-            border: 1px solid rgba(255, 204, 51, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto;
-            backdrop-filter: blur(5px);
-        }
-
-        .version-info p {
-            font-size: 18px;
-            margin: 8px 0;
-            color: #a0a8b8;
-        }
-
-        .version-info span {
-            color: #ffcc33;
-            font-weight: bold;
-        }
-
-        .contact-box {
-            text-align: center;
-            background: rgba(26, 35, 50, 0.75);
-            border: 1px solid rgba(255, 204, 51, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto;
-            backdrop-filter: blur(5px);
-        }
-
-        .contact-box a {
-            color: #ffcc33;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .contact-box a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background: rgba(10, 14, 20, 0.95);
-            border-top: 2px solid #ffcc33;
-            padding: 30px 40px;
-            text-align: center;
-            color: #666e80;
-            font-size: 14px;
-        }
-
-        footer .copyright {
-            color: #ffcc33;
-            margin-top: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 40px; letter-spacing: 2px; }
-            .hero .slogan { font-size: 16px; }
-            .section h2 { font-size: 26px; }
-            .download-btn { padding: 16px 40px; font-size: 18px; }
-            header { padding: 15px 20px; }
-            .logo { font-size: 22px; }
-        }
-    </style>
+    <title>СТАЛЬНОЙ РУБЕЖ — Танковые сражения v12.3.1</title>
+    <meta name="description" content="СТАЛЬНОЙ РУБЕЖ — мобильная танковая игра. 20 танков, 6 скинов, 5000 достижений. Механики War Thunder в Pydroid.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="game/avatar_game/avatar.png">
 </head>
 <body>
 
-    <header>
-        <div class="header-content">
-            <div class="logo">🎖️ БРОНЕЛОМ</div>
-            <div class="version-badge">v<span id="ver-header">...</span></div>
+<header class="header">
+    <div class="container header__inner">
+        <a href="#" class="logo">
+            <span class="logo__icon">⚙</span>
+            <span class="logo__text">СТАЛЬНОЙ <b>РУБЕЖ</b></span>
+        </a>
+        <nav class="nav">
+            <a href="#about">Об игре</a>
+            <a href="#features">Особенности</a>
+            <a href="#download">Скачать</a>
+            <a href="#news">Новости</a>
+        </nav>
+        <a href="#download" class="btn btn--small">↓ Скачать</a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container hero__inner">
+        <div class="hero__text">
+            <span class="badge">Версия 12.3.1</span>
+            <h1>СТАЛЬНОЙ<br><span class="accent">РУБЕЖ</span></h1>
+            <p class="hero__subtitle">
+                20 танков • 6 скинов • 5000 достижений<br>
+                Механики War Thunder в Pydroid
+            </p>
+            <div class="hero__buttons">
+                <a href="#download" class="btn btn--primary">⬇ Скачать игру</a>
+                <a href="#about" class="btn btn--ghost">Узнать больше</a>
+            </div>
+            <div class="hero__stats">
+                <div><b>20</b><span>танков</span></div>
+                <div><b>6</b><span>скинов</span></div>
+                <div><b>5000</b><span>достижений</span></div>
+            </div>
         </div>
-    </header>
-
-    <section class="hero">
-        <h1>БРОНЕЛОМ</h1>
-        <p class="slogan">ТВОЙ ТАНК — ТВОЯ СИЛА</p>
-
-        <div class="btn-group">
-            <a href="#" id="download-btn" class="download-btn" download>
-                📥 СКАЧАТЬ ИГРУ
-            </a>
+        <div class="hero__image">
+            <img src="titan60.jpg" alt="Танк Titan-60">
+            <span class="hero__image-label">TITAN-60</span>
         </div>
+    </div>
+</section>
 
-        <div class="version-info" style="margin-top: 40px;">
-            <p>Версия: <span id="ver-main">загрузка...</span></p>
-            <p>Обновлено: <span id="ver-date">—</span></p>
+<section id="about" class="section">
+    <div class="container">
+        <h2 class="section__title">Об игре</h2>
+        <div class="about">
+            <div class="about__text">
+                <p>
+                    <b>СТАЛЬНОЙ РУБЕЖ</b> — это танковая игра с реалистичной физикой снарядов,
+                    пробитием брони, рикошетами и модульной системой повреждений, вдохновлённая
+                    механиками <i>War Thunder</i>.
+                </p>
+                <p>
+                    Управляй 20 уникальными машинами, открывай 6 боевых скинов и зарабатывай
+                    одну из <b>5000 наград</b>. Финальное достижение — 
+                    <span class="accent">«РУБЕЖ НЕ ЗНАЕТ ГРАНИЦ»</span> — доступно только самым стойким.
+                </p>
+                <ul class="about__list">
+                    <li>✔ Реалистичная баллистика и пробитие</li>
+                    <li>✔ 20 танков — от лёгких до тяжёлых</li>
+                    <li>✔ 6 боевых скинов</li>
+                    <li>✔ 5000 достижений и наград</li>
+                    <li>✔ Написана на Python + Kivy</li>
+                </ul>
+            </div>
+            <div class="about__card">
+                <h3>⚙ Технические данные</h3>
+                <table>
+                    <tr><td>Движок</td><td>Kivy (Python 3)</td></tr>
+                    <tr><td>Платформа</td><td>Android / Pydroid 3</td></tr>
+                    <tr><td>Версия</td><td>12.3.1</td></tr>
+                    <tr><td>Размер</td><td>~15 МБ</td></tr>
+                    <tr><td>Язык</td><td>Русский</td></tr>
+                </table>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="section">
-        <h2>🎮 ОСОБЕННОСТИ ИГРЫ</h2>
+<section id="features" class="section section--alt">
+    <div class="container">
+        <h2 class="section__title">Особенности</h2>
         <div class="features">
-            <div class="feature-card">
-                <div class="icon">🚗</div>
-                <h3>4 танка</h3>
-                <p>Т-34, КВ-1, ИС-7 и Тигр II — выбирай свой стиль боя!</p>
+            <div class="feature">
+                <div class="feature__icon">🎯</div>
+                <h3>Механики War Thunder</h3>
+                <p>Пробитие брони, рикошеты, осколки, выцеливание модулей и экипажа.</p>
             </div>
-            <div class="feature-card">
-                <div class="icon">🎨</div>
+            <div class="feature">
+                <div class="feature__icon">🚜</div>
+                <h3>20 танков</h3>
+                <p>От лёгких разведчиков до тяжёлых штурмовых машин с уникальными ТТХ.</p>
+            </div>
+            <div class="feature">
+                <div class="feature__icon">🎨</div>
                 <h3>6 скинов</h3>
-                <p>От пустыни до золота — укрась свой танк!</p>
+                <p>Пустынный, зимний, городской камуфляж и боевые раскраски.</p>
             </div>
-            <div class="feature-card">
-                <div class="icon">🏅</div>
-                <h3>10 достижений</h3>
-                <p>Выполняй задачи и получай награды за прогресс!</p>
+            <div class="feature">
+                <div class="feature__icon">🏆</div>
+                <h3>5000 достижений</h3>
+                <p>От первого выстрела до легендарного «РУБЕЖ НЕ ЗНАЕТ ГРАНИЦ».</p>
             </div>
-            <div class="feature-card">
-                <div class="icon">👹</div>
-                <h3>Боссы</h3>
-                <p>Сражайся с боссом 4 раза в день — получай ценные награды!</p>
+            <div class="feature">
+                <div class="feature__icon">💥</div>
+                <h3>Реалистичная физика</h3>
+                <p>Баллистика, разброс, дальность и угол встречи снаряда с бронёй.</p>
             </div>
-            <div class="feature-card">
-                <div class="icon">🎁</div>
-                <h3>Промокоды</h3>
-                <p>Активируй PREMIUM INFINITY и стань бесконечным игроком!</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">💠</div>
-                <h3>2 валюты</h3>
-                <p>Зарабатывай Титанит и Души — трать с умом!</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🚫</div>
-                <h3>Без рекламы</h3>
-                <p>Никаких баннеров и навязчивых окон — чистая игра!</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🌐</div>
-                <h3>Официальный сайт</h3>
-                <p>Новости, обновления, скачивание — всё в одном месте!</p>
+            <div class="feature">
+                <div class="feature__icon">📱</div>
+                <h3>Работает в Pydroid</h3>
+                <p>Запускается на любом Android через Pydroid 3 — без ПК.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="section">
-        <h2>📖 КАК ЗАПУСТИТЬ ИГРУ</h2>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-text">Скачай <code>main.py</code> по кнопке выше</div>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-text">Установи <b>Pydroid 3</b> из Play Market</div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-text">Открой <code>main.py</code> в Pydroid и нажми ▶️ Run</div>
-            </div>
-            <div class="step">
-                <div class="step-number">4</div>
-                <div class="step-text">Дождись загрузки Kivy (первый запуск — до 1 минуты)</div>
-            </div>
-            <div class="step">
-                <div class="step-number">5</div>
-                <div class="step-text">Играй! Вводи никнейм и жми <b>ВХОД!</b></div>
-            </div>
-        </div>
-    </section>
+<section id="download" class="section">
+    <div class="container">
+        <h2 class="section__title">Скачать игру</h2>
 
-    <section class="section">
-        <h2>📧 СВЯЗАТЬСЯ С РАЗРАБОТЧИКОМ</h2>
-        <div class="contact-box">
-            <p style="color: #a0a8b8; margin-bottom: 15px;">По вопросам, идеям и багам:</p>
-            <a href="mailto:majidovmuhammad39@gmail.com">
-                majidovmuhammad39@gmail.com
+        <div class="download__box">
+            <h3>📦 СТАЛЬНОЙ РУБЕЖ v12.3.1</h3>
+            <p class="download__size">Размер: ~15 МБ • Формат: .py (Python)</p>
+            <a href="main.py" download class="btn btn--primary btn--large">
+                ⬇ Скачать main.py
             </a>
+            <a href="game.zip" download class="btn btn--ghost">📁 Скачать game.zip</a>
         </div>
-    </section>
 
-    <footer>
-        <p>🌐 Официальный сайт игры «БРОНЕЛОМ»</p>
-        <p>📧 majidovmuhammad39@gmail.com</p>
-        <p class="copyright">© Автор: Мухаммад. Все права защищены.</p>
-    </footer>
+        <h3 style="margin-top:40px;">📖 Как запустить в Pydroid 3</h3>
+        <ol class="steps">
+            <li>Установи Pydroid 3 из Google Play</li>
+            <li>В Pydroid: Меню → Pip → установи <code>kivy</code></li>
+            <li>Скачай main.py и папку game</li>
+            <li>Открой main.py в Pydroid и нажми ▶</li>
+        </ol>
 
-    <script>
-        fetch('version.json?v=' + Date.now())
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('ver-header').textContent = data.version;
-                document.getElementById('ver-main').textContent = data.version;
-                document.getElementById('ver-date').textContent = data.date || '—';
+        <div style="background:#1b1f18; border-left:4px solid #c9a227; border-radius:6px; padding:20px; margin-top:30px; color:#b8bfae;">
+            <b style="color:#c9a227;">⚠️ Важно!</b><br>
+            Скачивайте игру <b>только</b> с этого сайта. Другие сайты могут содержать вирусы.
+        </div>
+    </div>
+</section>
 
-                const dl = document.getElementById('download-btn');
-                if (dl && data.download_url) {
-                    dl.href = data.download_url;
-                }
-            })
-            .catch(err => {
-                document.getElementById('ver-header').textContent = '—';
-                document.getElementById('ver-main').textContent = '—';
-                console.error('Ошибка загрузки version.json:', err);
-            });
-    </script>
+<section id="news" class="section section--alt">
+    <div class="container">
+        <h2 class="section__title">Новости</h2>
+        <div class="news">
+            <article class="news__item">
+                <time>2026</time>
+                <h3>🎉 Версия 12.3.1</h3>
+                <p>Добавлена музыка, кнопка сайта игры, исправлены баги с боссом.</p>
+            </article>
+            <article class="news__item">
+                <time>2026</time>
+                <h3>🎵 Своя музыка</h3>
+                <p>Теперь в игре играет собственный трек, созданный разработчиком.</p>
+            </article>
+            <article class="news__item">
+                <time>2026</time>
+                <h3>📱 Скоро APK</h3>
+                <p>Готовится APK-версия для Android. Следите за новостями!</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container footer__inner">
+        <div>
+            <b>СТАЛЬНОЙ РУБЕЖ</b> © 2026<br>
+            <span class="muted">© Автор: Мухаммад. Все права защищены.</span>
+        </div>
+        <div class="footer__links">
+            <a href="#about">Об игре</a>
+            <a href="#download">Скачать</a>
+            <a href="#news">Новости</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112769907', 'ym');
+
+    ym(112769907, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/112769907" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 
 </body>
 </html>
