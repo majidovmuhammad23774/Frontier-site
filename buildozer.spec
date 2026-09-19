@@ -10,13 +10,12 @@ source.exclude_dirs = tests,bin,.buildozer,.github,__pycache__,.git
 
 version = 12.3.1
 
-requirements = python3,kivy==2.2.1,pyjnius,android,pillow
+requirements = python3,kivy==2.1.0,pyjnius,android,pillow
 
 orientation = portrait
 fullscreen = 0
 window_softinput_mode = below_target
 
-p4a.branch = develop
 p4a.bootstrap = sdl2
 
 android.api = 33
