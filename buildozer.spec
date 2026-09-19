@@ -21,6 +21,9 @@ android.ndk = 29
 
 p4a.branch = develop
 
+# ← ВОТ ЭТА СТРОКА РЕШАЕТ ПРОБЛЕМУ
+android.accept_sdk_license = True
+
 android.archs = arm64-v8a
 
 android.allow_backup = True
