@@ -211,9 +211,6 @@ def make_screen(title, color, info_fn, buttons_fn):
             except Exception as e: self.info.text = "Ошибка: %s" % e
     return _S
 
-# ============================================================
-# ЭКРАНЫ
-# ============================================================
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -418,5 +415,4 @@ class AchievementsScreen(Screen):
             self.info.text = "Открыто: %d/%d" % (len(done), len(ACHIEVEMENTS))
             self.box.clear_widgets()
             for key, info in ACHIEVEMENTS.items():
-                if key in done: text = "✅ %s — %s" % (info['name'], info['desc']); col = (0.3,0.6,0.3,1)
-                else: text = "🔒 %s (+%
+                if key in done: text = "✅ %s — %s" % (info['name'], info['desc']); col = (0.3,0.6,0.3,
