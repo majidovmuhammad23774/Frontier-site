@@ -3,43 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>БРОНЕЛОМ — Проект заморожен</title>
+<title>БРОНЕЛОМ — Технические работы</title>
 <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    margin: 0;
-    padding: 0;
-    background: #0a0a15;
-    color: #e0e0e0;
     font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #0a0a15 0%, #1a1a30 100%);
+    color: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
+  }
+  .icon {
+    font-size: 100px;
+    margin-bottom: 30px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
   }
   h1 {
-    font-size: 48px;
-    color: #4aa3ff;
-    margin: 20px 0;
-    letter-spacing: 4px;
-  }
-  .snow {
-    font-size: 80px;
-    margin: 20px 0;
-  }
-  .text {
-    font-size: 20px;
-    max-width: 600px;
-    line-height: 1.6;
-    color: #b0b0c0;
-  }
-  .date {
-    font-size: 32px;
+    font-size: 42px;
     color: #ffcc33;
-    margin: 30px 0;
-    font-weight: bold;
+    text-shadow: 0 0 20px #ff8800;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+  }
+  h2 {
+    font-size: 24px;
+    color: #4aa3ff;
+    margin-bottom: 30px;
+  }
+  p {
+    font-size: 18px;
+    color: #b0b0c0;
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 15px;
   }
   .footer {
     position: fixed;
@@ -56,24 +61,20 @@
 </head>
 <body>
 
-  <div class="snow">❄️</div>
+  <div class="icon">⚙️</div>
 
   <h1>БРОНЕЛОМ</h1>
 
-  <p class="text">
-    Проект заморожен.<br>
-    Работа над игрой приостановлена до лучших времён.
+  <h2>🔧 ТЕХНИЧЕСКИЕ РАБОТЫ 🔧</h2>
+
+  <p>
+    Сайт временно недоступен.<br>
+    Мы обновляем игру и делаем её лучше.
   </p>
 
-  <div class="date">
-    ❄️ До 27 июля 2030 года ❄️
-  </div>
-
-  <p class="text">
-    Я вернусь, когда мне будет 13 лет.<br>
-    Тогда — с новым компьютером — соберу игру заново.
-    <br><br>
-    Спасибо всем, кто ждал.
+  <p>
+    Совсем скоро БРОНЕЛОМ вернётся —<br>
+    с новой графикой и новыми возможностями!
   </p>
 
   <div class="author">
@@ -82,7 +83,7 @@
   </div>
 
   <div class="footer">
-    Проект заморожен с 23 сентября 2026 года
+    Следите за обновлениями
   </div>
 
 </body>
