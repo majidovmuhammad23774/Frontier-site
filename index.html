@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>БРОНЕЛОМ — Технические работы</title>
+<title>БРОНЕЛОМ — Танковая игра</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -11,80 +11,176 @@
     background: linear-gradient(180deg, #0a0a15 0%, #1a1a30 100%);
     color: #fff;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
     text-align: center;
-    padding: 30px;
   }
-  .icon {
-    font-size: 100px;
-    margin-bottom: 30px;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
+  .container { max-width: 700px; margin: 0 auto; }
   h1 {
-    font-size: 42px;
+    font-size: 48px;
     color: #ffcc33;
-    text-shadow: 0 0 20px #ff8800;
-    margin-bottom: 20px;
-    letter-spacing: 3px;
+    text-shadow: 0 0 25px #ff8800;
+    margin: 20px 0;
+    letter-spacing: 4px;
   }
-  h2 {
-    font-size: 24px;
-    color: #4aa3ff;
-    margin-bottom: 30px;
-  }
-  p {
+  .subtitle {
     font-size: 18px;
     color: #b0b0c0;
-    line-height: 1.6;
-    max-width: 500px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
+  .version {
+    font-size: 14px;
+    color: #808090;
+    margin-bottom: 30px;
+  }
+  .download-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #3a8a3a 0%, #2a602a 100%);
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 60px;
+    border: 3px solid #5aca5a;
+    border-radius: 15px;
+    text-decoration: none;
+    margin: 15px 0;
+    box-shadow: 0 0 30px rgba(90, 202, 90, 0.4);
+    transition: all 0.2s;
+  }
+  .download-btn:hover {
+    background: linear-gradient(180deg, #5aca5a 0%, #3a8a3a 100%);
+    transform: scale(1.05);
+  }
+  .size {
+    font-size: 14px;
+    color: #808090;
+    margin-bottom: 30px;
+  }
+  .features {
+    background: rgba(30, 30, 60, 0.6);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 30px 0;
+    text-align: left;
+  }
+  .features h2 {
+    color: #4aa3ff;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .features ul { list-style: none; }
+  .features li {
+    font-size: 16px;
+    color: #d0d0e0;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .features li:last-child { border-bottom: none; }
+  .instructions {
+    background: rgba(40, 30, 60, 0.6);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 30px 0;
+    text-align: left;
+  }
+  .instructions h2 {
+    color: #ffcc33;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .instructions ol {
+    padding-left: 25px;
+    color: #c0c0d0;
+  }
+  .instructions li {
+    padding: 6px 0;
+    line-height: 1.6;
+  }
+  .news {
+    background: rgba(60, 30, 30, 0.6);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 30px 0;
+    text-align: left;
+  }
+  .news h2 {
+    color: #ff6666;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .news-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: #d0d0e0;
+    font-size: 15px;
+  }
+  .news-item:last-child { border-bottom: none; }
   .footer {
-    position: fixed;
-    bottom: 20px;
+    margin-top: 40px;
+    padding: 20px 0;
     font-size: 14px;
     color: #606070;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
-  .author {
-    margin-top: 40px;
-    font-size: 16px;
-    color: #808090;
-  }
+  .footer a { color: #4aa3ff; text-decoration: none; }
 </style>
 </head>
 <body>
 
-  <div class="icon">⚙️</div>
+<div class="container">
 
   <h1>БРОНЕЛОМ</h1>
+  <p class="subtitle">🎮 Танковая игра с ботами, боссами и боевым пропуском</p>
+  <p class="version">Версия 1.0 | Android</p>
 
-  <h2>🔧 ТЕХНИЧЕСКИЕ РАБОТЫ 🔧</h2>
+  <a href="Bronelom.apk" download class="download-btn">📥 СКАЧАТЬ APK</a>
+  <p class="size">Размер: ~5 МБ | Формат: APK</p>
 
-  <p>
-    Сайт временно недоступен.<br>
-    Мы обновляем игру и делаем её лучше.
-  </p>
+  <div class="features">
+    <h2>🎯 Что в игре</h2>
+    <ul>
+      <li>🚜 <b>10 уникальных танков</b> — от «Стального» до «Михалыча»</li>
+      <li>🎨 <b>6 скинов</b> — Болото, Хищник, Крыло, Звезда, Янтарь</li>
+      <li>⚔️ <b>Бои с ботами</b> — 25 волн, каждый раз сложнее</li>
+      <li>🤖 <b>Босс Дипсик</b> — HP 5000, появляется на 20 волне</li>
+      <li>📦 <b>7 видов кейсов</b> — от Обычного до Ультра</li>
+      <li>🎖️ <b>Боевой пропуск</b> — 40 уровней + фазы</li>
+      <li>🌍 <b>5 стран</b> — со своими бонусами</li>
+      <li>🤖 <b>Помощник</b> — отвечает на вопросы</li>
+      <li>💾 <b>Сохранение</b> — прогресс не теряется</li>
+    </ul>
+  </div>
 
-  <p>
-    Совсем скоро БРОНЕЛОМ вернётся —<br>
-    с новой графикой и новыми возможностями!
-  </p>
+  <div class="instructions">
+    <h2>📖 Как установить</h2>
+    <ol>
+      <li>Скачай APK-файл (кнопка выше)</li>
+      <li>Открой файл в уведомлениях или в папке «Загрузки»</li>
+      <li>Разреши установку из неизвестных источников</li>
+      <li>Нажми «Установить»</li>
+      <li>Запусти БРОНЕЛОМ с рабочего стола</li>
+      <li>Введи ник и играй!</li>
+    </ol>
+  </div>
 
-  <div class="author">
-    © Автор: Мухаммад<br>
-    2026 год
+  <div class="news">
+    <h2>📰 Новости</h2>
+    <div class="news-item">🆕 <b>БРОНЕЛОМ v1.0</b> — первый релиз! 10 танков, 7 кейсов, босс Дипсик.</div>
+    <div class="news-item">🤖 <b>Босс Дипсик</b> — легендарный босс с 5000 HP.</div>
+    <div class="news-item">🏆 <b>Михалыч</b> — легендарный танк за 50 000 000 монет.</div>
+    <div class="news-item">🎖️ <b>Боевой пропуск</b> — 40 уровней с наградами.</div>
+    <div class="news-item">📅 <b>Обновления</b> — каждые 2 месяца.</div>
   </div>
 
   <div class="footer">
-    Следите за обновлениями
+    © Автор: Мухаммад, 2026<br>
+    Игра создана на HTML + JavaScript<br>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site">Исходный код на GitHub</a>
   </div>
+
+</div>
 
 </body>
 </html>
