@@ -33,27 +33,36 @@
     margin-bottom: 30px;
   }
   .download-btn {
-    display: inline-block;
+    display: block;
     background: linear-gradient(180deg, #3a8a3a 0%, #2a602a 100%);
     color: #fff;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    padding: 20px 60px;
+    padding: 20px 40px;
     border: 3px solid #5aca5a;
     border-radius: 15px;
     text-decoration: none;
-    margin: 15px 0;
-    box-shadow: 0 0 30px rgba(90, 202, 90, 0.4);
+    margin: 10px auto;
+    max-width: 420px;
+    box-shadow: 0 0 25px rgba(90, 202, 90, 0.4);
     transition: all 0.2s;
   }
   .download-btn:hover {
     background: linear-gradient(180deg, #5aca5a 0%, #3a8a3a 100%);
-    transform: scale(1.05);
+    transform: scale(1.03);
+  }
+  .download-btn.zip {
+    background: linear-gradient(180deg, #3a5fa8 0%, #2a4480 100%);
+    border-color: #5a80c8;
+    box-shadow: 0 0 25px rgba(90, 128, 200, 0.4);
+  }
+  .download-btn.zip:hover {
+    background: linear-gradient(180deg, #5a80c8 0%, #3a5fa8 100%);
   }
   .size {
     font-size: 14px;
     color: #808090;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
   .features {
     background: rgba(30, 30, 60, 0.6);
@@ -97,6 +106,11 @@
     padding: 6px 0;
     line-height: 1.6;
   }
+  .instructions .method {
+    color: #ffcc33;
+    font-weight: bold;
+    margin: 15px 0 10px;
+  }
   .news {
     background: rgba(60, 30, 30, 0.6);
     border-radius: 15px;
@@ -135,8 +149,11 @@
   <p class="subtitle">🎮 Танковая игра с ботами, боссами и боевым пропуском</p>
   <p class="version">Версия 1.0 | Android</p>
 
-  <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="download-btn">📥 СКАЧАТЬ APK</a>
-  <p class="size">Формат: ZIP (внутри — APK) | Размер: ~21 МБ</p>
+  <a href="https://apkpure.com/ru/grombroni/com.muhammad.grombroni" target="_blank" class="download-btn">📥 СКАЧАТЬ APK</a>
+  <p class="size">Через APKPure — установить сразу</p>
+
+  <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="download-btn zip">📦 СКАЧАТЬ ZIP</a>
+  <p class="size">Через ZArchiver — распаковать и установить</p>
 
   <div class="features">
     <h2>🎯 Что в игре</h2>
@@ -155,9 +172,18 @@
 
   <div class="instructions">
     <h2>📖 Как установить</h2>
+
+    <p class="method">📥 Способ 1 — через APKPure (проще):</p>
     <ol>
-      <li>Скачай <b>GromBroni.zip</b> (кнопка выше)</li>
-      <li>Установи <b>ZArchiver</b> из Google Play (если нет)</li>
+      <li>Нажми <b>СКАЧАТЬ APK</b> (зелёная кнопка)</li>
+      <li>Скачай и установи игру</li>
+      <li>Запусти и играй!</li>
+    </ol>
+
+    <p class="method">📦 Способ 2 — через ZIP (если APKPure не работает):</p>
+    <ol>
+      <li>Нажми <b>СКАЧАТЬ ZIP</b> (синяя кнопка)</li>
+      <li>Установи <b>ZArchiver</b> из Google Play</li>
       <li>Открой ZIP через ZArchiver</li>
       <li>Извлеки APK-файл</li>
       <li>Установи APK (разреши из неизвестных источников)</li>
