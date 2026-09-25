@@ -11,26 +11,26 @@
     background: linear-gradient(180deg, #0a0a15 0%, #1a1a30 100%);
     color: #fff;
     min-height: 100vh;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
   }
-  .container { max-width: 700px; margin: 0 auto; }
+  .container { max-width: 750px; margin: 0 auto; }
   h1 {
-    font-size: 48px;
+    font-size: 46px;
     color: #ffcc33;
     text-shadow: 0 0 25px #ff8800;
-    margin: 20px 0;
+    margin: 20px 0 10px;
     letter-spacing: 4px;
   }
   .subtitle {
     font-size: 18px;
     color: #b0b0c0;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   .version {
     font-size: 14px;
     color: #808090;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
   .download-btn {
     display: block;
@@ -38,107 +38,94 @@
     color: #fff;
     font-size: 22px;
     font-weight: bold;
-    padding: 20px 40px;
+    padding: 18px 40px;
     border: 3px solid #5aca5a;
     border-radius: 15px;
     text-decoration: none;
     margin: 10px auto;
     max-width: 420px;
     box-shadow: 0 0 25px rgba(90, 202, 90, 0.4);
-    transition: all 0.2s;
   }
-  .download-btn:hover {
-    background: linear-gradient(180deg, #5aca5a 0%, #3a8a3a 100%);
-    transform: scale(1.03);
-  }
+  .download-btn:active { transform: scale(0.97); }
   .download-btn.zip {
     background: linear-gradient(180deg, #3a5fa8 0%, #2a4480 100%);
     border-color: #5a80c8;
     box-shadow: 0 0 25px rgba(90, 128, 200, 0.4);
   }
-  .download-btn.zip:hover {
-    background: linear-gradient(180deg, #5a80c8 0%, #3a5fa8 100%);
-  }
-  .size {
-    font-size: 14px;
-    color: #808090;
-    margin-bottom: 25px;
-  }
-  .features {
+  .size { font-size: 13px; color: #808090; margin-bottom: 20px; }
+  .block {
     background: rgba(30, 30, 60, 0.6);
     border-radius: 15px;
-    padding: 25px;
-    margin: 30px 0;
+    padding: 22px;
+    margin: 20px 0;
     text-align: left;
   }
-  .features h2 {
+  .block h2 {
     color: #4aa3ff;
-    font-size: 24px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  .features ul { list-style: none; }
-  .features li {
-    font-size: 16px;
-    color: #d0d0e0;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .features li:last-child { border-bottom: none; }
-  .instructions {
-    background: rgba(40, 30, 60, 0.6);
-    border-radius: 15px;
-    padding: 25px;
-    margin: 30px 0;
-    text-align: left;
-  }
-  .instructions h2 {
-    color: #ffcc33;
     font-size: 22px;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
     text-align: center;
   }
-  .instructions ol {
-    padding-left: 25px;
-    color: #c0c0d0;
-  }
-  .instructions li {
-    padding: 6px 0;
-    line-height: 1.6;
-  }
-  .instructions .method {
-    color: #ffcc33;
-    font-weight: bold;
-    margin: 15px 0 10px;
-  }
-  .news {
-    background: rgba(60, 30, 30, 0.6);
-    border-radius: 15px;
-    padding: 25px;
-    margin: 30px 0;
-    text-align: left;
-  }
-  .news h2 {
-    color: #ff6666;
-    font-size: 22px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  .news-item {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    color: #d0d0e0;
+  .block ul { list-style: none; }
+  .block li {
     font-size: 15px;
+    color: #d0d0e0;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .block li:last-child { border-bottom: none; }
+  .block ol { padding-left: 22px; color: #c0c0d0; }
+  .block ol li { padding: 5px 0; border: none; }
+  .method { color: #ffcc33; font-weight: bold; margin: 12px 0 8px; font-size: 15px; }
+  .news-item {
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: #d0d0e0;
+    font-size: 14px;
   }
   .news-item:last-child { border-bottom: none; }
+  .tanks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .tank-card {
+    background: rgba(50, 50, 90, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .tank-card.legendary {
+    background: linear-gradient(180deg, #b88a20 0%, #806010 100%);
+    border: 2px solid #ffcc33;
+  }
+  .tank-card.boss {
+    background: linear-gradient(180deg, #008080 0%, #004040 100%);
+    border: 2px solid #00cccc;
+  }
+  .tank-name { color: #fff; font-weight: bold; margin-bottom: 4px; }
+  .tank-stats { color: #b0b0c0; font-size: 11px; }
   .footer {
-    margin-top: 40px;
+    margin-top: 30px;
     padding: 20px 0;
-    font-size: 14px;
+    font-size: 13px;
     color: #606070;
     border-top: 1px solid rgba(255,255,255,0.1);
   }
   .footer a { color: #4aa3ff; text-decoration: none; }
+  .slogan {
+    background: linear-gradient(180deg, #b88a20 0%, #806010 100%);
+    border: 2px solid #ffcc33;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #ff8800;
+  }
 </style>
 </head>
 <body>
@@ -146,8 +133,13 @@
 <div class="container">
 
   <h1>ГРОМ БРОНИ</h1>
-  <p class="subtitle">🎮 Танковая игра с ботами, боссами и боевым пропуском</p>
-  <p class="version">Версия 1.0 | Android</p>
+  <p class="subtitle">🎮 Танковая игра 20 на 20</p>
+  <p class="version">Версия 1.0 | Android | Автор: Мухаммад, 9 лет</p>
+
+  <div class="slogan">
+    🏆 ГРОМ БРОНИ — ЭТО ТИТАНЫ! 🏆<br>
+    Мы гоним конкурентов! Мы — титаны!
+  </div>
 
   <a href="https://apkpure.com/ru/grombroni/com.muhammad.grombroni" target="_blank" class="download-btn">📥 СКАЧАТЬ APK</a>
   <p class="size">Через APKPure — установить сразу</p>
@@ -155,22 +147,78 @@
   <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="download-btn zip">📦 СКАЧАТЬ ZIP</a>
   <p class="size">Через ZArchiver — распаковать и установить</p>
 
-  <div class="features">
+  <div class="block">
     <h2>🎯 Что в игре</h2>
     <ul>
-      <li>🚜 <b>10 уникальных танков</b> — от «Стального» до «Михалыча»</li>
+      <li>⚔️ <b>Бои 20 на 20</b> — 20 союзников против 20 врагов</li>
+      <li>🚜 <b>10 уникальных танков</b> — от «Стального» до «Дипсика»</li>
       <li>🎨 <b>6 скинов</b> — Болото, Хищник, Крыло, Звезда, Янтарь</li>
-      <li>⚔️ <b>Бои с ботами</b> — 25 волн, каждый раз сложнее</li>
-      <li>🤖 <b>Босс Дипсик</b> — HP 5000, появляется на 20 волне</li>
       <li>📦 <b>7 видов кейсов</b> — от Обычного до Ультра</li>
-      <li>🎖️ <b>Боевой пропуск</b> — 40 уровней + фазы</li>
-      <li>🌍 <b>5 стран</b> — со своими бонусами</li>
-      <li>🤖 <b>Помощник</b> — отвечает на вопросы</li>
+      <li>🎖️ <b>Боевой пропуск</b> — 40 уровней с наградами</li>
+      <li>🤝 <b>Умные союзники</b> — стреляют, двигаются, помогают</li>
+      <li>🤖 <b>Гром-Помощник</b> — отвечает на вопросы</li>
       <li>💾 <b>Сохранение</b> — прогресс не теряется</li>
+      <li>🎮 <b>Управление</b> — джойстик + кнопка огня</li>
     </ul>
   </div>
 
-  <div class="instructions">
+  <div class="block">
+    <h2>🚜 Танки (10)</h2>
+    <div class="tanks-grid">
+      <div class="tank-card"><div class="tank-name">Стальной</div><div class="tank-stats">HP 100 · P 10</div></div>
+      <div class="tank-card"><div class="tank-name">Раскат</div><div class="tank-stats">HP 120 · P 15</div></div>
+      <div class="tank-card"><div class="tank-name">Мороз</div><div class="tank-stats">HP 110 · P 12</div></div>
+      <div class="tank-card"><div class="tank-name">Искра</div><div class="tank-stats">HP 100 · P 18</div></div>
+      <div class="tank-card"><div class="tank-name">Призрак</div><div class="tank-stats">HP 90 · P 20</div></div>
+      <div class="tank-card"><div class="tank-name">Бастион</div><div class="tank-stats">HP 200 · P 8</div></div>
+      <div class="tank-card"><div class="tank-name">Клык</div><div class="tank-stats">HP 130 · P 16</div></div>
+      <div class="tank-card"><div class="tank-name">Вихрь</div><div class="tank-stats">HP 100 · P 22</div></div>
+      <div class="tank-card legendary"><div class="tank-name">⭐ Михалыч</div><div class="tank-stats">HP 250 · P 25</div></div>
+      <div class="tank-card boss"><div class="tank-name">🤖 Дипсик</div><div class="tank-stats">HP 500 · P 50</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>🎨 Скины (6)</h2>
+    <ul>
+      <li>Стандарт — +0 HP (стартовый)</li>
+      <li>Болото — +2 HP (800 монет)</li>
+      <li>Хищник — +3 HP (1200 монет)</li>
+      <li>Крыло — +5 HP (2000 монет)</li>
+      <li>Звезда — +8 HP (3500 монет)</li>
+      <li>Янтарь — +15 HP (5000 монет)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2>📦 Кейсы (7)</h2>
+    <ul>
+      <li>Обычный — 1000 монет</li>
+      <li>Редкий — 10 000 монет</li>
+      <li>Сверхредкий — 50 000 монет</li>
+      <li>Эпический — 200 000 монет</li>
+      <li>Легендарный — 1 000 000 монет</li>
+      <li>Мифический — 5 000 000 монет</li>
+      <li>⭐ Ультра — 5 000 000 000 000 000 000 монет (даёт 500 000 000)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2>🎖️ Боевой пропуск (40 уровней)</h2>
+    <ul>
+      <li>Ур. 1 — 1000 монет</li>
+      <li>Ур. 5 — Скин «Болото»</li>
+      <li>Ур. 10 — Танк «Раскат»</li>
+      <li>Ур. 15 — 50 000 монет</li>
+      <li>Ур. 20 — 🤖 БОСС: Дипсик!</li>
+      <li>Ур. 25 — Скин «Звезда»</li>
+      <li>Ур. 30 — Танк «Бастион»</li>
+      <li>Ур. 35 — 500 000 монет</li>
+      <li>🏆 Ур. 40 — ТРОФЕЙ: Михалыч!</li>
+    </ul>
+  </div>
+
+  <div class="block">
     <h2>📖 Как установить</h2>
 
     <p class="method">📥 Способ 1 — через APKPure (проще):</p>
@@ -186,18 +234,42 @@
       <li>Установи <b>ZArchiver</b> из Google Play</li>
       <li>Открой ZIP через ZArchiver</li>
       <li>Извлеки APK-файл</li>
-      <li>Установи APK (разреши из неизвестных источников)</li>
+      <li>Установи APK (разреши установку из неизвестных источников)</li>
       <li>Запусти <b>Гром Брони</b> и играй!</li>
     </ol>
   </div>
 
-  <div class="news">
+  <div class="block">
     <h2>📰 Новости</h2>
-    <div class="news-item">🆕 <b>Гром Брони v1.0</b> — первый релиз! 10 танков, 7 кейсов, босс Дипсик.</div>
-    <div class="news-item">🤖 <b>Босс Дипсик</b> — легендарный босс с 5000 HP.</div>
-    <div class="news-item">🏆 <b>Михалыч</b> — легендарный танк за 50 000 000 монет.</div>
+    <div class="news-item">🆕 <b>Гром Брони v1.0</b> — первый релиз! 20×20, 10 танков, 7 кейсов.</div>
+    <div class="news-item">🤝 <b>Союзники</b> — 20 синих танков помогают в бою!</div>
+    <div class="news-item">🤖 <b>Босс Дипсик</b> — 500 HP, 50 силы — открывается в пропуске.</div>
+    <div class="news-item">🏆 <b>Михалыч</b> — легендарный танк, трофей 40 уровня.</div>
     <div class="news-item">🎖️ <b>Боевой пропуск</b> — 40 уровней с наградами.</div>
     <div class="news-item">📅 <b>Обновления</b> — каждые 2 месяца.</div>
+    <div class="news-item">🏆 <b>Скоро</b> — новые танки, скины, боссы!</div>
+  </div>
+
+  <div class="block">
+    <h2>🎯 Управление</h2>
+    <ul>
+      <li>🕹️ <b>Джойстик</b> — тяни палец в левой половине экрана</li>
+      <li>🔥 <b>ОГОНЬ</b> — красная кнопка справа внизу</li>
+      <li>🤝 <b>Союзники</b> — стреляют автоматически</li>
+      <li>🏆 <b>Победа</b> — уничтожь всех 20 врагов</li>
+      <li>💀 <b>Поражение</b> — если все наши машины убиты (−500 монет)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2>💡 О игре</h2>
+    <p style="color: #d0d0e0; font-size: 15px; line-height: 1.6;">
+      «Гром Брони» — это танковая аркада, созданная Мухаммадом в 9 лет.
+      Игра написана на HTML + JavaScript, работает без интернета.
+      В ней 10 уникальных танков, 6 скинов, 7 видов кейсов и боевой пропуск на 40 уровней.
+      Управление рассчитано на телефон: джойстик для движения, кнопка для стрельбы.
+      Твои союзники-боты помогают в бою против 20 врагов одновременно!
+    </p>
   </div>
 
   <div class="footer">
