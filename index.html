@@ -5,276 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Гром Брони — Танковая игра</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #0a0a15 0%, #1a1a30 100%);
-    color: #fff;
-    min-height: 100vh;
-    padding: 15px;
-    text-align: center;
-  }
-  .container { max-width: 750px; margin: 0 auto; }
-  h1 {
-    font-size: 46px;
-    color: #ffcc33;
-    text-shadow: 0 0 25px #ff8800;
-    margin: 20px 0 10px;
-    letter-spacing: 4px;
-  }
-  .subtitle {
-    font-size: 18px;
-    color: #b0b0c0;
-    margin-bottom: 15px;
-  }
-  .version {
-    font-size: 14px;
-    color: #808090;
-    margin-bottom: 25px;
-  }
-  .slogan {
-    background: linear-gradient(180deg, #b88a20 0%, #806010 100%);
-    border: 2px solid #ffcc33;
-    border-radius: 12px;
-    padding: 15px;
-    margin: 20px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 0 10px #ff8800;
-  }
-  .download-btn {
-    display: block;
-    background: linear-gradient(180deg, #3a8a3a 0%, #2a602a 100%);
-    color: #fff;
-    font-size: 22px;
-    font-weight: bold;
-    padding: 18px 40px;
-    border: 3px solid #5aca5a;
-    border-radius: 15px;
-    text-decoration: none;
-    margin: 10px auto;
-    max-width: 420px;
-    box-shadow: 0 0 25px rgba(90, 202, 90, 0.4);
-  }
-  .download-btn:active { transform: scale(0.97); }
-  .download-btn.zip {
-    background: linear-gradient(180deg, #3a5fa8 0%, #2a4480 100%);
-    border-color: #5a80c8;
-    box-shadow: 0 0 25px rgba(90, 128, 200, 0.4);
-  }
-  .size { font-size: 13px; color: #808090; margin-bottom: 20px; }
-  .block {
-    background: rgba(30, 30, 60, 0.6);
-    border-radius: 15px;
-    padding: 22px;
-    margin: 20px 0;
-    text-align: left;
-  }
-  .block h2 {
-    color: #4aa3ff;
-    font-size: 22px;
-    margin-bottom: 14px;
-    text-align: center;
-  }
-  .block ul { list-style: none; }
-  .block li {
-    font-size: 15px;
-    color: #d0d0e0;
-    padding: 7px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .block li:last-child { border-bottom: none; }
-  .block ol { padding-left: 22px; color: #c0c0d0; }
-  .block ol li { padding: 5px 0; border: none; }
-  .method { color: #ffcc33; font-weight: bold; margin: 12px 0 8px; font-size: 15px; }
-  .news-item {
-    padding: 9px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    color: #d0d0e0;
-    font-size: 14px;
-  }
-  .news-item:last-child { border-bottom: none; }
-  .tanks-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .tank-card {
-    background: rgba(50, 50, 90, 0.5);
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 13px;
-    text-align: center;
-  }
-  .tank-card.legendary {
-    background: linear-gradient(180deg, #b88a20 0%, #806010 100%);
-    border: 2px solid #ffcc33;
-  }
-  .tank-card.boss {
-    background: linear-gradient(180deg, #008080 0%, #004040 100%);
-    border: 2px solid #00cccc;
-  }
-  .tank-name { color: #fff; font-weight: bold; margin-bottom: 4px; }
-  .tank-stats { color: #b0b0c0; font-size: 11px; }
-  .footer {
-    margin-top: 30px;
-    padding: 20px 0;
-    font-size: 13px;
-    color: #606070;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .footer a { color: #4aa3ff; text-decoration: none; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#0a0a15,#1a1a30);color:#fff;padding:15px;text-align:center;min-height:100vh}
+.container{max-width:800px;margin:0 auto}
+.hero{padding:30px 15px;border-radius:20px;margin-bottom:20px;background:radial-gradient(circle at 50% 0%,rgba(255,170,0,0.15) 0%,transparent 70%)}
+h1{font-size:42px;color:#ffcc33;text-shadow:0 0 25px #ff8800;margin:10px 0;letter-spacing:3px;font-weight:900}
+.subtitle{font-size:16px;color:#b0b0c0;margin-bottom:5px}
+.version{font-size:13px;color:#808090;margin-bottom:15px}
+.slogan{background:rgba(184,138,32,0.25);border:2px solid #ffcc33;border-radius:12px;padding:12px;margin:15px auto;max-width:500px;font-size:14px;font-weight:bold;color:#fff}.buttons{display:flex;flex-direction:column;gap:10px;align-items:center;margin:20px 0}
+.btn{display:block;width:100%;max-width:400px;padding:15px 25px;font-size:17px;font-weight:bold;color:#fff;text-decoration:none;border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer;transition:transform 0.1s}
+.btn:active{transform:scale(0.97)}
+.btn.apk{background:linear-gradient(180deg,#3a8a3a,#2a602a);border-color:#5aca5a;box-shadow:0 0 25px rgba(90,202,90,0.4)}
+.btn.zip{background:linear-gradient(180deg,#3a5fa8,#2a4480);border-color:#5a80c8;box-shadow:0 0 25px rgba(90,128,200,0.4)}
+.btn.online{background:linear-gradient(180deg,#8a3a8a,#602a60);border-color:#c85aca;box-shadow:0 0 25px rgba(200,90,200,0.4)}
+.block{background:rgba(30,30,60,0.6);border:2px solid rgba(90,110,200,0.3);border-radius:15px;padding:20px;margin:18px 0;text-align:left}
+.block h2{color:#4aa3ff;font-size:20px;margin-bottom:12px;text-align:center;text-shadow:0 0 10px rgba(74,163,255,0.5)}
+.block li{font-size:14px;color:#d0d0e0;padding:6px 0;list-style:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.block li:last-child{border:none}.screenshots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.screenshots img{width:100%;border-radius:10px;border:2px solid #4aa3ff;background:#152030;min-height:100px;object-fit:cover}
+#reviewsList{max-height:300px;overflow-y:auto;padding-right:5px}
+.review{background:rgba(20,20,40,0.7);border-left:3px solid #4aa3ff;border-radius:8px;padding:12px;margin:8px 0;font-size:13px;color:#c0c0d0;text-align:left}
+.review b{color:#ffcc33}
+.review small{color:#808090;font-size:11px;display:block;margin-top:4px}
+#reviewName,#reviewText{padding:10px;font-size:14px;border:2px solid #4aa3ff;border-radius:8px;background:#0f1626;color:#fff;width:100%;margin:5px 0;outline:none;font-family:inherit}
+#reviewText{min-height:80px;resize:vertical}
+.review-btn{background:linear-gradient(180deg,#3a8a3a,#2a602a);color:#fff;padding:12px 30px;border:2px solid #5aca5a;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:8px;width:100%;font-family:inherit}
+.review-btn:active{transform:scale(0.97)}
+.footer{margin-top:30px;padding:20px 0;font-size:13px;color:#606070;border-top:1px solid rgba(255,255,255,0.1)}
+.footer a{color:#4aa3ff;text-decoration:none;margin:0 5px}
+#toTop{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;background:linear-gradient(180deg,#4aa3ff,#2a5fa8);border:2px solid #7fc8ff;color:#fff;font-size:20px;font-weight:bold;cursor:pointer;display:none;z-index:100;box-shadow:0 0 20px rgba(74,163,255,0.5)}
+#toTop.show{display:block}
 </style>
-</head>
-<body>
-
+</head><body>
 <div class="container">
 
-  <h1>ГРОМ БРОНИ</h1>
-  <p class="subtitle">🎮 Танковая игра</p>
-  <p class="version">Версия 1.0 | Android | Автор: Мухаммад, 9 лет</p>
+<div class="hero">
+<h1>ГРОМ БРОНИ</h1>
+<p class="subtitle">🎮 Танковая игра</p>
+<p class="version">Версия 1.0 | Android | Автор: Мухаммад, 9 лет</p>
+<div class="slogan">🏆 ГРОМ БРОНИ — ЭТО ТИТАНЫ! 🏆</div>
+</div>
 
-  <div class="slogan">
-    🏆 ГРОМ БРОНИ — ЭТО ТИТАНЫ! 🏆<br>
-    Мы гоним конкурентов! Мы — титаны!
-  </div>
+<div class="buttons">
+<a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn apk">📥 СКАЧАТЬ APK</a>
+<a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip">📦 СКАЧАТЬ ZIP</a>
+<a href="game.html" class="btn online">▶ ИГРАТЬ ОНЛАЙН</a>
+</div>
 
-  <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="download-btn">📥 СКАЧАТЬ APK</a>
-  <p class="size">Прямая ссылка с GitHub — устанавливается сразу</p>
+<div class="block">
+<h2>🎯 Что в игре</h2>
+<ul>
+<li>⚔️ Танковые бои — 30 волн</li>
+<li>🚜 31 танк — от «Стального» до «ФЕНИКСА»</li>
+<li>⚪ Круглый танк и 🇩🇪 зенитка Gepard</li>
+<li>🚢 Корабли — катер, эсминец, крейсер, линкор</li>
+<li>🎨 6 скинов</li>
+<li>📦 7 кейсов</li>
+<li>🎖️ Боевой пропуск — 40 уровней</li>
+<li>🤖 Гром-Помощник — отвечает на вопросы</li>
+<li>💾 Сохранение прогресса</li>
+</ul>
+</div>
 
-  <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="download-btn zip">📦 СКАЧАТЬ ZIP</a>
-  <p class="size">Через ZArchiver — распаковать и установить</p>
+<div class="block">
+<h2>📸 Скриншоты</h2>
+<div class="screenshots">
+<img src="screenshots/screen1.jpg" alt="Меню" onerror="this.style.display='none'">
+<img src="screenshots/screen2.jpg" alt="Бой" onerror="this.style.display='none'">
+<img src="screenshots/screen3.jpg" alt="Ангар" onerror="this.style.display='none'">
+<img src="screenshots/screen4.jpg" alt="Кейсы" onerror="this.style.display='none'">
+</div>
+<p style="color:#8fa8c0;font-size:12px;margin-top:10px;text-align:center">Скриншоты появятся, когда загрузишь их в папку screenshots/</p>
+</div><div class="block">
+<h2>💬 Отзывы игроков</h2>
+<div id="reviewsList">
+<div class="review"><b>Мухаммад (разработчик):</b> Спасибо всем, кто играет! Пишите отзывы — я читаю каждый!<small>Сегодня</small></div>
+</div>
+<div style="margin-top:15px">
+<input type="text" id="reviewName" placeholder="Твоё имя" maxlength="20">
+<textarea id="reviewText" placeholder="Напиши отзыв об игре..."></textarea>
+<button class="review-btn" id="sendReview">📩 ОТПРАВИТЬ ОТЗЫВ</button>
+</div>
+</div>
 
-  <div class="block">
-    <h2>🎯 Что в игре</h2>
-    <ul>
-      <li>⚔️ <b>Танковые бои</b> — сражения с врагами</li>
-      <li>🚜 <b>10 уникальных танков</b> — от «Стального» до «Дипсика»</li>
-      <li>🎨 <b>6 скинов</b> — Болото, Хищник, Крыло, Звезда, Янтарь</li>
-      <li>📦 <b>7 видов кейсов</b> — от Обычного до Ультра</li>
-      <li>🎖️ <b>Боевой пропуск</b> — 40 уровней с наградами</li>
-      <li>🤖 <b>Гром-Помощник</b> — отвечает на вопросы</li>
-      <li>💾 <b>Сохранение</b> — прогресс не теряется</li>
-      <li>🎮 <b>Управление</b> — джойстик + кнопка огня</li>
-    </ul>
-  </div>
+<div class="block">
+<h2>📖 Как установить</h2>
+<ul>
+<li><b>Способ 1:</b> Скачай APK → открой файл → разреши установку → играй</li>
+<li><b>Способ 2:</b> Скачай ZIP → распакуй через ZArchiver → установи APK</li>
+<li><b>Способ 3:</b> Нажми «Играть онлайн» — игра откроется в браузере</li>
+</ul>
+</div>
 
-  <div class="block">
-    <h2>🚜 Танки (10)</h2>
-    <div class="tanks-grid">
-      <div class="tank-card"><div class="tank-name">Стальной</div><div class="tank-stats">HP 100 · P 10</div></div>
-      <div class="tank-card"><div class="tank-name">Раскат</div><div class="tank-stats">HP 120 · P 15</div></div>
-      <div class="tank-card"><div class="tank-name">Мороз</div><div class="tank-stats">HP 110 · P 12</div></div>
-      <div class="tank-card"><div class="tank-name">Искра</div><div class="tank-stats">HP 100 · P 18</div></div>
-      <div class="tank-card"><div class="tank-name">Призрак</div><div class="tank-stats">HP 90 · P 20</div></div>
-      <div class="tank-card"><div class="tank-name">Бастион</div><div class="tank-stats">HP 200 · P 8</div></div>
-      <div class="tank-card"><div class="tank-name">Клык</div><div class="tank-stats">HP 130 · P 16</div></div>
-      <div class="tank-card"><div class="tank-name">Вихрь</div><div class="tank-stats">HP 100 · P 22</div></div>
-      <div class="tank-card legendary"><div class="tank-name">⭐ Михалыч</div><div class="tank-stats">HP 250 · P 25</div></div>
-      <div class="tank-card boss"><div class="tank-name">🤖 Дипсик</div><div class="tank-stats">HP 500 · P 50</div></div>
-    </div>
-  </div>
+<div class="block">
+<h2>🎮 Управление</h2>
+<ul>
+<li>🕹️ Джойстик — движение (слева)</li>
+<li>🔥 ОГОНЬ — стрельба (справа)</li>
+<li>🏆 Победа — убей всех врагов волны</li>
+</ul>
+</div>
 
-  <div class="block">
-    <h2>🎨 Скины (6)</h2>
-    <ul>
-      <li>Стандарт — +0 HP (стартовый)</li>
-      <li>Болото — +2 HP (800 монет)</li>
-      <li>Хищник — +3 HP (1200 монет)</li>
-      <li>Крыло — +5 HP (2000 монет)</li>
-      <li>Звезда — +8 HP (3500 монет)</li>
-      <li>Янтарь — +15 HP (5000 монет)</li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>📦 Кейсы (7)</h2>
-    <ul>
-      <li>Обычный — 1000 монет</li>
-      <li>Редкий — 10 000 монет</li>
-      <li>Сверхредкий — 50 000 монет</li>
-      <li>Эпический — 200 000 монет</li>
-      <li>Легендарный — 1 000 000 монет</li>
-      <li>Мифический — 5 000 000 монет</li>
-      <li>⭐ Ультра — 5 000 000 000 000 000 000 монет (даёт 500 000 000)</li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>🎖️ Боевой пропуск (40 уровней)</h2>
-    <ul>
-      <li>Ур. 1 — 1000 монет</li>
-      <li>Ур. 5 — Скин «Болото»</li>
-      <li>Ур. 10 — Танк «Раскат»</li>
-      <li>Ур. 15 — 50 000 монет</li>
-      <li>Ур. 20 — 🤖 БОСС: Дипсик!</li>
-      <li>Ур. 25 — Скин «Звезда»</li>
-      <li>Ур. 30 — Танк «Бастион»</li>
-      <li>Ур. 35 — 500 000 монет</li>
-      <li>🏆 Ур. 40 — ТРОФЕЙ: Михалыч!</li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>📖 Как установить</h2>
-
-    <p class="method">📥 Способ 1 — APK напрямую:</p>
-    <ol>
-      <li>Нажми <b>СКАЧАТЬ APK</b> (зелёная кнопка)</li>
-      <li>Открой скачанный файл</li>
-      <li>Разреши установку из неизвестных источников</li>
-      <li>Установи и играй!</li>
-    </ol>
-
-    <p class="method">📦 Способ 2 — через ZIP:</p>
-    <ol>
-      <li>Нажми <b>СКАЧАТЬ ZIP</b> (синяя кнопка)</li>
-      <li>Установи <b>ZArchiver</b> из Google Play</li>
-      <li>Открой ZIP через ZArchiver</li>
-      <li>Извлеки APK-файл</li>
-      <li>Установи APK</li>
-      <li>Запусти <b>Гром Брони</b> и играй!</li>
-    </ol>
-  </div>
-
-  <div class="block">
-    <h2>📰 Новости</h2>
-    <div class="news-item">🆕 <b>Гром Брони v1.0</b> — первый релиз! 10 танков, 7 кейсов.</div>
-    <div class="news-item">🤖 <b>Босс Дипсик</b> — 500 HP, 50 силы — открывается в пропуске.</div>
-    <div class="news-item">🏆 <b>Михалыч</b> — легендарный танк, трофей 40 уровня.</div>
-    <div class="news-item">🎖️ <b>Боевой пропуск</b> — 40 уровней с наградами.</div>
-    <div class="news-item">📅 <b>Обновления</b> — каждые 2 месяца.</div>
-  </div>
-
-  <div class="block">
-    <h2>🎯 Управление</h2>
-    <ul>
-      <li>🕹️ <b>Джойстик</b> — тяни палец в левой половине экрана</li>
-      <li>🔥 <b>ОГОНЬ</b> — красная кнопка справа внизу</li>
-      <li>🏆 <b>Победа</b> — уничтожь всех врагов</li>
-      <li>💀 <b>Поражение</b> — если тебя убили (−500 монет)</li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>💡 О игре</h2>
-    <p style="color: #d0d0e0; font-size: 15px; line-height: 1.6;">
-      «Гром Брони» — это танковая аркада, созданная Мухаммадом в 9 лет.
-      Игра написана на HTML + JavaScript, работает без интернета.
-      В ней 10 уникальных танков, 6 скинов, 7 видов кейсов и боевой пропуск на 40 уровней.
-      Управление рассчитано на телефон: джойстик для движения, кнопка для стрельбы.
-    </p>
-  </div>
-
-  <div class="footer">
-    © Автор: Мухаммад, 2026<br>
-    Игра создана на HTML + JavaScript<br>
-    <a href="https://github.com/majidovmuhammad23774/Frontier-site">Исходный код на GitHub</a>
-  </div>
+<div class="footer">
+© Автор: Мухаммад, 2026<br>
+Игра создана на HTML + JavaScript<br>
+<a href="https://github.com/majidovmuhammad23774/Frontier-site">Исходный код на GitHub</a>
+</div>
 
 </div>
 
+<button id="toTop">↑</button>
+
+<script>
+// Показать/скрыть кнопку «Наверх»
+window.addEventListener('scroll',()=>{
+const btn=document.getElementById('toTop');
+if(window.scrollY>300)btn.classList.add('show');
+else btn.classList.remove('show');
+});
+document.getElementById('toTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// Загрузка отзывов
+function loadReviews(){
+const saved=localStorage.getItem('gromReviews');
+if(saved){
+const list=JSON.parse(saved);
+const container=document.getElementById('reviewsList');
+list.forEach(r=>{
+const d=document.createElement('div');
+d.className='review';
+d.innerHTML='<b>'+r.name+':</b> '+r.text+'<small>'+r.date+'</small>';
+container.appendChild(d);
+});
+}
+}
+loadReviews();
+
+// Отправка отзыва
+document.getElementById('sendReview').onclick=()=>{
+const name=document.getElementById('reviewName').value.trim();
+const text=document.getElementById('reviewText').value.trim();
+if(!name||!text){alert('Заполни имя и отзыв!');return;}
+const reviews=JSON.parse(localStorage.getItem('gromReviews')||'[]');
+reviews.push({name,text,date:new Date().toLocaleDateString('ru-RU')});
+localStorage.setItem('gromReviews',JSON.stringify(reviews));
+const container=document.getElementById('reviewsList');
+const d=document.createElement('div');
+d.className='review';
+d.innerHTML='<b>'+name+':</b> '+text+'<small>Сегодня</small>';
+container.appendChild(d);
+document.getElementById('reviewName').value='';
+document.getElementById('reviewText').value='';
+alert('✅ Спасибо за отзыв!');
+};
+</script>
 </body>
 </html>
