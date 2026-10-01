@@ -2,162 +2,406 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Гром Брони — Танковая игра</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Гром Брони 🎃 Танковая игра для Android</title>
+
+<!-- 🏷️ SEO -->
+<meta name="description" content="Гром Брони — танковая аркада для Android и браузера. 40+ танков, 30 волн, мультиплеер. Скачай APK бесплатно!">
+<meta name="keywords" content="Гром Брони, танковая игра, скачать APK, Android игра, танки онлайн, бесплатная игра">
+<meta name="author" content="Мухаммад (PixelFox56)">
+<meta name="theme-color" content="#0a0510">
+
+<!-- Open Graph (для соцсетей) -->
+<meta property="og:title" content="Гром Брони 🎃 Танковая игра">
+<meta property="og:description" content="40+ танков, 30 волн, мультиплеер. Скачай бесплатно!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://grombroni.netlify.app/">
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Гром Брони",
+  "operatingSystem": "Android, Web",
+  "applicationCategory": "Game",
+  "offers": { "@type": "Offer", "price": "0" },
+  "author": { "@type": "Person", "name": "Мухаммад" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "ratingCount": "1" }
+}
+</script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#0a0a15,#1a1a30);color:#fff;padding:15px;text-align:center;min-height:100vh}
-.container{max-width:800px;margin:0 auto}
-.hero{padding:30px 15px;border-radius:20px;margin-bottom:20px;background:radial-gradient(circle at 50% 0%,rgba(255,170,0,0.15) 0%,transparent 70%)}
-h1{font-size:42px;color:#ffcc33;text-shadow:0 0 25px #ff8800;margin:10px 0;letter-spacing:3px;font-weight:900}
-.subtitle{font-size:16px;color:#b0b0c0;margin-bottom:5px}
-.version{font-size:13px;color:#808090;margin-bottom:15px}
-.slogan{background:rgba(184,138,32,0.25);border:2px solid #ffcc33;border-radius:12px;padding:12px;margin:15px auto;max-width:500px;font-size:14px;font-weight:bold;color:#fff}.buttons{display:flex;flex-direction:column;gap:10px;align-items:center;margin:20px 0}
-.btn{display:block;width:100%;max-width:400px;padding:15px 25px;font-size:17px;font-weight:bold;color:#fff;text-decoration:none;border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer;transition:transform 0.1s}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#0a0510;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
+  background-attachment:fixed;
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+.container{max-width:800px;margin:0 auto;position:relative;z-index:2}
+
+/* Летучие мыши */
+.bat{position:fixed;font-size:24px;pointer-events:none;animation:fly 15s linear infinite;z-index:1;opacity:0.7}
+@keyframes fly{
+  0%{transform:translate(-10vw,20vh) rotate(0);}
+  25%{transform:translate(30vw,5vh) rotate(10deg);}
+  50%{transform:translate(60vw,30vh) rotate(-5deg);}
+  75%{transform:translate(85vw,10vh) rotate(8deg);}
+  100%{transform:translate(110vw,25vh) rotate(0);}
+}
+
+/* Hero */
+.hero{
+  padding:35px 20px;border-radius:20px;margin-bottom:20px;
+  background:radial-gradient(circle at 50% 0%, rgba(255,140,0,0.25) 0%, transparent 70%);
+  border:2px solid rgba(255,140,0,0.3);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"🎃";position:absolute;top:10px;right:15px;font-size:40px;
+  animation:swing 3s ease-in-out infinite;
+}
+.hero::after{
+  content:"🦇";position:absolute;top:15px;left:15px;font-size:30px;
+  animation:swing 2.5s ease-in-out infinite reverse;
+}
+@keyframes swing{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
+
+h1{
+  font-size:44px;font-weight:900;letter-spacing:3px;
+  background:linear-gradient(180deg,#ffcc00 0%,#ff6600 50%,#cc0066 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 40px rgba(255,102,0,0.6);
+  margin:10px 0;animation:pulse 3s ease-in-out infinite;
+  line-height:1.1;
+}
+@keyframes pulse{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3);}}
+
+.subtitle{font-size:18px;color:#ff8c00;margin-bottom:8px;font-weight:bold;letter-spacing:2px}
+.version{font-size:13px;color:#a080c0;margin-bottom:15px}
+.slogan{
+  background:rgba(255,140,0,0.15);border:2px solid #ff8c00;
+  border-radius:12px;padding:12px;margin:15px auto;max-width:500px;
+  font-size:14px;font-weight:bold;color:#ffcc99;
+  box-shadow:0 0 20px rgba(255,140,0,0.4);
+}
+
+/* Кнопки */
+.buttons{display:flex;flex-direction:column;gap:12px;align-items:center;margin:25px 0}
+.btn{
+  display:block;width:100%;max-width:420px;padding:18px 25px;
+  font-size:17px;font-weight:bold;color:#fff;text-decoration:none;
+  border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer;
+  transition:transform 0.1s, box-shadow 0.2s;
+  position:relative;overflow:hidden;
+}
 .btn:active{transform:scale(0.97)}
-.btn.apk{background:linear-gradient(180deg,#3a8a3a,#2a602a);border-color:#5aca5a;box-shadow:0 0 25px rgba(90,202,90,0.4)}
-.btn.zip{background:linear-gradient(180deg,#3a5fa8,#2a4480);border-color:#5a80c8;box-shadow:0 0 25px rgba(90,128,200,0.4)}
-.btn.online{background:linear-gradient(180deg,#8a3a8a,#602a60);border-color:#c85aca;box-shadow:0 0 25px rgba(200,90,200,0.4)}
-.block{background:rgba(30,30,60,0.6);border:2px solid rgba(90,110,200,0.3);border-radius:15px;padding:20px;margin:18px 0;text-align:left}
-.block h2{color:#4aa3ff;font-size:20px;margin-bottom:12px;text-align:center;text-shadow:0 0 10px rgba(74,163,255,0.5)}
-.block li{font-size:14px;color:#d0d0e0;padding:6px 0;list-style:none;border-bottom:1px solid rgba(255,255,255,0.08)}
-.block li:last-child{border:none}.screenshots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-.screenshots img{width:100%;border-radius:10px;border:2px solid #4aa3ff;background:#152030;min-height:100px;object-fit:cover}
+.btn-main{
+  background:linear-gradient(180deg,#ff6600,#8b0000);
+  border-color:#ff8c00;
+  box-shadow:0 0 35px rgba(255,102,0,0.7), 0 4px 0 #4a0000;
+  animation:glow 2s ease-in-out infinite;
+  font-size:19px;padding:22px 25px;
+}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 35px rgba(255,102,0,0.7), 0 4px 0 #4a0000;}
+  50%{box-shadow:0 0 50px rgba(255,102,0,1), 0 4px 0 #4a0000;}
+}
+.btn.apk{background:linear-gradient(180deg,#3a8a3a,#2a602a);border-color:#5aca5a;box-shadow:0 0 25px rgba(90,202,90,0.5),0 4px 0 #0d3010}
+.btn.zip{background:linear-gradient(180deg,#5a4db8,#2c2470);border-color:#7a6de8;box-shadow:0 0 25px rgba(120,100,220,0.5),0 4px 0 #1a1245}
+.btn.online{background:linear-gradient(180deg,#9c27b0,#4a1259);border-color:#c85aca;box-shadow:0 0 25px rgba(200,90,200,0.5),0 4px 0 #2a0833}
+.btn.cosmo{background:linear-gradient(180deg,#1e88e5,#0d47a1);border-color:#42a5f5;box-shadow:0 0 25px rgba(66,165,245,0.5),0 4px 0 #062a5c}
+
+/* Блоки */
+.block{
+  background:linear-gradient(180deg, rgba(40,20,70,0.85) 0%, rgba(20,10,40,0.85) 100%);
+  border:2px solid rgba(150,60,220,0.4);border-radius:15px;
+  padding:20px;margin:18px 0;text-align:left;
+  box-shadow:0 4px 25px rgba(100,0,150,0.3);
+}
+.block h2{
+  color:#ff8c00;font-size:20px;margin-bottom:14px;text-align:center;
+  text-shadow:0 0 15px rgba(255,140,0,0.6);
+}
+.block li{
+  font-size:14px;color:#e0d0f0;padding:8px 0;
+  list-style:none;border-bottom:1px solid rgba(255,140,0,0.15);
+}
+.block li:last-child{border:none}
+
+/* Игровые карточки */
+.games-grid{display:grid;grid-template-columns:1fr;gap:15px;margin-top:10px}
+@media(min-width:600px){.games-grid{grid-template-columns:1fr 1fr}}
+.game-card{
+  background:linear-gradient(180deg,#2a1a4a,#1a0a2e);
+  border:2px solid #6a2b9a;border-radius:14px;padding:18px;text-align:center;
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(255,102,0,0.4)}
+.game-icon{font-size:50px;margin-bottom:10px;display:block}
+.game-title{font-size:18px;font-weight:bold;color:#ffcc00;margin-bottom:6px}
+.game-desc{font-size:13px;color:#c0b0d0;margin-bottom:12px}
+
+/* Скриншоты */
+.screenshots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.screenshots img{
+  width:100%;border-radius:10px;border:2px solid #ff8c00;
+  background:#1a0a2e;min-height:100px;object-fit:cover;
+}
+
+/* Отзывы */
 #reviewsList{max-height:300px;overflow-y:auto;padding-right:5px}
-.review{background:rgba(20,20,40,0.7);border-left:3px solid #4aa3ff;border-radius:8px;padding:12px;margin:8px 0;font-size:13px;color:#c0c0d0;text-align:left}
-.review b{color:#ffcc33}
-.review small{color:#808090;font-size:11px;display:block;margin-top:4px}
-#reviewName,#reviewText{padding:10px;font-size:14px;border:2px solid #4aa3ff;border-radius:8px;background:#0f1626;color:#fff;width:100%;margin:5px 0;outline:none;font-family:inherit}
+.review{
+  background:rgba(30,15,55,0.7);border-left:3px solid #ff8c00;
+  border-radius:8px;padding:12px;margin:8px 0;font-size:13px;
+  color:#e0d0f0;text-align:left;
+}
+.review b{color:#ffcc00}
+.review small{color:#a080c0;font-size:11px;display:block;margin-top:4px}
+#reviewName,#reviewText{
+  padding:10px;font-size:14px;border:2px solid #6a2b9a;border-radius:8px;
+  background:#0f0518;color:#fff;width:100%;margin:5px 0;outline:none;
+  font-family:inherit;
+}
+#reviewName:focus,#reviewText:focus{border-color:#ff8c00}
 #reviewText{min-height:80px;resize:vertical}
-.review-btn{background:linear-gradient(180deg,#3a8a3a,#2a602a);color:#fff;padding:12px 30px;border:2px solid #5aca5a;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:8px;width:100%;font-family:inherit}
+.review-btn{
+  background:linear-gradient(180deg,#4caf50,#1b5e20);color:#fff;
+  padding:12px 30px;border:2px solid #5aca5a;border-radius:10px;
+  font-size:15px;font-weight:bold;cursor:pointer;margin-top:8px;
+  width:100%;font-family:inherit;
+}
 .review-btn:active{transform:scale(0.97)}
-.footer{margin-top:30px;padding:20px 0;font-size:13px;color:#606070;border-top:1px solid rgba(255,255,255,0.1)}
-.footer a{color:#4aa3ff;text-decoration:none;margin:0 5px}
-#toTop{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;background:linear-gradient(180deg,#4aa3ff,#2a5fa8);border:2px solid #7fc8ff;color:#fff;font-size:20px;font-weight:bold;cursor:pointer;display:none;z-index:100;box-shadow:0 0 20px rgba(74,163,255,0.5)}
+
+/* Футер */
+.footer{
+  margin-top:30px;padding:20px 0;font-size:13px;color:#8060a0;
+  border-top:1px solid rgba(255,140,0,0.2);
+}
+.footer a{color:#ff8c00;text-decoration:none;margin:0 5px}
+
+/* Кнопка наверх */
+#toTop{
+  position:fixed;bottom:20px;right:20px;width:50px;height:50px;
+  border-radius:50%;background:linear-gradient(180deg,#ff8c00,#8b0000);
+  border:2px solid #ffb366;color:#fff;font-size:20px;font-weight:bold;
+  cursor:pointer;display:none;z-index:100;
+  box-shadow:0 0 25px rgba(255,140,0,0.7);
+}
 #toTop.show{display:block}
+
+/* Тост */
+.toast{
+  position:fixed;top:20px;left:50%;
+  transform:translateX(-50%) translateY(-100px);
+  background:linear-gradient(180deg,#ff8c00,#cc5500);
+  color:#fff;padding:12px 24px;border-radius:10px;font-weight:bold;
+  box-shadow:0 4px 20px rgba(255,140,0,0.6);z-index:1000;
+  transition:transform 0.4s ease;pointer-events:none;max-width:90vw;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
 </style>
-</head><body>
+</head>
+<body>
+
+<div class="bat" style="animation-delay:0s;">🦇</div>
+<div class="bat" style="animation-delay:-5s;">🦇</div>
+<div class="bat" style="animation-delay:-10s;">🦇</div>
+
+<div class="toast" id="toast">Сообщение</div>
+
 <div class="container">
-
+<!-- HERO -->
 <div class="hero">
-<h1>ГРОМ БРОНИ</h1>
-<p class="subtitle">🎮 Танковая игра</p>
-<p class="version">Версия 1.0 | Android | Автор: Мухаммад, 9 лет</p>
-<div class="slogan">🏆 ГРОМ БРОНИ — ЭТО ТИТАНЫ! 🏆</div>
+  <h1>ГРОМ БРОНИ</h1>
+  <p class="subtitle">🎃 ТАНКОВАЯ АРКАДА 🎃</p>
+  <p class="version">Версия 2.0 · Halloween Edition · Android + Web · Автор: Мухаммад, 9 лет</p>
+  <div class="slogan">🏆 ГРОМ БРОНИ — ЭТО ТИТАНЫ! 🏆</div>
 </div>
 
+<!-- ГЛАВНЫЕ КНОПКИ -->
 <div class="buttons">
-<a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn apk">📥 СКАЧАТЬ APK</a>
-<a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip">📦 СКАЧАТЬ ZIP</a>
-<a href="game.html" class="btn online">▶ ИГРАТЬ ОНЛАЙН</a>
+  <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn btn-main">📥 СКАЧАТЬ APK ДЛЯ ANDROID</a>
+  <a href="game.html" class="btn btn.online btn-online">▶️ ИГРАТЬ ОНЛАЙН</a>
+  <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip">📦 СКАЧАТЬ ZIP</a>
 </div>
 
+<!-- НАШИ ИГРЫ -->
 <div class="block">
-<h2>🎯 Что в игре</h2>
-<ul>
-<li>⚔️ Танковые бои — 30 волн</li>
-<li>🚜 31 танк — от «Стального» до «ФЕНИКСА»</li>
-<li>⚪ Круглый танк и 🇩🇪 зенитка Gepard</li>
-<li>🚢 Корабли — катер, эсминец, крейсер, линкор</li>
-<li>🎨 6 скинов</li>
-<li>📦 7 кейсов</li>
-<li>🎖️ Боевой пропуск — 40 уровней</li>
-<li>🤖 Гром-Помощник — отвечает на вопросы</li>
-<li>💾 Сохранение прогресса</li>
-</ul>
+  <h2>🎮 Наши игры</h2>
+  <div class="games-grid">
+    <div class="game-card">
+      <span class="game-icon">🚜</span>
+      <div class="game-title">Гром Брони</div>
+      <div class="game-desc">Танковая аркада. 40+ танков, 30 волн, мультиплеер</div>
+      <a href="game.html" class="btn online" style="padding:10px;font-size:14px;">▶️ Играть</a>
+    </div>
+    <div class="game-card">
+      <span class="game-icon">🚀</span>
+      <div class="game-title">Космо Турбикс</div>
+      <div class="game-desc">Космическая аркада. Инопланетяне, напарники, боссы</div>
+      <a href="https://majidovmuhammad23774.github.io/Cosmo-turbiks/" class="btn cosmo" style="padding:10px;font-size:14px;">▶️ Играть</a>
+    </div>
+  </div>
 </div>
 
+<!-- ЧТО В ИГРЕ -->
 <div class="block">
-<h2>📸 Скриншоты</h2>
-<div class="screenshots">
-<img src="screenshots/screen1.jpg" alt="Меню" onerror="this.style.display='none'">
-<img src="screenshots/screen2.jpg" alt="Бой" onerror="this.style.display='none'">
-<img src="screenshots/screen3.jpg" alt="Ангар" onerror="this.style.display='none'">
-<img src="screenshots/screen4.jpg" alt="Кейсы" onerror="this.style.display='none'">
-</div>
-<p style="color:#8fa8c0;font-size:12px;margin-top:10px;text-align:center">Скриншоты появятся, когда загрузишь их в папку screenshots/</p>
-</div><div class="block">
-<h2>💬 Отзывы игроков</h2>
-<div id="reviewsList">
-<div class="review"><b>Мухаммад (разработчик):</b> Спасибо всем, кто играет! Пишите отзывы — я читаю каждый!<small>Сегодня</small></div>
-</div>
-<div style="margin-top:15px">
-<input type="text" id="reviewName" placeholder="Твоё имя" maxlength="20">
-<textarea id="reviewText" placeholder="Напиши отзыв об игре..."></textarea>
-<button class="review-btn" id="sendReview">📩 ОТПРАВИТЬ ОТЗЫВ</button>
-</div>
+  <h2>🎯 Что в игре «Гром Брони»</h2>
+  <ul>
+    <li>⚔️ Танковые бои — 30 волн</li>
+    <li>🚜 40+ танков — от «Стального» до «ФЕНИКСА»</li>
+    <li>⚪ Круглый танк и 🇩🇪 зенитка Gepard</li>
+    <li>🚢 Корабли — катер, эсминец, крейсер, линкор</li>
+    <li>🎃 Хэллоуин-скины: Тыква, Скелет, Призрак, Ведьма, Зомби</li>
+    <li>📦 7 кейсов — от Обычного до Ультра</li>
+    <li>🎖️ Боевой пропуск — 40 уровней</li>
+    <li>🤖 Гром-Помощник — отвечает на вопросы</li>
+    <li>💾 Сохранение прогресса</li>
+    <li>🌐 Мультиплеер через PeerJS</li>
+  </ul>
 </div>
 
+<!-- СКРИНШОТЫ -->
 <div class="block">
-<h2>📖 Как установить</h2>
-<ul>
-<li><b>Способ 1:</b> Скачай APK → открой файл → разреши установку → играй</li>
-<li><b>Способ 2:</b> Скачай ZIP → распакуй через ZArchiver → установи APK</li>
-<li><b>Способ 3:</b> Нажми «Играть онлайн» — игра откроется в браузере</li>
-</ul>
+  <h2>📸 Скриншоты</h2>
+  <div class="screenshots">
+    <img src="screenshots/screen1.jpg" alt="Меню" onerror="this.style.display='none'">
+    <img src="screenshots/screen2.jpg" alt="Бой" onerror="this.style.display='none'">
+    <img src="screenshots/screen3.jpg" alt="Ангар" onerror="this.style.display='none'">
+    <img src="screenshots/screen4.jpg" alt="Кейсы" onerror="this.style.display='none'">
+  </div>
+  <p style="color:#a080c0;font-size:12px;margin-top:10px;text-align:center">Скриншоты появятся после загрузки в папку screenshots/</p>
 </div>
 
+<!-- ОТЗЫВЫ -->
 <div class="block">
-<h2>🎮 Управление</h2>
-<ul>
-<li>🕹️ Джойстик — движение (слева)</li>
-<li>🔥 ОГОНЬ — стрельба (справа)</li>
-<li>🏆 Победа — убей всех врагов волны</li>
-</ul>
+  <h2>💬 Отзывы игроков</h2>
+  <div id="reviewsList">
+    <div class="review"><b>Мухаммад (разработчик):</b> Спасибо всем, кто играет! Пишите отзывы — я читаю каждый!<small>Сегодня</small></div>
+  </div>
+  <div style="margin-top:15px">
+    <input type="text" id="reviewName" placeholder="Твоё имя" maxlength="20">
+    <textarea id="reviewText" placeholder="Напиши отзыв об игре..."></textarea>
+    <button class="review-btn" id="sendReview">📩 ОТПРАВИТЬ ОТЗЫВ</button>
+  </div>
 </div>
 
+<!-- УСТАНОВКА -->
+<div class="block">
+  <h2>📖 Как установить APK</h2>
+  <ul>
+    <li><b>Способ 1:</b> Скачай APK → открой файл → разреши установку → играй</li>
+    <li><b>Способ 2:</b> Скачай ZIP → распакуй через ZArchiver → установи APK</li>
+    <li><b>Способ 3:</b> Нажми «Играть онлайн» — игра откроется в браузере</li>
+  </ul>
+</div>
+
+<!-- УПРАВЛЕНИЕ -->
+<div class="block">
+  <h2>🎮 Управление</h2>
+  <ul>
+    <li>🕹️ Джойстик — движение (слева)</li>
+    <li>🔥 ОГОНЬ — стрельба (справа)</li>
+    <li>🏆 Победа — убей всех врагов волны</li>
+  </ul>
+</div>
+
+<!-- ФУТЕР -->
 <div class="footer">
-© Автор: Мухаммад, 2026<br>
-Игра создана на HTML + JavaScript<br>
-<a href="https://github.com/majidovmuhammad23774/Frontier-site">Исходный код на GitHub</a>
+  © Автор: Мухаммад, 2026 🎃<br>
+  Игра создана на HTML + JavaScript<br>
+  <a href="https://github.com/majidovmuhammad23774/Frontier-site">Исходный код на GitHub</a>
 </div>
 
 </div>
 
+<!-- КНОПКА НАВЕРХ -->
 <button id="toTop">↑</button>
 
 <script>
-// Показать/скрыть кнопку «Наверх»
-window.addEventListener('scroll',()=>{
-const btn=document.getElementById('toTop');
-if(window.scrollY>300)btn.classList.add('show');
-else btn.classList.remove('show');
-});
-document.getElementById('toTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+// ============================================
+// 🎃 ГРОМ БРОНИ · САЙТ
+// ============================================
 
-// Загрузка отзывов
-function loadReviews(){
-const saved=localStorage.getItem('gromReviews');
-if(saved){
-const list=JSON.parse(saved);
-const container=document.getElementById('reviewsList');
-list.forEach(r=>{
-const d=document.createElement('div');
-d.className='review';
-d.innerHTML='<b>'+r.name+':</b> '+r.text+'<small>'+r.date+'</small>';
-container.appendChild(d);
+// --- Кнопка «Наверх» ---
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('toTop');
+  if (window.scrollY > 300) btn.classList.add('show');
+  else btn.classList.remove('show');
 });
+document.getElementById('toTop').onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+// --- Тост ---
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2200);
 }
+
+// --- Отзывы ---
+function loadReviews() {
+  const saved = localStorage.getItem('gromReviews');
+  if (!saved) return;
+  try {
+    const list = JSON.parse(saved);
+    const container = document.getElementById('reviewsList');
+    list.forEach(r => {
+      const d = document.createElement('div');
+      d.className = 'review';
+      d.innerHTML = '<b>' + r.name + ':</b> ' + r.text + '<small>' + r.date + '</small>';
+      container.appendChild(d);
+    });
+  } catch(e) {}
 }
 loadReviews();
 
-// Отправка отзыва
-document.getElementById('sendReview').onclick=()=>{
-const name=document.getElementById('reviewName').value.trim();
-const text=document.getElementById('reviewText').value.trim();
-if(!name||!text){alert('Заполни имя и отзыв!');return;}
-const reviews=JSON.parse(localStorage.getItem('gromReviews')||'[]');
-reviews.push({name,text,date:new Date().toLocaleDateString('ru-RU')});
-localStorage.setItem('gromReviews',JSON.stringify(reviews));
-const container=document.getElementById('reviewsList');
-const d=document.createElement('div');
-d.className='review';
-d.innerHTML='<b>'+name+':</b> '+text+'<small>Сегодня</small>';
-container.appendChild(d);
-document.getElementById('reviewName').value='';
-document.getElementById('reviewText').value='';
-alert('✅ Спасибо за отзыв!');
+document.getElementById('sendReview').onclick = () => {
+  const name = document.getElementById('reviewName').value.trim();
+  const text = document.getElementById('reviewText').value.trim();
+  if (!name || !text) {
+    showToast('⚠️ Заполни имя и отзыв!');
+    return;
+  }
+  if (text.length > 500) {
+    showToast('⚠️ Отзыв слишком длинный!');
+    return;
+  }
+  const reviews = JSON.parse(localStorage.getItem('gromReviews') || '[]');
+  const newReview = { name, text, date: new Date().toLocaleDateString('ru-RU') };
+  reviews.push(newReview);
+  localStorage.setItem('gromReviews', JSON.stringify(reviews));
+
+  const container = document.getElementById('reviewsList');
+  const d = document.createElement('div');
+  d.className = 'review';
+  d.innerHTML = '<b>' + name + ':</b> ' + text + '<small>Сегодня</small>';
+  container.appendChild(d);
+
+  document.getElementById('reviewName').value = '';
+  document.getElementById('reviewText').value = '';
+  showToast('✅ Спасибо за отзыв! 🎃');
 };
+
+// --- Логи ---
+console.log('🎃 Гром Брони · сайт загружен!');
+console.log('Версия 2.0 · Halloween Edition');
 </script>
+
 </body>
 </html>
