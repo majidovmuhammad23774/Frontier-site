@@ -3,94 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Гром Брони 🎃 Halloween</title>
+<title>Гром Брони 🎃 2D</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { height:100%; overflow-x:hidden; }
-  body {
-    background:#0a0510;
-    background-image:
-      radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
-    background-attachment:fixed; color:#fff;
-    font-family:'Segoe UI', Arial, sans-serif; user-select:none;
-  }
-  .bat { position:fixed; font-size:24px; pointer-events:none; animation:fly 15s linear infinite; z-index:1; opacity:0.6; }
-  @keyframes fly {
-    0%{transform:translate(-10vw,20vh) rotate(0);}
-    25%{transform:translate(30vw,5vh) rotate(10deg);}
-    50%{transform:translate(60vw,30vh) rotate(-5deg);}
-    75%{transform:translate(85vw,10vh) rotate(8deg);}
-    100%{transform:translate(110vw,25vh) rotate(0);}
-  }
-  .container { max-width:500px; margin:0 auto; padding:15px; min-height:100vh; display:flex; flex-direction:column; position:relative; z-index:2; }
-  .top-bar {
-    background:linear-gradient(180deg, rgba(30,10,50,0.9) 0%, rgba(15,5,30,0.9) 100%);
-    border:2px solid #6a2b9a; border-radius:12px; padding:12px;
-    display:flex; justify-content:space-around; margin-bottom:20px;
-    box-shadow:0 4px 20px rgba(150,0,200,0.3); flex-shrink:0;
-  }
-  .resource { display:flex; align-items:center; gap:6px; font-size:15px; font-weight:bold; }
-  .resource .val { color:#ff8c00; text-shadow:0 0 8px rgba(255,140,0,0.6); }
-  .logo {
-    text-align:center; font-size:34px; font-weight:900; letter-spacing:2px;
-    background:linear-gradient(180deg, #ffcc00 0%, #ff6600 50%, #cc0066 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    margin-bottom:25px; line-height:1.1; animation:pulse 3s ease-in-out infinite; flex-shrink:0;
-  }
-  @keyframes pulse { 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.3);} }
-  .logo small { display:block; font-size:16px; color:#ff6600; font-weight:bold; letter-spacing:6px; margin-top:6px; -webkit-text-fill-color:#ff6600; }
-  .menu { display:flex; flex-direction:column; gap:10px; flex:1; }
-  .btn {
-    padding:16px; font-size:17px; font-weight:bold; color:#fff; border:none;
-    border-radius:14px; cursor:pointer; display:flex; align-items:center;
-    justify-content:center; gap:10px; transition:transform 0.1s;
-    text-shadow:0 1px 2px rgba(0,0,0,0.5); letter-spacing:1px; font-family:inherit;
-  }
-  .btn:active { transform:translateY(3px); }
-  .btn-green  { background:linear-gradient(180deg,#4caf50 0%,#1b5e20 100%); box-shadow:0 4px 0 #0d3010; }
-  .btn-blue   { background:linear-gradient(180deg,#5a4db8 0%,#2c2470 100%); box-shadow:0 4px 0 #1a1245; }
-  .btn-purple { background:linear-gradient(180deg,#9c27b0 0%,#4a1259 100%); box-shadow:0 4px 0 #2a0833; }
-  .btn-gold   { background:linear-gradient(180deg,#d4a017 0%,#5c460d 100%); box-shadow:0 4px 0 #3a2c08; }
-  .btn-red    { background:linear-gradient(180deg,#c62828 0%,#5c1010 100%); box-shadow:0 4px 0 #3a0808; }
-  .btn-event  { background:linear-gradient(180deg,#ff4500 0%,#8b0000 100%); box-shadow:0 4px 0 #4a0000, 0 0 25px rgba(255,69,0,0.7); animation:glow 2s ease-in-out infinite; }
-  @keyframes glow { 0%,100%{box-shadow:0 4px 0 #4a0000, 0 0 25px rgba(255,69,0,0.7);} 50%{box-shadow:0 4px 0 #4a0000, 0 0 40px rgba(255,69,0,1);} }
-  .screen { display:none; flex-direction:column; gap:10px; flex:1; }
-  .screen.active { display:flex; animation:slideIn 0.3s ease-out; }
-  @keyframes slideIn { from{opacity:0; transform:translateX(20px);} to{opacity:1; transform:translateX(0);} }
-  .screen-title { text-align:center; font-size:22px; font-weight:bold; color:#ff8c00; margin-bottom:15px; }
-  .back-btn { margin-top:15px; }
-  .skin-item, .case-item {
-    background:linear-gradient(180deg,#2a1a4a 0%,#1a0a2e 100%);
-    border:2px solid #5a3a8a; border-radius:12px; padding:14px;
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-  }
-  .skin-item.owned { border-color:#ffd700; box-shadow:0 0 15px rgba(255,215,0,0.3); }
-  .skin-name { flex:1; font-weight:bold; }
-  .buy-btn { padding:8px 14px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-family:inherit; font-size:13px; color:#fff; background:linear-gradient(180deg,#4caf50 0%,#1b5e20 100%); }
-  .buy-btn.owned-btn { background:linear-gradient(180deg,#6a6a6a 0%,#3a3a3a 100%); }
-  #hangar-canvas { width:100%; height:300px; border-radius:12px; background:radial-gradient(circle at 50% 50%, #2a1a4a 0%, #0a0510 100%); border:2px solid #5a3a8a; display:block; touch-action:none; }
-  .hangar-hint { text-align:center; font-size:12px; color:#8866aa; margin:8px 0; }
-  .stat-row { background:linear-gradient(180deg,#2a1a4a 0%,#1a0a2e 100%); border:2px solid #5a3a8a; border-radius:10px; padding:12px; display:flex; justify-content:space-between; font-weight:bold; }
-  .helper-card { background:linear-gradient(180deg,#2a1a4a 0%,#1a0a2e 100%); border:2px solid #d4a017; border-radius:12px; padding:16px; text-align:center; }
-  .helper-emoji { font-size:60px; display:block; margin-bottom:10px; }
-  .pass-level { display:flex; align-items:center; justify-content:space-between; background:linear-gradient(90deg, rgba(40,20,70,0.9), rgba(20,5,40,0.9)); border-left:4px solid #d4a017; border-radius:8px; padding:10px 14px; font-weight:bold; }
-  .pass-level.claimed { opacity:0.5; }
-  .event-card { background:linear-gradient(180deg,#4a1000 0%,#2a0000 100%); border:2px solid #ff4500; border-radius:14px; padding:20px; text-align:center; box-shadow:0 0 30px rgba(255,69,0,0.5); }
-  .event-emoji { font-size:70px; display:block; margin-bottom:10px; animation:swing 2s ease-in-out infinite; }
-  @keyframes swing { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} }
-  .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-100px); background:linear-gradient(180deg,#ff8c00,#cc5500); color:#fff; padding:12px 24px; border-radius:10px; font-weight:bold; box-shadow:0 4px 20px rgba(255,140,0,0.6); z-index:1000; transition:transform 0.4s ease; pointer-events:none; max-width:90vw; text-align:center; }
-  .toast.show { transform:translateX(-50%) translateY(0); }
-  .r-common{background:#4a4a4a;padding:3px 8px;border-radius:6px;font-size:12px;}
-  .r-rare{background:#2c5faa;padding:3px 8px;border-radius:6px;font-size:12px;}
-  .r-superrare{background:#7a3aca;padding:3px 8px;border-radius:6px;font-size:12px;}
-  .r-epic{background:#b030b0;padding:3px 8px;border-radius:6px;font-size:12px;}
-  .r-legend{background:#d4a017;color:#000;padding:3px 8px;border-radius:6px;font-size:12px;}
-  .r-mythic{background:#c62828;padding:3px 8px;border-radius:6px;font-size:12px;}
-  .r-ultra{background:linear-gradient(90deg,#ff00ff,#00ffff);color:#000;padding:3px 8px;border-radius:6px;font-size:12px;}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow-x:hidden}
+body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(255,102,0,0.15) 0%,transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,0,200,0.15) 0%,transparent 40%),radial-gradient(circle at 50% 50%,#1a0a2e 0%,#0a0510 100%);background-attachment:fixed;color:#fff;font-family:'Segoe UI',Arial,sans-serif;user-select:none}
+.bat{position:fixed;font-size:24px;pointer-events:none;animation:fly 15s linear infinite;z-index:1;opacity:0.6}
+@keyframes fly{0%{transform:translate(-10vw,20vh)}25%{transform:translate(30vw,5vh)}50%{transform:translate(60vw,30vh)}75%{transform:translate(85vw,10vh)}100%{transform:translate(110vw,25vh)}}
+.container{max-width:500px;margin:0 auto;padding:15px;min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:2}
+.top-bar{background:linear-gradient(180deg,rgba(30,10,50,0.9),rgba(15,5,30,0.9));border:2px solid #6a2b9a;border-radius:12px;padding:12px;display:flex;justify-content:space-around;margin-bottom:20px;box-shadow:0 4px 20px rgba(150,0,200,0.3);flex-shrink:0}
+.resource{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:bold}
+.resource .val{color:#ff8c00;text-shadow:0 0 8px rgba(255,140,0,0.6)}
+.logo{text-align:center;font-size:34px;font-weight:900;letter-spacing:2px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:25px;animation:pulse 3s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.logo small{display:block;font-size:16px;color:#ff6600;font-weight:bold;letter-spacing:6px;margin-top:6px;-webkit-text-fill-color:#ff6600}
+.menu{display:flex;flex-direction:column;gap:10px;flex:1}
+.btn{padding:16px;font-size:17px;font-weight:bold;color:#fff;border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-shadow:0 1px 2px rgba(0,0,0,0.5);letter-spacing:1px;font-family:inherit;transition:transform 0.1s}
+.btn:active{transform:translateY(3px)}
+.btn-green{background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 4px 0 #0d3010}
+.btn-blue{background:linear-gradient(180deg,#5a4db8,#2c2470);box-shadow:0 4px 0 #1a1245}
+.btn-purple{background:linear-gradient(180deg,#9c27b0,#4a1259);box-shadow:0 4px 0 #2a0833}
+.btn-gold{background:linear-gradient(180deg,#d4a017,#5c460d);box-shadow:0 4px 0 #3a2c08}
+.btn-red{background:linear-gradient(180deg,#c62828,#5c1010);box-shadow:0 4px 0 #3a0808}
+.btn-event{background:linear-gradient(180deg,#ff4500,#8b0000);box-shadow:0 4px 0 #4a0000,0 0 25px rgba(255,69,0,0.7);animation:glow 2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 4px 0 #4a0000,0 0 25px rgba(255,69,0,0.7)}50%{box-shadow:0 4px 0 #4a0000,0 0 40px rgba(255,69,0,1)}}
+.screen{display:none;flex-direction:column;gap:10px;flex:1}
+.screen.active{display:flex}
+.screen-title{text-align:center;font-size:22px;font-weight:bold;color:#ff8c00;margin-bottom:15px}
+.back-btn{margin-top:15px}
+.skin-item,.case-item{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.skin-item.owned{border-color:#ffd700;box-shadow:0 0 15px rgba(255,215,0,0.3)}
+.skin-name{flex:1;font-weight:bold;font-size:14px}
+.buy-btn{padding:8px 14px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-family:inherit;font-size:13px;color:#fff;background:linear-gradient(180deg,#4caf50,#1b5e20)}
+.buy-btn.owned-btn{background:linear-gradient(180deg,#6a6a6a,#3a3a3a)}
+.buy-btn:disabled{opacity:0.3;cursor:default}
+#hangar-canvas{width:100%;height:300px;border-radius:12px;background:radial-gradient(circle at 50% 50%,#2a1a4a,#0a0510);border:2px solid #5a3a8a;display:block;touch-action:none}
+.hangar-controls{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0}
+.arrow-btn{width:55px;height:55px;border-radius:50%;border:2px solid #ff8c00;background:linear-gradient(180deg,#9c27b0,#4a1259);color:#fff;font-size:24px;font-weight:bold;cursor:pointer;font-family:inherit}
+.stat-row{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:10px;padding:12px;display:flex;justify-content:space-between;font-weight:bold}
+.helper-card{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #d4a017;border-radius:12px;padding:16px;text-align:center}
+.helper-emoji{font-size:60px;display:block;margin-bottom:10px}
+.pass-level{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,rgba(40,20,70,0.9),rgba(20,5,40,0.9));border-left:4px solid #d4a017;border-radius:8px;padding:10px 14px;font-weight:bold}
+.pass-level.claimed{opacity:0.5}
+.event-card{background:linear-gradient(180deg,#4a1000,#2a0000);border:2px solid #ff4500;border-radius:14px;padding:20px;text-align:center}
+.event-emoji{font-size:70px;display:block;margin-bottom:10px;animation:swing 2s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(180deg,#ff8c00,#cc5500);color:#fff;padding:12px 24px;border-radius:10px;font-weight:bold;z-index:1000;transition:transform 0.4s ease;pointer-events:none;max-width:90vw;text-align:center;font-size:14px}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.r-common{background:#4a4a4a;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-rare{background:#2c5faa;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-superrare{background:#7a3aca;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-epic{background:#b030b0;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-legend{background:#d4a017;color:#000;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-mythic{background:#c62828;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-ultra{background:linear-gradient(90deg,#ff00ff,#00ffff);color:#000;padding:3px 8px;border-radius:6px;font-size:12px}
+.r-mythdarling{background:linear-gradient(90deg,#ff66ff,#ffcc00);color:#000;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:bold}
+#battle-screen{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:500;background:#0a0510}
+#battle-screen.active{display:block}
+#battle-canvas{width:100%;height:100%;display:block;touch-action:none}
+.hud{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;z-index:10;pointer-events:none;gap:5px;flex-wrap:wrap}
+.hud-box{background:rgba(0,0,0,0.7);border:2px solid #ff8c00;border-radius:10px;padding:6px 12px;font-weight:bold;color:#ffcc00;font-size:13px}
+#controls{position:absolute;bottom:20px;left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;z-index:10;pointer-events:none}
+#controls>*{pointer-events:auto}
+.dpad{display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(3,60px);gap:5px}
+.dpad button{background:rgba(40,20,70,0.85);border:2px solid #ff8c00;border-radius:12px;color:#fff;font-size:24px;font-weight:bold;cursor:pointer;font-family:inherit}
+.dpad button:active{background:rgba(255,140,0,0.7)}
+.dpad .empty{visibility:hidden}
+.fire-btn{width:110px;height:110px;border-radius:50%;border:4px solid #ff4500;background:linear-gradient(180deg,#ff4500,#8b0000);color:#fff;font-size:20px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 0 30px rgba(255,69,0,0.8);align-self:flex-end}
+.fire-btn:active{transform:scale(0.9)}
+#exit-battle{position:absolute;top:10px;right:10px;z-index:20;background:linear-gradient(180deg,#c62828,#5c1010);border:2px solid #ff6666;border-radius:10px;padding:8px 14px;color:#fff;font-weight:bold;cursor:pointer;font-family:inherit;font-size:14px}
 </style>
 </head>
 <body>
@@ -102,7 +85,6 @@
 <div class="bat" style="animation-delay:0s;">🦇</div>
 <div class="bat" style="animation-delay:-5s;">🦇</div>
 <div class="bat" style="animation-delay:-10s;">🦇</div>
-
 <div class="toast" id="toast">Сообщение</div>
 
 <div class="container">
@@ -111,15 +93,13 @@
     <div class="resource">💎 <span class="val" id="gems">50</span></div>
     <div class="resource">🏅 <span class="val" id="level">1</span></div>
   </div>
+  <div class="logo">ГРОМ БРОНИ<small>🎃 2D БОЙ 🎃</small></div>
 
-  <div class="logo">ГРОМ БРОНИ<small>🎃 HALLOWEEN 🎃</small></div>
-
-  <!-- ГЛАВНОЕ МЕНЮ -->
   <div class="screen active" id="screen-main">
     <div class="menu">
       <button class="btn btn-green"  onclick="openBattle()">⚔️ В БОЙ</button>
       <button class="btn btn-blue"   onclick="openHangar()">🚜 АНГАР</button>
-      <button class="btn btn-purple" onclick="openSkins()">🎨 СКИНЫ</button>
+      <button class="btn btn-purple" onclick="openSkins()">🎨 СКИНЫ (300)</button>
       <button class="btn btn-blue"   onclick="openProfile()">👤 ПРОФИЛЬ</button>
       <button class="btn btn-gold"   onclick="openHelper()">🤖 ПОМОЩНИК</button>
       <button class="btn btn-blue"   onclick="openCases()">📦 КЕЙСЫ</button>
@@ -130,39 +110,37 @@
     </div>
   </div>
 
-  <!-- БОЙ -->
   <div class="screen" id="screen-battle">
-    <div class="screen-title">⚔️ БОЙ</div>
+    <div class="screen-title">⚔️ ВЫБЕРИ ВОЛНУ</div>
     <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:20px;text-align:center;">
       <div style="font-size:60px;margin-bottom:10px;">⚔️</div>
-      <div style="font-weight:bold;margin-bottom:12px;">Выбери волну</div>
-      <button class="btn btn-green" style="margin-bottom:8px;" onclick="startWave(1)">🌊 Волна 1</button>
-      <button class="btn btn-green" style="margin-bottom:8px;" onclick="startWave(5)">🌊 Волна 5</button>
-      <button class="btn btn-green" style="margin-bottom:8px;" onclick="startWave(10)">🌊 Волна 10</button>
-      <button class="btn btn-green" onclick="startWave(20)">🌊 Волна 20</button>
+      <button class="btn btn-green" style="margin-bottom:8px;" onclick="startBattle(1)">🌊 Волна 1</button>
+      <button class="btn btn-green" style="margin-bottom:8px;" onclick="startBattle(3)">🌊 Волна 3</button>
+      <button class="btn btn-green" style="margin-bottom:8px;" onclick="startBattle(5)">🌊 Волна 5</button>
+      <button class="btn btn-green" onclick="startBattle(10)">🌊 Волна 10</button>
     </div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
-  <!-- АНГАР 3D -->
   <div class="screen" id="screen-hangar">
     <div class="screen-title">🚜 АНГАР 3D</div>
     <canvas id="hangar-canvas"></canvas>
-    <div class="hangar-hint">👆 Води пальцем, чтобы вращать танк</div>
-    <div class="skin-item">
-      <div class="skin-name">Текущий танк: <span id="currentTankName">Стандарт</span></div>
+    <div class="hangar-controls">
+      <button class="arrow-btn" onclick="changeTank(-1)">◀</button>
+      <div style="flex:1;text-align:center;">
+        <div style="font-weight:bold;font-size:16px;" id="currentTankName">Стандарт</div>
+      </div>
+      <button class="arrow-btn" onclick="changeTank(1)">▶</button>
     </div>
     <button class="btn btn-blue back-btn" onclick="closeHangar()">◀ НАЗАД</button>
   </div>
 
-  <!-- СКИНЫ -->
   <div class="screen" id="screen-skins">
     <div class="screen-title">🎨 СКИНЫ</div>
     <div id="skinsList"></div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
-  <!-- ПРОФИЛЬ -->
   <div class="screen" id="screen-profile">
     <div class="screen-title">👤 ПРОФИЛЬ</div>
     <div class="stat-row"><span>🏅 Уровень:</span><span id="p-level">1</span></div>
@@ -174,7 +152,6 @@
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
-  <!-- ПОМОЩНИК -->
   <div class="screen" id="screen-helper">
     <div class="screen-title">🤖 ПОМОЩНИК</div>
     <div class="helper-card">
@@ -187,334 +164,223 @@
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
-  <!-- КЕЙСЫ -->
   <div class="screen" id="screen-cases">
     <div class="screen-title">📦 КЕЙСЫ</div>
     <div id="casesList"></div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
-  <!-- БОЕВОЙ ПРОПУСК -->
   <div class="screen" id="screen-pass">
     <div class="screen-title">🏅 БОЕВОЙ ПРОПУСК</div>
     <div id="passList"></div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
-  <!-- СОБЫТИЕ -->
   <div class="screen" id="screen-event">
     <div class="screen-title">🎃 ХЭЛЛОУИН-СОБЫТИЕ</div>
     <div class="event-card">
       <span class="event-emoji">🎃</span>
       <div style="font-size:20px;font-weight:bold;color:#ff8c00;margin-bottom:10px;">НОЧЬ ТЫКВ!</div>
       <div style="color:#ffcc99;font-size:14px;line-height:1.5;margin-bottom:15px;">
-        🧟 Зомби-танки<br>
-        💀 Карта «Кладбище»<br>
-        👻 Скин «Тыква» в награду
+        🧟 Зомби-танки<br>💀 Карта «Кладбище»<br>👻 Скин «Тыква» в награду
       </div>
       <button class="btn btn-event" onclick="startEvent()">🎃 ИГРАТЬ СОБЫТИЕ</button>
     </div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
+</div>
 
-</div><script>
+<div id="battle-screen">
+  <canvas id="battle-canvas"></canvas>
+  <div class="hud">
+    <div class="hud-box">❤️ <span id="player-hp">100</span></div>
+    <div class="hud-box">👾 <span id="enemies-left">0</span></div>
+    <div class="hud-box">🌊 <span id="wave-num">1</span></div>
+    <div class="hud-box">🦋 <span id="moths-count">0</span></div>
+  </div>
+  <button id="exit-battle" onclick="exitBattle()">✖ ВЫЙТИ</button>
+  <div id="controls">
+    <div class="dpad">
+      <button class="empty"></button>
+      <button ontouchstart="setKey('up',true)" ontouchend="setKey('up',false)" onmousedown="setKey('up',true)" onmouseup="setKey('up',false)">▲</button>
+      <button class="empty"></button>
+      <button ontouchstart="setKey('left',true)" ontouchend="setKey('left',false)" onmousedown="setKey('left',true)" onmouseup="setKey('left',false)">◀</button>
+      <button class="empty"></button>
+      <button ontouchstart="setKey('right',true)" ontouchend="setKey('right',false)" onmousedown="setKey('right',true)" onmouseup="setKey('right',false)">▶</button>
+      <button class="empty"></button>
+      <button ontouchstart="setKey('down',true)" ontouchend="setKey('down',false)" onmousedown="setKey('down',true)" onmouseup="setKey('down',false)">▼</button>
+      <button class="empty"></button>
+    </div>
+    <button class="fire-btn" ontouchstart="fireBullet2D()" onmousedown="fireBullet2D()">🔥<br>ОГОНЬ</button>
+  </div>
+</div>
+<script>
 // ============================================
-// 🎃 ГРОМ БРОНИ · HALLOWEEN 2026
+// 🎃 ГРОМ БРОНИ · 2D · 300 ТАНКОВ
 // ============================================
 
-// --- ДАННЫЕ ИГРОКА ---
+// ========== ДАННЫЕ ==========
 let playerData;
 try {
   playerData = JSON.parse(localStorage.getItem('grom_broni_save')) || {
-    gold:1000, gems:50, level:1, wins:0,
-    helperLevel:1,
-    unlockedSkins:['standard'],
-    currentSkin:'standard',
-    openedCases:0,
-    passClaimed:[]
+    gold:1000, gems:50, level:1, wins:0, helperLevel:1,
+    unlockedSkins:['standard'], currentSkin:'standard',
+    openedCases:0, passClaimed:[]
   };
 } catch(e) {
   playerData = { gold:1000, gems:50, level:1, wins:0, helperLevel:1,
     unlockedSkins:['standard'], currentSkin:'standard', openedCases:0, passClaimed:[] };
 }
-
-function saveGame() {
-  try { localStorage.setItem('grom_broni_save', JSON.stringify(playerData)); } catch(e){}
-}
-
-function updateUI() {
+function saveGame(){ try{ localStorage.setItem('grom_broni_save', JSON.stringify(playerData)); }catch(e){} }
+function updateUI(){
   document.getElementById('gold').innerText = playerData.gold;
   document.getElementById('gems').innerText = playerData.gems;
   document.getElementById('level').innerText = playerData.level;
 }
-
-// --- ТОСТ ---
-function showToast(msg) {
+function showToast(msg){
   const t = document.getElementById('toast');
   t.innerText = msg;
   t.classList.add('show');
   clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 2500);
 }
-
-// --- ЭКРАНЫ ---
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
 
-// --- МУЗЫКА ---
+// ========== МУЗЫКА ==========
 const music = document.getElementById('bgMusic');
-function startMusic() {
-  if (music && music.paused) {
-    music.volume = 0.3;
-    music.play().catch(()=>{});
-  }
-}
-document.addEventListener('touchstart', startMusic, { once:true });
-document.addEventListener('click', startMusic, { once:true });
-
-function toggleMusic() {
-  if (!music) return;
-  if (music.paused) {
-    music.volume = 0.3;
-    music.play().catch(()=>{});
-    showToast('🎵 Музыка включена');
-  } else {
-    music.pause();
-    showToast('🔇 Музыка выключена');
-  }
+function startMusic(){ if(music && music.paused){ music.volume=0.3; music.play().catch(()=>{}); } }
+document.addEventListener('touchstart', startMusic, {once:true});
+document.addEventListener('click', startMusic, {once:true});
+function toggleMusic(){
+  if(!music) return;
+  if(music.paused){ music.volume=0.3; music.play().catch(()=>{}); showToast('🎵 Музыка включена'); }
+  else { music.pause(); showToast('🔇 Музыка выключена'); }
 }
 
-// --- БОЙ ---
-function openBattle() { showScreen('screen-battle'); }
-
-function startWave(n) {
-  if (playerData.level < n) {
-    showToast('🔒 Нужен уровень ' + n);
-    return;
-  }
-  playerData.wins++;
-  playerData.gold += n * 100;
-  playerData.gems += Math.floor(n / 5);
-  if (playerData.gold >= playerData.level * 1000) {
-    playerData.level++;
-    showToast('🎉 Уровень ' + playerData.level + '!');
-  } else {
-    showToast('🌊 Волна ' + n + ' пройдена! +' + (n*100) + ' 🪙');
-  }
-  saveGame();
-  updateUI();
-}
-
-// --- АНГАР 3D ---
-let hangarScene, hangarCamera, hangarRenderer, hangarTank, hangarRotating = true;
-let lastTouchX = 0, isDragging = false;
-
-function openHangar() {
-  showScreen('screen-hangar');
-  setTimeout(() => initHangar(), 100);
-}
-
-function closeHangar() {
-  hangarRotating = true;
-  if (hangarRenderer) {
-    hangarRenderer.dispose();
-    hangarRenderer = null;
-  }
-  showScreen('screen-main');
-}
-
-function initHangar() {
-  if (hangarRenderer) return;
-  const canvas = document.getElementById('hangar-canvas');
-  const w = canvas.clientWidth, h = canvas.clientHeight;
-
-  hangarScene = new THREE.Scene();
-  hangarCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
-  hangarCamera.position.set(0, 2.5, 6);
-  hangarCamera.lookAt(0, 0.5, 0);
-
-  hangarRenderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
-  hangarRenderer.setSize(w, h, false);
-  hangarRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  hangarScene.add(new THREE.AmbientLight(0x8866aa, 0.8));
-  const dir = new THREE.DirectionalLight(0xffaa55, 1.2);
-  dir.position.set(5, 10, 5);
-  hangarScene.add(dir);
-  const point = new THREE.PointLight(0xff6600, 1, 20);
-  point.position.set(-3, 3, 3);
-  hangarScene.add(point);
-
-  const ground = new THREE.Mesh(
-    new THREE.CircleGeometry(4, 32),
-    new THREE.MeshStandardMaterial({ color:0x1a0a2e, roughness:0.9 })
-  );
-  ground.rotation.x = -Math.PI/2;
-  ground.position.y = -0.5;
-  hangarScene.add(ground);
-
-  hangarTank = buildTank(playerData.currentSkin);
-  hangarScene.add(hangarTank);
-
-  canvas.addEventListener('touchstart', e => {
-    isDragging = true; hangarRotating = false;
-    lastTouchX = e.touches[0].clientX;
-  });
-  canvas.addEventListener('touchmove', e => {
-    if (!isDragging || !hangarTank) return;
-    const dx = e.touches[0].clientX - lastTouchX;
-    hangarTank.rotation.y += dx * 0.01;
-    lastTouchX = e.touches[0].clientX;
-  });
-  canvas.addEventListener('touchend', () => { isDragging = false; });
-
-  canvas.addEventListener('mousedown', e => {
-    isDragging = true; hangarRotating = false;
-    lastTouchX = e.clientX;
-  });
-  window.addEventListener('mousemove', e => {
-    if (!isDragging || !hangarTank) return;
-    const dx = e.clientX - lastTouchX;
-    hangarTank.rotation.y += dx * 0.01;
-    lastTouchX = e.clientX;
-  });
-  window.addEventListener('mouseup', () => { isDragging = false; });
-
-  updateHangarName();
-  animateHangar();
-}
-
-function updateHangarName() {
-  const skin = SKINS.find(s => s.id === playerData.currentSkin);
-  if (skin) document.getElementById('currentTankName').innerText = skin.name;
-}
-
-function animateHangar() {
-  if (!hangarRenderer) return;
-  requestAnimationFrame(animateHangar);
-  if (hangarTank && hangarRotating) hangarTank.rotation.y += 0.008;
-  hangarRenderer.render(hangarScene, hangarCamera);
-}
-
-function buildTank(skinId) {
-  const skin = SKINS.find(s => s.id === skinId) || SKINS[0];
-  const color = skin.color;
-  const group = new THREE.Group();
-
-  const body = new THREE.Mesh(
-    new THREE.BoxGeometry(2.4, 0.7, 1.6),
-    new THREE.MeshStandardMaterial({ color, metalness:0.4, roughness:0.6 })
-  );
-  group.add(body);
-
-  const turret = new THREE.Mesh(
-    new THREE.BoxGeometry(1.3, 0.7, 1.1),
-    new THREE.MeshStandardMaterial({ color, metalness:0.5, roughness:0.5 })
-  );
-  turret.position.set(0, 0.7, 0);
-  group.add(turret);
-
-  const barrel = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.12, 0.12, 1.8, 12),
-    new THREE.MeshStandardMaterial({ color:0x222222, metalness:0.8 })
-  );
-  barrel.rotation.z = Math.PI/2;
-  barrel.position.set(1.2, 0.75, 0);
-  group.add(barrel);
-
-  const trackMat = new THREE.MeshStandardMaterial({ color:0x222222, roughness:0.9 });
-  const trackL = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.5, 0.35), trackMat);
-  trackL.position.set(0, -0.35, 0.75);
-  group.add(trackL);
-  const trackR = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.5, 0.35), trackMat);
-  trackR.position.set(0, -0.35, -0.75);
-  group.add(trackR);
-
-  return group;
-}
-
-// --- СКИНЫ ---
-const SKINS = [
-  { id:'standard', name:'Стандарт',    price:0,    color:0x4caf50 },
-  { id:'pumpkin',  name:'🎃 Тыква',    price:800,  color:0xff6600 },
-  { id:'skeleton', name:'💀 Скелет',   price:1200, color:0xdddddd },
-  { id:'ghost',    name:'👻 Призрак',  price:2000, color:0xaaddff },
-  { id:'witch',    name:'🧙 Ведьма',   price:3500, color:0x9c27b0 },
-  { id:'zombie',   name:'🧟 Зомби',    price:5000, color:0x7a9a3a }
+// ========== 300 ТАНКОВ ==========
+const SKIN_NAMES = [
+  'Стальной','Броневой','Гром','Титан','Феникс','Дракон','Лев','Тигр','Волк','Медведь',
+  'Орёл','Ястреб','Сокол','Ворон','Барс','Пантера','Гепард','Ягуар','Кобра','Гадюка',
+  'Скорпион','Паук','Краб','Акула','Кит','Дельфин','Осьминог','Кракен','Гидра','Цербер',
+  'Хищник','Охотник','Стрелок','Снайпер','Штурм','Шторм','Ураган','Смерч','Циклон','Тайфун',
+  'Вулкан','Магма','Лава','Огонь','Пламя','Искра','Молния','Гроза','Буря','Мороз',
+  'Лёд','Снег','Зима','Метель','Вьюга','Север','Полюс','Арктика','Космос','Звезда',
+  'Луна','Солнце','Марс','Юпитер','Сатурн','Нептун','Плутон','Комета','Метеор','Астероид',
+  'Галактика','Туманность','Орбита','Ракета','Спутник','Станция','Корабль','Шаттл','Рыцарь','Король',
+  'Император','Царь','Хан','Султан','Шах','Вождь','Генерал','Маршал','Адмирал','Капитан'
 ];
 
-function openSkins() {
-  renderSkins();
-  showScreen('screen-skins');
-}
+const SKIN_PREFIX = ['', 'Супер ', 'Мега '];
+const SKIN_COLORS = ['#4caf50','#ff6600','#dddddd','#aaddff','#9c27b0','#7a9a3a','#c62828','#2c5faa','#d4a017','#ff00ff','#00ffff','#ffcc00','#ff1493','#00ff7f','#8b00ff','#ff4500'];
 
-function renderSkins() {
+const SKINS = [
+  { id:'standard', name:'Стандарт', price:0, color:'#4caf50' },
+  { id:'pumpkin',  name:'🎃 Тыква', price:800, color:'#ff6600' },
+  { id:'skeleton', name:'💀 Скелет', price:1200, color:'#dddddd' },
+  { id:'ghost',    name:'👻 Призрак', price:2000, color:'#aaddff' },
+  { id:'witch',    name:'🧙 Ведьма', price:3500, color:'#9c27b0' },
+  { id:'zombie',   name:'🧟 Зомби', price:5000, color:'#7a9a3a' }
+];
+
+let tankIndex = 1;
+outer:
+for (let p = 0; p < SKIN_PREFIX.length; p++) {
+  for (let n = 0; n < SKIN_NAMES.length; n++) {
+    for (let c = 0; c < 5; c++) {
+      if (SKINS.length >= 300) break outer;
+      const color = SKIN_COLORS[(n + p + c) % SKIN_COLORS.length];
+      const price = 500 + (p * 10000) + (n * 500) + (c * 2000);
+      SKINS.push({
+        id: 'tank_' + tankIndex,
+        name: SKIN_PREFIX[p] + SKIN_NAMES[n] + (c > 0 ? ' ' + (c+1) : ''),
+        price: price,
+        color: color
+      });
+      tankIndex++;
+    }
+  }
+}
+console.log('🎃 Создано танков: ' + SKINS.length);
+
+// ========== СКИНЫ С ПАГИНАЦИЕЙ ==========
+let skinPage = 0;
+const SKINS_PER_PAGE = 20;
+
+function openSkins(){ skinPage = 0; renderSkins(); showScreen('screen-skins'); }
+
+function renderSkins(){
   const list = document.getElementById('skinsList');
   list.innerHTML = '';
-  SKINS.forEach(skin => {
+
+  const totalPages = Math.ceil(SKINS.length / SKINS_PER_PAGE);
+  const start = skinPage * SKINS_PER_PAGE;
+  const pageSkins = SKINS.slice(start, start + SKINS_PER_PAGE);
+
+  pageSkins.forEach(skin => {
     const owned = playerData.unlockedSkins.includes(skin.id);
     const equipped = playerData.currentSkin === skin.id;
     const div = document.createElement('div');
     div.className = 'skin-item' + (owned ? ' owned' : '');
     div.innerHTML = `
-      <div class="skin-name">
-        ${owned ? (equipped ? '✅ ' : '🔓 ') : '🔒 '}
-        ${skin.name}${skin.price > 0 ? ' — ' + skin.price + ' 🪙' : ''}
+      <div class="skin-name" style="display:flex;align-items:center;gap:8px;">
+        <span style="display:inline-block;width:24px;height:24px;background:${skin.color};border-radius:4px;border:2px solid #fff;flex-shrink:0;"></span>
+        <span>${owned?(equipped?'✅ ':'🔓 '):'🔒 '}${skin.name}${skin.price>0?' — '+skin.price.toLocaleString()+' 🪙':''}</span>
       </div>
-      ${owned
-        ? (equipped
-            ? '<button class="buy-btn owned-btn">✔</button>'
-            : `<button class="buy-btn" onclick="equipSkin('${skin.id}')">Надеть</button>`)
-        : `<button class="buy-btn" onclick="buySkin('${skin.id}')">Купить</button>`
-      }
-    `;
+      ${owned ? (equipped ? '<button class="buy-btn owned-btn">✔</button>'
+                          : `<button class="buy-btn" onclick="equipSkin('${skin.id}')">Надеть</button>`)
+              : `<button class="buy-btn" onclick="buySkin('${skin.id}')">Купить</button>`}`;
     list.appendChild(div);
   });
+
+  const nav = document.createElement('div');
+  nav.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px;padding:10px;background:rgba(40,20,70,0.6);border-radius:10px;';
+  nav.innerHTML = `
+    <button class="buy-btn" onclick="changeSkinPage(-1)" ${skinPage===0?'disabled':''}>◀</button>
+    <span style="font-weight:bold;">${skinPage+1} / ${totalPages}</span>
+    <button class="buy-btn" onclick="changeSkinPage(1)" ${skinPage>=totalPages-1?'disabled':''}>▶</button>
+  `;
+  list.appendChild(nav);
 }
 
-function buySkin(id) {
-  const skin = SKINS.find(s => s.id === id);
-  if (!skin) return;
-  if (playerData.gold < skin.price) {
-    showToast('❌ Не хватает золота!');
-    return;
-  }
+function changeSkinPage(dir){
+  const totalPages = Math.ceil(SKINS.length / SKINS_PER_PAGE);
+  skinPage = Math.max(0, Math.min(totalPages-1, skinPage + dir));
+  renderSkins();
+}
+
+function buySkin(id){
+  const skin = SKINS.find(s=>s.id===id);
+  if(!skin) return;
+  if(playerData.gold < skin.price){ showToast('❌ Не хватает золота!'); return; }
   playerData.gold -= skin.price;
   playerData.unlockedSkins.push(id);
   playerData.currentSkin = id;
-  saveGame();
-  updateUI();
-  renderSkins();
+  saveGame(); updateUI(); renderSkins();
   showToast('🎉 Куплено: ' + skin.name);
 }
-
-function equipSkin(id) {
+function equipSkin(id){
   playerData.currentSkin = id;
-  saveGame();
-  renderSkins();
+  saveGame(); renderSkins();
   showToast('✅ Надет: ' + SKINS.find(s=>s.id===id).name);
 }
 
-// --- КЕЙСЫ ---
+// ========== КЕЙСЫ ==========
 const CASES = [
-  { id:'common',    name:'Обычный',       price:1000,   rarity:'common',    emoji:'📦' },
-  { id:'rare',      name:'Редкий',        price:10000,  rarity:'rare',      emoji:'📦' },
-  { id:'superrare', name:'Сверхредкий',   price:50000,  rarity:'superrare', emoji:'📦' },
-  { id:'epic',      name:'Эпический',     price:200000, rarity:'epic',      emoji:'📦' },
-  { id:'legend',    name:'Легендарный',   price:1000000,rarity:'legend',    emoji:'📦' },
-  { id:'mythic',    name:'Мифический',    price:5000000,rarity:'mythic',    emoji:'📦' },
-  { id:'ultra',     name:'Ультра',        price:50000000,rarity:'ultra',    emoji:'📦' }
+  { id:'common',    name:'Обычный',         price:1000,      rarity:'common' },
+  { id:'rare',      name:'Редкий',          price:10000,     rarity:'rare' },
+  { id:'superrare', name:'Сверхредкий',     price:50000,     rarity:'superrare' },
+  { id:'epic',      name:'Эпический',       price:200000,    rarity:'epic' },
+  { id:'legend',    name:'Легендарный',     price:1000000,   rarity:'legend' },
+  { id:'mythic',    name:'Мифический',      price:5000000,   rarity:'mythic' },
+  { id:'mythdarling',name:'💎 Миф-Дарлинг', price:6000000,   rarity:'mythdarling' },
+  { id:'ultra',     name:'👑 Ультрический', price:100000000, rarity:'ultra' }
 ];
-
-function openCases() {
-  renderCases();
-  showScreen('screen-cases');
-}
-
-function renderCases() {
+function openCases(){ renderCases(); showScreen('screen-cases'); }
+function renderCases(){
   const list = document.getElementById('casesList');
   list.innerHTML = '';
   CASES.forEach(c => {
@@ -522,37 +388,71 @@ function renderCases() {
     div.className = 'case-item';
     div.innerHTML = `
       <div style="flex:1;">
-        <div style="font-weight:bold;">${c.emoji} ${c.name}</div>
+        <div style="font-weight:bold;">📦 ${c.name}</div>
         <div class="r-${c.rarity}" style="display:inline-block;margin-top:6px;">${c.rarity.toUpperCase()}</div>
       </div>
       <div style="text-align:right;">
-        <div style="font-weight:bold;color:#ffd700;margin-bottom:6px;">${c.price.toLocaleString()} 🪙</div>
+        <div style="font-weight:bold;color:#ffd700;margin-bottom:6px;font-size:12px;">${c.price.toLocaleString()} 🪙</div>
         <button class="buy-btn" onclick="buyCase('${c.id}')">Открыть</button>
-      </div>
-    `;
+      </div>`;
     list.appendChild(div);
   });
 }
-
-function buyCase(id) {
-  const c = CASES.find(x => x.id === id);
-  if (!c) return;
-  if (playerData.gold < c.price) {
-    showToast('❌ Не хватает золота!');
-    return;
-  }
+function buyCase(id){
+  const c = CASES.find(x=>x.id===id);
+  if(!c) return;
+  if(playerData.gold < c.price){ showToast('❌ Не хватает золота!'); return; }
   playerData.gold -= c.price;
   playerData.openedCases++;
-  const bonus = Math.floor(c.price / 3);
+
+  if(id === 'mythdarling'){
+    const gold = 5000000 + Math.floor(Math.random()*5000000);
+    const gems = 50 + Math.floor(Math.random()*100);
+    playerData.gold += gold;
+    playerData.gems += gems;
+    const locked = SKINS.filter(s=>!playerData.unlockedSkins.includes(s.id));
+    if(locked.length > 0){
+      const win = locked[Math.floor(Math.random()*locked.length)];
+      playerData.unlockedSkins.push(win.id);
+      showToast('💎 МИФ-ДАРЛИНГ: ' + win.name + ' + ' + gold.toLocaleString() + ' 🪙 + ' + gems + ' 💎!');
+    } else showToast('💎 МИФ-ДАРЛИНГ: +' + gold.toLocaleString() + ' 🪙 + ' + gems + ' 💎!');
+    saveGame(); updateUI(); renderCases();
+    return;
+  }
+  if(id === 'ultra'){
+    const hasCoins = Math.random() < 0.7;
+    const gold = 50000000 + Math.floor(Math.random()*100000000);
+    const gems = 100 + Math.floor(Math.random()*200);
+    playerData.gold += gold;
+    playerData.gems += gems;
+    let txt = '👑 УЛЬТРА: +' + gold.toLocaleString() + ' 🪙 + ' + gems + ' 💎';
+    if(hasCoins){
+      const coins = 100 + Math.floor(Math.random()*900);
+      playerData.gems += coins;
+      txt += ' + 💰' + coins;
+    }
+    const locked = SKINS.filter(s=>!playerData.unlockedSkins.includes(s.id));
+    if(locked.length > 0){
+      const win = locked[Math.floor(Math.random()*locked.length)];
+      playerData.unlockedSkins.push(win.id);
+      txt += ' + ' + win.name;
+    }
+    showToast(txt);
+    saveGame(); updateUI(); renderCases();
+    return;
+  }
+
+  const isDouble = Math.random() < 0.15;
+  let bonus = Math.floor(c.price/3);
+  if(isDouble) bonus *= 2;
   playerData.gold += bonus;
-  saveGame();
-  updateUI();
-  renderCases();
-  showToast(`📦 ${c.name}: +${bonus.toLocaleString()} 🪙`);
+  saveGame(); updateUI(); renderCases();
+  if(isDouble) showToast('🎁×2 ДВОЙНАЯ! +' + bonus.toLocaleString() + ' 🪙');
+  else showToast('📦 ' + c.name + ': +' + bonus.toLocaleString() + ' 🪙');
 }
 
-// --- ПРОФИЛЬ ---
-function openProfile() {
+// ========== ПРОФИЛЬ ==========
+function openProfile(){
   document.getElementById('p-level').innerText = playerData.level;
   document.getElementById('p-gold').innerText  = playerData.gold;
   document.getElementById('p-gems').innerText  = playerData.gems;
@@ -562,47 +462,36 @@ function openProfile() {
   showScreen('screen-profile');
 }
 
-// --- ПОМОЩНИК ---
-function openHelper() {
+// ========== ПОМОЩНИК ==========
+function openHelper(){
   document.getElementById('helperLevel').innerText = playerData.helperLevel;
   document.getElementById('helperCost').innerText  = playerData.helperLevel * 500;
   showScreen('screen-helper');
 }
-
-function upgradeHelper() {
+function upgradeHelper(){
   const cost = playerData.helperLevel * 500;
-  if (playerData.gold < cost) {
-    showToast('❌ Не хватает золота!');
-    return;
-  }
+  if(playerData.gold < cost){ showToast('❌ Не хватает золота!'); return; }
   playerData.gold -= cost;
   playerData.helperLevel++;
-  saveGame();
-  updateUI();
-  openHelper();
+  saveGame(); updateUI(); openHelper();
   showToast('⬆️ Помощник улучшен до ур. ' + playerData.helperLevel);
 }
 
-// --- БОЕВОЙ ПРОПУСК ---
+// ========== ПРОПУСК ==========
 const PASS_REWARDS = [
-  { lvl:1,  reward:'500 🪙',       gold:500 },
-  { lvl:2,  reward:'1000 🪙',      gold:1000 },
-  { lvl:3,  reward:'5 💎',         gems:5 },
-  { lvl:4,  reward:'2000 🪙',      gold:2000 },
-  { lvl:5,  reward:'5000 🪙 + 10 💎', gold:5000, gems:10 },
-  { lvl:6,  reward:'10000 🪙',     gold:10000 },
-  { lvl:7,  reward:'20 💎',        gems:20 },
-  { lvl:8,  reward:'25000 🪙',     gold:25000 },
-  { lvl:9,  reward:'50000 🪙',     gold:50000 },
-  { lvl:10, reward:'100000 🪙 + 50 💎', gold:100000, gems:50 }
+  { lvl:1,  reward:'500 🪙',              gold:500 },
+  { lvl:2,  reward:'1000 🪙',             gold:1000 },
+  { lvl:3,  reward:'5 💎',                gems:5 },
+  { lvl:4,  reward:'2000 🪙',             gold:2000 },
+  { lvl:5,  reward:'5000 🪙 + 10 💎',     gold:5000, gems:10 },
+  { lvl:6,  reward:'10000 🪙',            gold:10000 },
+  { lvl:7,  reward:'20 💎',               gems:20 },
+  { lvl:8,  reward:'25000 🪙',            gold:25000 },
+  { lvl:9,  reward:'50000 🪙',            gold:50000 },
+  { lvl:10, reward:'100000 🪙 + 50 💎',   gold:100000, gems:50 }
 ];
-
-function openPass() {
-  renderPass();
-  showScreen('screen-pass');
-}
-
-function renderPass() {
+function openPass(){ renderPass(); showScreen('screen-pass'); }
+function renderPass(){
   const list = document.getElementById('passList');
   list.innerHTML = '';
   PASS_REWARDS.forEach(p => {
@@ -612,59 +501,380 @@ function renderPass() {
     div.className = 'pass-level' + (claimed ? ' claimed' : '');
     div.innerHTML = `
       <span>🏅 Ур. ${p.lvl}</span>
-      <span style="color:#ffd700;">${p.reward}</span>
-      ${claimed
-        ? '<span style="color:#666;">✔ Получено</span>'
-        : unlocked
-          ? `<button class="buy-btn" onclick="claimPass(${p.lvl})">Забрать</button>`
-          : '<span style="color:#666;">🔒</span>'
-      }
-    `;
+      <span style="color:#ffd700;font-size:13px;">${p.reward}</span>
+      ${claimed ? '<span style="color:#666;">✔</span>'
+                : unlocked ? `<button class="buy-btn" onclick="claimPass(${p.lvl})">Забрать</button>`
+                           : '<span style="color:#666;">🔒</span>'}`;
     list.appendChild(div);
   });
 }
-
-function claimPass(lvl) {
-  if (playerData.passClaimed.includes(lvl)) return;
-  const p = PASS_REWARDS.find(r => r.lvl === lvl);
-  if (!p) return;
-  if (p.gold) playerData.gold += p.gold;
-  if (p.gems) playerData.gems += p.gems;
+function claimPass(lvl){
+  if(playerData.passClaimed.includes(lvl)) return;
+  const p = PASS_REWARDS.find(r=>r.lvl===lvl);
+  if(!p) return;
+  if(p.gold) playerData.gold += p.gold;
+  if(p.gems) playerData.gems += p.gems;
   playerData.passClaimed.push(lvl);
-  saveGame();
-  updateUI();
-  renderPass();
+  saveGame(); updateUI(); renderPass();
   showToast('🎁 Награда получена!');
 }
 
-// --- СОБЫТИЕ ---
-function openEvent() { showScreen('screen-event'); }
-
-function startEvent() {
-  if (!playerData.unlockedSkins.includes('pumpkin')) {
+// ========== СОБЫТИЕ ==========
+function openEvent(){ showScreen('screen-event'); }
+function startEvent(){
+  if(Math.random() < 0.05){
+    playerData.gold += 50000;
+    playerData.gems += 50;
+    if(!playerData.unlockedSkins.includes('zombie')){
+      playerData.unlockedSkins.push('zombie');
+      showToast('🎃 СЕКРЕТ! Скин Зомби + 50000 🪙 + 50 💎!');
+    } else showToast('🎃 СЕКРЕТ! +50000 🪙 + 50 💎!');
+  } else if(!playerData.unlockedSkins.includes('pumpkin')){
     playerData.unlockedSkins.push('pumpkin');
     showToast('🎃 Открыт скин Тыква!');
   } else {
     playerData.gold += 5000;
-    showToast('🎃 +5000 🪙 за событие!');
+    showToast('🎃 +5000 🪙');
   }
-  saveGame();
-  updateUI();
+  saveGame(); updateUI();
 }
 
-// --- ВЫХОД ---
-function exitGame() {
-  if (confirm('Выйти из игры? 🎃')) {
-    if (music) music.pause();
-    document.body.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#ff8c00;font-size:24px;text-align:center;padding:20px;background:#0a0510;font-family:inherit;">
-        🎃 До встречи!<br><span style="font-size:14px;color:#8866aa;margin-top:20px;display:block;">Обнови страницу, чтобы вернуться</span>
-      </div>`;
+// ========== АНГАР 3D ==========
+let hScene, hCam, hRen, hTank, hRotate = true, hDragging = false, hLastX = 0;
+function openHangar(){ showScreen('screen-hangar'); setTimeout(initHangar, 100); }
+function closeHangar(){ hRotate = true; if(hRen){ hRen.dispose(); hRen=null; } showScreen('screen-main'); }
+function initHangar(){
+  if(hRen) return;
+  const canvas = document.getElementById('hangar-canvas');
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  hScene = new THREE.Scene();
+  hCam = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
+  hCam.position.set(0, 2.5, 6);
+  hCam.lookAt(0, 0.5, 0);
+  hRen = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  hRen.setSize(w, h, false);
+  hRen.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  hScene.add(new THREE.AmbientLight(0x8866aa, 0.8));
+  const dir = new THREE.DirectionalLight(0xffaa55, 1.2);
+  dir.position.set(5, 10, 5); hScene.add(dir);
+  const point = new THREE.PointLight(0xff6600, 1, 20);
+  point.position.set(-3, 3, 3); hScene.add(point);
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(4, 32),
+    new THREE.MeshStandardMaterial({ color:0x1a0a2e, roughness:0.9 }));
+  ground.rotation.x = -Math.PI/2; ground.position.y = -0.5; hScene.add(ground);
+  hTank = buildTank3D(playerData.currentSkin);
+  hScene.add(hTank);
+  canvas.addEventListener('touchstart', e => { hDragging=true; hRotate=false; hLastX=e.touches[0].clientX; });
+  canvas.addEventListener('touchmove', e => { if(!hDragging||!hTank) return; hTank.rotation.y += (e.touches[0].clientX-hLastX)*0.01; hLastX=e.touches[0].clientX; });
+  canvas.addEventListener('touchend', ()=> hDragging=false);
+  canvas.addEventListener('mousedown', e => { hDragging=true; hRotate=false; hLastX=e.clientX; });
+  window.addEventListener('mousemove', e => { if(!hDragging||!hTank) return; hTank.rotation.y += (e.clientX-hLastX)*0.01; hLastX=e.clientX; });
+  window.addEventListener('mouseup', ()=> hDragging=false);
+  updateHangarName();
+  animateHangar();
+}
+function updateHangarName(){
+  const skin = SKINS.find(s=>s.id===playerData.currentSkin);
+  if(skin) document.getElementById('currentTankName').innerText = skin.name;
+}
+function animateHangar(){
+  if(!hRen) return;
+  requestAnimationFrame(animateHangar);
+  if(hTank && hRotate) hTank.rotation.y += 0.008;
+  hRen.render(hScene, hCam);
+}
+function changeTank(dir){
+  const idx = playerData.unlockedSkins.indexOf(playerData.currentSkin);
+  let next = idx + dir;
+  if(next < 0) next = playerData.unlockedSkins.length - 1;
+  if(next >= playerData.unlockedSkins.length) next = 0;
+  playerData.currentSkin = playerData.unlockedSkins[next];
+  saveGame(); updateHangarName();
+  if(hScene && hTank){
+    hScene.remove(hTank);
+    hTank = buildTank3D(playerData.currentSkin);
+    hScene.add(hTank);
+  }
+  const skin = SKINS.find(s=>s.id===playerData.currentSkin);
+  showToast('🚜 ' + (skin ? skin.name : ''));
+}
+function buildTank3D(skinId){
+  const skin = SKINS.find(s=>s.id===skinId) || SKINS[0];
+  const color = parseInt(skin.color.replace('#',''), 16);
+  const group = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(2.4,0.7,1.6),
+    new THREE.MeshStandardMaterial({ color, metalness:0.4, roughness:0.6 }));
+  group.add(body);
+  const turret = new THREE.Mesh(new THREE.BoxGeometry(1.3,0.7,1.1),
+    new THREE.MeshStandardMaterial({ color, metalness:0.5, roughness:0.5 }));
+  turret.position.set(0, 0.7, 0); group.add(turret);
+  const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,1.8,12),
+    new THREE.MeshStandardMaterial({ color:0x222222, metalness:0.8 }));
+  barrel.rotation.z = Math.PI/2;
+  barrel.position.set(1.2, 0.75, 0); group.add(barrel);
+  const trackMat = new THREE.MeshStandardMaterial({ color:0x222222, roughness:0.9 });
+  const trackL = new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,0.35), trackMat);
+  trackL.position.set(0, -0.35, 0.75); group.add(trackL);
+  const trackR = new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,0.35), trackMat);
+  trackR.position.set(0, -0.35, -0.75); group.add(trackR);
+  return group;
+}
+
+// ========== 2D БОЙ ==========
+const battle = {
+  canvas:null, ctx:null, player:null, playerHp:100,
+  enemies:[], bullets:[], caterpillars:[], moths:0,
+  keys:{ up:false, down:false, left:false, right:false },
+  wave:1, running:false, lastTime:0, cooldown:0,
+  W:0, H:0
+};
+function openBattle(){ showScreen('screen-battle'); }
+function startBattle(waveNum){
+  battle.wave = waveNum;
+  battle.playerHp = 100;
+  battle.enemies = []; battle.bullets = []; battle.caterpillars = [];
+  battle.moths = 0;
+  battle.keys = { up:false, down:false, left:false, right:false };
+  battle.cooldown = 0; battle.running = true;
+  document.getElementById('battle-screen').classList.add('active');
+  document.getElementById('wave-num').innerText = waveNum;
+  document.getElementById('player-hp').innerText = 100;
+  document.getElementById('moths-count').innerText = 0;
+  setTimeout(initBattle2D, 50);
+  initBattleControls();
+}
+function initBattle2D(){
+  const canvas = document.getElementById('battle-canvas');
+  battle.canvas = canvas;
+  battle.ctx = canvas.getContext('2d');
+  battle.W = window.innerWidth;
+  battle.H = window.innerHeight;
+  canvas.width = battle.W;
+  canvas.height = battle.H;
+  battle.player = {
+    x: battle.W/2, y: battle.H/2,
+    angle: 0,
+    color: (SKINS.find(s=>s.id===playerData.currentSkin)?.color) || '#4caf50'
+  };
+  spawnEnemies2D(battle.wave);
+  battle.lastTime = performance.now();
+  requestAnimationFrame(battleLoop2D);
+}
+function spawnEnemies2D(wave){
+  const count = Math.min(3 + wave, 10);
+  for(let i=0; i<count; i++){
+    const angle = (Math.PI*2/count)*i;
+    const dist = 200 + Math.random()*100;
+    battle.enemies.push({
+      x: battle.W/2 + Math.cos(angle)*dist,
+      y: battle.H/2 + Math.sin(angle)*dist,
+      angle: 0,
+      hp: 30 + wave*10,
+      speed: 60 + wave*5,
+      lastShot: 0,
+      shotInterval: Math.max(1.5, 3 - wave*0.1),
+      color: '#c62828'
+    });
+  }
+  document.getElementById('enemies-left').innerText = battle.enemies.length;
+}
+function initBattleControls(){
+  document.onkeydown = e => {
+    if(e.key==='w'||e.key==='ArrowUp') battle.keys.up = true;
+    if(e.key==='s'||e.key==='ArrowDown') battle.keys.down = true;
+    if(e.key==='a'||e.key==='ArrowLeft') battle.keys.left = true;
+    if(e.key==='d'||e.key==='ArrowRight') battle.keys.right = true;
+    if(e.key===' ') fireBullet2D();
+  };
+  document.onkeyup = e => {
+    if(e.key==='w'||e.key==='ArrowUp') battle.keys.up = false;
+    if(e.key==='s'||e.key==='ArrowDown') battle.keys.down = false;
+    if(e.key==='a'||e.key==='ArrowLeft') battle.keys.left = false;
+    if(e.key==='d'||e.key==='ArrowRight') battle.keys.right = false;
+  };
+}
+function setKey(k, v){ battle.keys[k] = v; }
+
+function fireBullet2D(){
+  if(!battle.running || !battle.player) return;
+  if(battle.cooldown > 0) return;
+  battle.cooldown = 0.4;
+  for(let i = battle.caterpillars.length-1; i >= 0; i--){
+    const c = battle.caterpillars[i];
+    const d = Math.hypot(c.x - battle.player.x, c.y - battle.player.y);
+    if(d < 60){
+      battle.caterpillars.splice(i,1);
+      battle.moths++;
+      document.getElementById('moths-count').innerText = battle.moths;
+      showToast('🐛→🦋 Мотылёк! Всего: ' + battle.moths);
+      return;
+    }
+  }
+  battle.bullets.push({
+    x: battle.player.x + Math.cos(battle.player.angle) * 30,
+    y: battle.player.y + Math.sin(battle.player.angle) * 30,
+    vx: Math.cos(battle.player.angle) * 500,
+    vy: Math.sin(battle.player.angle) * 500,
+    life: 3,
+    damage: 25 + battle.moths * 5
+  });
+}
+
+function drawTank2D(ctx, x, y, angle, color){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  ctx.fillStyle = color;
+  ctx.fillRect(-15, -12, 30, 24);
+  ctx.fillStyle = '#222';
+  ctx.fillRect(-18, -14, 36, 5);
+  ctx.fillRect(-18, 9, 36, 5);
+  ctx.fillStyle = '#111';
+  ctx.fillRect(10, -3, 22, 6);
+  ctx.fillStyle = color;
+  ctx.fillRect(-8, -8, 16, 16);
+  ctx.restore();
+}
+
+function battleLoop2D(now){
+  if(!battle.running) return;
+  requestAnimationFrame(battleLoop2D);
+  const dt = Math.min((now - battle.lastTime)/1000, 0.1);
+  battle.lastTime = now;
+  battle.cooldown = Math.max(0, battle.cooldown - dt);
+  const ctx = battle.ctx;
+
+  const sp = 200 * dt;
+  let dx = 0, dy = 0;
+  if(battle.keys.up)    dx += Math.cos(battle.player.angle) * sp, dy += Math.sin(battle.player.angle) * sp;
+  if(battle.keys.down)  dx -= Math.cos(battle.player.angle) * sp, dy -= Math.sin(battle.player.angle) * sp;
+  if(battle.keys.left)  battle.player.angle -= 2.5 * dt;
+  if(battle.keys.right) battle.player.angle += 2.5 * dt;
+  battle.player.x += dx; battle.player.y += dy;
+  battle.player.x = Math.max(20, Math.min(battle.W-20, battle.player.x));
+  battle.player.y = Math.max(20, Math.min(battle.H-20, battle.player.y));
+
+  if(Math.random() < 0.02 && battle.caterpillars.length < 5){
+    const a = Math.random()*Math.PI*2;
+    const d = 60 + Math.random()*40;
+    battle.caterpillars.push({
+      x: battle.player.x + Math.cos(a)*d,
+      y: battle.player.y + Math.sin(a)*d,
+      life: 8
+    });
+  }
+  for(let i = battle.caterpillars.length-1; i >= 0; i--){
+    battle.caterpillars[i].life -= dt;
+    if(battle.caterpillars[i].life <= 0) battle.caterpillars.splice(i,1);
+  }
+
+  if(battle.moths >= 5 && battle.playerHp < 100){
+    battle.playerHp = Math.min(100, battle.playerHp + 2*dt);
+    document.getElementById('player-hp').innerText = Math.floor(battle.playerHp);
+  }
+
+  for(let i = battle.bullets.length-1; i >= 0; i--){
+    const b = battle.bullets[i];
+    b.x += b.vx * dt; b.y += b.vy * dt;
+    b.life -= dt;
+    if(b.life <= 0 || b.x<0 || b.x>battle.W || b.y<0 || b.y>battle.H){
+      battle.bullets.splice(i,1); continue;
+    }
+    for(let j = battle.enemies.length-1; j >= 0; j--){
+      const e = battle.enemies[j];
+      if(Math.hypot(b.x-e.x, b.y-e.y) < 20){
+        e.hp -= b.damage;
+        battle.bullets.splice(i,1);
+        if(e.hp <= 0){
+          battle.enemies.splice(j,1);
+          playerData.gold += 100;
+          playerData.wins++;
+          saveGame(); updateUI();
+          document.getElementById('enemies-left').innerText = battle.enemies.length;
+        }
+        break;
+      }
+    }
+  }
+
+  battle.enemies.forEach(e => {
+    const ddx = battle.player.x - e.x;
+    const ddy = battle.player.y - e.y;
+    const dist = Math.hypot(ddx, ddy);
+    e.angle = Math.atan2(ddy, ddx);
+    if(dist > 150){
+      e.x += (ddx/dist) * e.speed * dt;
+      e.y += (ddy/dist) * e.speed * dt;
+    }
+    e.lastShot += dt;
+    if(e.lastShot > e.shotInterval && dist < 400){
+      e.lastShot = 0;
+      battle.playerHp -= 5 + battle.wave;
+      if(battle.playerHp < 0) battle.playerHp = 0;
+      document.getElementById('player-hp').innerText = battle.playerHp;
+      if(battle.playerHp <= 0) endBattle2D(false);
+    }
+  });
+
+  if(battle.enemies.length === 0 && battle.running) endBattle2D(true);
+
+  ctx.fillStyle = '#0a0510';
+  ctx.fillRect(0, 0, battle.W, battle.H);
+
+  ctx.strokeStyle = 'rgba(255,102,0,0.1)';
+  ctx.lineWidth = 1;
+  for(let x = 0; x < battle.W; x += 50){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,battle.H); ctx.stroke(); }
+  for(let y = 0; y < battle.H; y += 50){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(battle.W,y); ctx.stroke(); }
+
+  battle.caterpillars.forEach(c => {
+    ctx.fillStyle = '#7a9a3a';    ctx.beginPath();
+    ctx.arc(c.x, c.y, 10, 0, Math.PI*2);
+    ctx.fill();
+    ctx.strokeStyle = '#3a5a1a';
+    ctx.stroke();
+  });
+
+  battle.enemies.forEach(e => drawTank2D(ctx, e.x, e.y, e.angle, e.color));
+  drawTank2D(ctx, battle.player.x, battle.player.y, battle.player.angle, battle.player.color);
+
+  ctx.fillStyle = '#ffcc00';
+  battle.bullets.forEach(b => {
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, 5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,150,0,0.4)';
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, 10, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#ffcc00';
+  });
+}
+
+function endBattle2D(win){
+  battle.running = false;
+  if(win){
+    playerData.gold += battle.wave*500;
+    playerData.level = Math.max(playerData.level, battle.wave);
+    saveGame(); updateUI();
+    showToast('🏆 Победа! +' + (battle.wave*500) + ' 🪙');
+  } else showToast('💀 Поражение...');
+  setTimeout(()=> exitBattle(), 1500);
+}
+function exitBattle(){
+  battle.running = false;
+  document.getElementById('battle-screen').classList.remove('active');
+  battle.enemies = []; battle.bullets = []; battle.caterpillars = [];
+  showScreen('screen-main');
+}
+
+function exitGame(){
+  if(confirm('Выйти из игры? 🎃')){
+    if(music) music.pause();
+    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#ff8c00;font-size:24px;text-align:center;padding:20px;background:#0a0510;font-family:inherit;">🎃 До встречи!<br><span style="font-size:14px;color:#8866aa;margin-top:20px;display:block;">Обнови страницу, чтобы вернуться</span></div>';
   }
 }
 
-// --- СТАРТ ---
-console.log('🎃 Гром Брони Halloween загружена!');
+console.log('🎃 Гром Брони 2D загружена!');
 updateUI();
 saveGame();
 </script>
