@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Гром Брони 🎃 Танковая игра</title>
+<title>Гром Брони 🎃 Танковая игра для ПК и Android</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
-<meta name="description" content="Гром Брони — танковая аркада для Android и браузера. 300+ танков, 100 карт, союзники-боты. Скачай APK бесплатно!">
+<meta name="description" content="Гром Брони — танковая аркада для ПК и Android. 300+ танков, 100 карт, союзники-боты. Скачай бесплатно!">
+<meta name="keywords" content="Гром Брони, танковая игра, скачать игру для ПК, Linux игра, Android игра, бесплатно">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
@@ -25,14 +26,14 @@ body{
 .container{max-width:800px;margin:0 auto;position:relative;z-index:2}
 .bat{position:fixed;font-size:24px;pointer-events:none;animation:fly 15s linear infinite;z-index:1;opacity:0.6}
 @keyframes fly{0%{transform:translate(-10vw,20vh)}25%{transform:translate(30vw,5vh)}50%{transform:translate(60vw,30vh)}75%{transform:translate(85vw,10vh)}100%{transform:translate(110vw,25vh)}}
-.hero{padding:35px 20px;border-radius:20px;margin-bottom:20px;background:radial-gradient(circle at 50% 0%, rgba(255,140,0,0.25) 0%, transparent 70%);border:2px solid rgba(255,140,0,0.3);position:relative}
+.hero{padding:35px 20px;border-radius:20px;margin-bottom:20px;background:radial-gradient(circle at 50% 0%, rgba(255,140,0,0.25) 0%, transparent 70%);border:2px solid rgba(255,140,0,0.3)}
 h1{font-size:44px;font-weight:900;letter-spacing:3px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin:10px 0;animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
 .subtitle{font-size:18px;color:#ff8c00;margin-bottom:8px;font-weight:bold}
 .version{font-size:13px;color:#a080c0;margin-bottom:15px}
 .slogan{background:rgba(255,140,0,0.15);border:2px solid #ff8c00;border-radius:12px;padding:12px;margin:15px auto;max-width:500px;font-size:14px;font-weight:bold;color:#ffcc99}
 .buttons{display:flex;flex-direction:column;gap:12px;align-items:center;margin:25px 0}
-.btn{display:block;width:100%;max-width:420px;padding:18px 25px;font-size:17px;font-weight:bold;color:#fff;text-decoration:none;border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer;transition:transform 0.1s;position:relative;text-align:center}
+.btn{display:block;width:100%;max-width:420px;padding:18px 25px;font-size:17px;font-weight:bold;color:#fff;text-decoration:none;border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer;transition:transform 0.1s;text-align:center}
 .btn:active{transform:scale(0.97)}
 .btn-main{background:linear-gradient(180deg,#ff6600,#8b0000);border-color:#ff8c00;box-shadow:0 0 35px rgba(255,102,0,0.7);animation:glow 2s ease-in-out infinite;font-size:19px;padding:22px 25px}
 @keyframes glow{0%,100%{box-shadow:0 0 35px rgba(255,102,0,0.7)}50%{box-shadow:0 0 50px rgba(255,102,0,1)}}
@@ -40,10 +41,12 @@ h1{font-size:44px;font-weight:900;letter-spacing:3px;background:linear-gradient(
 .btn.zip{background:linear-gradient(180deg,#5a4db8,#2c2470);border-color:#7a6de8;box-shadow:0 0 25px rgba(120,100,220,0.5)}
 .btn.online{background:linear-gradient(180deg,#9c27b0,#4a1259);border-color:#c85aca;box-shadow:0 0 25px rgba(200,90,200,0.5)}
 .btn.arcade{background:linear-gradient(180deg,#1e88e5,#0d47a1);border-color:#42a5f5;box-shadow:0 0 25px rgba(66,165,245,0.5)}
+.btn.tar{background:linear-gradient(180deg,#ff8c00,#8b4500);border-color:#ffb366;box-shadow:0 0 25px rgba(255,140,0,0.5)}
 .block{background:linear-gradient(180deg, rgba(40,20,70,0.85), rgba(20,10,40,0.85));border:2px solid rgba(150,60,220,0.4);border-radius:15px;padding:20px;margin:18px 0;text-align:left}
 .block h2{color:#ff8c00;font-size:20px;margin-bottom:14px;text-align:center}
 .block li{font-size:14px;color:#e0d0f0;padding:8px 0;list-style:none;border-bottom:1px solid rgba(255,140,0,0.15)}
 .block li:last-child{border:none}
+.block code{background:rgba(255,140,0,0.2);padding:2px 6px;border-radius:4px;font-size:13px;color:#ffcc99}
 .games-grid{display:grid;grid-template-columns:1fr;gap:15px}
 @media(min-width:600px){.games-grid{grid-template-columns:1fr 1fr}}
 .game-card{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #6a2b9a;border-radius:14px;padding:18px;text-align:center}
@@ -64,16 +67,17 @@ h1{font-size:44px;font-weight:900;letter-spacing:3px;background:linear-gradient(
 
   <div class="hero">
     <h1>ГРОМ БРОНИ</h1>
-    <p class="subtitle">🎃 ТАНКОВАЯ АРКАДА 🎃</p>
-    <p class="version">Версия 3.0 · Halloween · Android + Web · Автор: Мухаммад, 9 лет</p>
+    <p class="subtitle">🎃 ТАНКОВАЯ АРКАДА ДЛЯ ПК И ANDROID 🎃</p>
+    <p class="version">Версия 3.0 · Halloween · Автор: Мухаммад, 9 лет</p>
     <div class="slogan">🏆 300+ ТАНКОВ · 100 КАРТ · СОЮЗНИКИ-БОТЫ 🏆</div>
   </div>
 
   <div class="buttons">
-    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn btn-main">📥 СКАЧАТЬ APK ДЛЯ ANDROID</a>
-    <a href="game.html" class="btn online">▶️ ИГРАТЬ ОНЛАЙН</a>
+    <a href="game.html" class="btn btn-main">▶️ ИГРАТЬ ОНЛАЙН</a>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn apk">📱 СКАЧАТЬ ДЛЯ ANDROID (APK)</a>
+    <a href="GromBroni.tar.gz" download class="btn tar">🖥️ СКАЧАТЬ ИГРУ ДЛЯ ПК (Linux)</a>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip">📦 СКАЧАТЬ ZIP (Windows/Mac)</a>
     <a href="https://arcadelab.ai/play/game-pixelfox56" class="btn arcade">🎮 ИГРАТЬ НА ARCADE LAB</a>
-    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip">📦 СКАЧАТЬ ZIP</a>
   </div>
 
   <div class="block">
@@ -110,11 +114,12 @@ h1{font-size:44px;font-weight:900;letter-spacing:3px;background:linear-gradient(
   </div>
 
   <div class="block">
-    <h2>📖 Как установить APK</h2>
+    <h2>📖 Как установить</h2>
     <ul>
-      <li><b>Способ 1:</b> Скачай APK → открой → разреши установку → играй</li>
-      <li><b>Способ 2:</b> Скачай ZIP → распакуй → установи APK</li>
-      <li><b>Способ 3:</b> Нажми «Играть онлайн» — игра в браузере</li>
+      <li><b>📱 Android:</b> Скачай APK → открой → разреши установку → играй</li>
+      <li><b>🖥️ ПК (Linux):</b> Скачай TAR.GZ → распакуй: <code>tar -xzvf GromBroni.tar.gz</code> → открой <code>game.html</code></li>
+      <li><b>📦 Windows/Mac:</b> Скачай ZIP → распакуй → открой <code>game.html</code> в браузере</li>
+      <li><b>🌐 Без скачивания:</b> Нажми «Играть онлайн» — игра в браузере</li>
     </ul>
   </div>
 
@@ -123,6 +128,7 @@ h1{font-size:44px;font-weight:900;letter-spacing:3px;background:linear-gradient(
     <ul>
       <li>🕹️ Джойстик — движение (слева)</li>
       <li>🔥 ОГОНЬ — стрельба (справа)</li>
+      <li>⌨️ Клавиатура на ПК: <b>WASD</b> + <b>Пробел</b></li>
       <li>🤝 Союзники помогают в бою</li>
     </ul>
   </div>
