@@ -3,141 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Гром Брони 🎃 Технические работы</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+<title>Гром Брони 🎃 Танковая игра</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
+<meta name="description" content="Гром Брони — танковая аркада для Android и браузера. 300+ танков, 100 карт, союзники-боты. Скачай APK бесплатно!">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
 body{
   background:#0a0510;
   background-image:
     radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
     radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
     radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
+  background-attachment:fixed;
   color:#fff;
   font-family:'Segoe UI',Arial,sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding:20px;
+  padding:15px;
   text-align:center;
-  overflow:hidden;
+  min-height:100vh;
+  overflow-x:hidden;
 }
-
-/* Летучие мыши */
-.bat{position:fixed;font-size:28px;pointer-events:none;animation:fly 15s linear infinite;z-index:1;opacity:0.6}
-@keyframes fly{
-  0%{transform:translate(-10vw,20vh);}
-  25%{transform:translate(30vw,5vh);}
-  50%{transform:translate(60vw,30vh);}
-  75%{transform:translate(85vw,10vh);}
-  100%{transform:translate(110vw,25vh);}
-}
-
-.box{
-  background:linear-gradient(180deg, rgba(40,20,70,0.9) 0%, rgba(20,10,40,0.9) 100%);
-  border:3px solid #ff8c00;
-  border-radius:20px;
-  padding:40px 25px;
-  max-width:500px;
-  width:100%;
-  position:relative;
-  z-index:2;
-  box-shadow:0 0 50px rgba(255,140,0,0.5), inset 0 0 30px rgba(255,140,0,0.1);
-  animation:pulse 3s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 50px rgba(255,140,0,0.5), inset 0 0 30px rgba(255,140,0,0.1);}
-  50%{box-shadow:0 0 80px rgba(255,140,0,0.8), inset 0 0 40px rgba(255,140,0,0.2);}
-}
-
-.emoji{
-  font-size:90px;
-  display:block;
-  margin-bottom:20px;
-  animation:swing 2s ease-in-out infinite;
-}
-@keyframes swing{
-  0%,100%{transform:rotate(-10deg);}
-  50%{transform:rotate(10deg);}
-}
-
-h1{
-  font-size:36px;
-  font-weight:900;
-  letter-spacing:3px;
-  background:linear-gradient(180deg,#ffcc00 0%,#ff6600 50%,#cc0066 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  margin-bottom:15px;
-  line-height:1.1;
-}
-
-.subtitle{
-  font-size:20px;
-  color:#ff8c00;
-  font-weight:bold;
-  margin-bottom:20px;
-  letter-spacing:2px;
-}
-
-.text{
-  font-size:15px;
-  color:#c0b0d0;
-  line-height:1.7;
-  margin-bottom:25px;
-}
-
-.text b{color:#ffcc00}
-
-/* Точки загрузки */
-.dots{display:inline-block;font-size:20px;color:#ff8c00}
-.dots span{animation:blink 1.4s infinite;display:inline-block}
-.dots span:nth-child(2){animation-delay:0.2s}
-.dots span:nth-child(3){animation-delay:0.4s}
-@keyframes blink{0%,60%,100%{opacity:0.2;}30%{opacity:1;}}
-
-/* Прогресс-бар */
-.progress{
-  background:rgba(0,0,0,0.5);
-  border:2px solid #6a2b9a;
-  border-radius:20px;
-  height:20px;
-  overflow:hidden;
-  margin-bottom:20px;
-}
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#ff6600,#ffcc00,#ff6600);
-  background-size:200% 100%;
-  border-radius:20px;
-  transition:width 0.5s ease;
-  animation:shine 2s linear infinite;
-}
-@keyframes shine{
-  0%{background-position:0% 0;}
-  100%{background-position:200% 0;}
-}
-
-/* Контакты */
-.contact{
-  border-top:1px solid rgba(255,140,0,0.3);
-  padding-top:20px;
-  margin-top:10px;
-  font-size:14px;
-  color:#a080c0;
-}
-.contact a{color:#ff8c00;text-decoration:none;font-weight:bold;}
-
-/* Версия */
-.version{
-  font-size:12px;
-  color:#5a3a8a;
-  margin-top:15px;
-}
+.container{max-width:800px;margin:0 auto;position:relative;z-index:2}
+.bat{position:fixed;font-size:24px;pointer-events:none;animation:fly 15s linear infinite;z-index:1;opacity:0.6}
+@keyframes fly{0%{transform:translate(-10vw,20vh)}25%{transform:translate(30vw,5vh)}50%{transform:translate(60vw,30vh)}75%{transform:translate(85vw,10vh)}100%{transform:translate(110vw,25vh)}}
+.hero{padding:35px 20px;border-radius:20px;margin-bottom:20px;background:radial-gradient(circle at 50% 0%, rgba(255,140,0,0.25) 0%, transparent 70%);border:2px solid rgba(255,140,0,0.3);position:relative}
+h1{font-size:44px;font-weight:900;letter-spacing:3px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin:10px 0;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.subtitle{font-size:18px;color:#ff8c00;margin-bottom:8px;font-weight:bold}
+.version{font-size:13px;color:#a080c0;margin-bottom:15px}
+.slogan{background:rgba(255,140,0,0.15);border:2px solid #ff8c00;border-radius:12px;padding:12px;margin:15px auto;max-width:500px;font-size:14px;font-weight:bold;color:#ffcc99}
+.buttons{display:flex;flex-direction:column;gap:12px;align-items:center;margin:25px 0}
+.btn{display:block;width:100%;max-width:420px;padding:18px 25px;font-size:17px;font-weight:bold;color:#fff;text-decoration:none;border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer;transition:transform 0.1s;position:relative;text-align:center}
+.btn:active{transform:scale(0.97)}
+.btn-main{background:linear-gradient(180deg,#ff6600,#8b0000);border-color:#ff8c00;box-shadow:0 0 35px rgba(255,102,0,0.7);animation:glow 2s ease-in-out infinite;font-size:19px;padding:22px 25px}
+@keyframes glow{0%,100%{box-shadow:0 0 35px rgba(255,102,0,0.7)}50%{box-shadow:0 0 50px rgba(255,102,0,1)}}
+.btn.apk{background:linear-gradient(180deg,#3a8a3a,#2a602a);border-color:#5aca5a;box-shadow:0 0 25px rgba(90,202,90,0.5)}
+.btn.zip{background:linear-gradient(180deg,#5a4db8,#2c2470);border-color:#7a6de8;box-shadow:0 0 25px rgba(120,100,220,0.5)}
+.btn.online{background:linear-gradient(180deg,#9c27b0,#4a1259);border-color:#c85aca;box-shadow:0 0 25px rgba(200,90,200,0.5)}
+.btn.arcade{background:linear-gradient(180deg,#1e88e5,#0d47a1);border-color:#42a5f5;box-shadow:0 0 25px rgba(66,165,245,0.5)}
+.block{background:linear-gradient(180deg, rgba(40,20,70,0.85), rgba(20,10,40,0.85));border:2px solid rgba(150,60,220,0.4);border-radius:15px;padding:20px;margin:18px 0;text-align:left}
+.block h2{color:#ff8c00;font-size:20px;margin-bottom:14px;text-align:center}
+.block li{font-size:14px;color:#e0d0f0;padding:8px 0;list-style:none;border-bottom:1px solid rgba(255,140,0,0.15)}
+.block li:last-child{border:none}
+.games-grid{display:grid;grid-template-columns:1fr;gap:15px}
+@media(min-width:600px){.games-grid{grid-template-columns:1fr 1fr}}
+.game-card{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #6a2b9a;border-radius:14px;padding:18px;text-align:center}
+.game-icon{font-size:50px;margin-bottom:10px;display:block}
+.game-title{font-size:18px;font-weight:bold;color:#ffcc00;margin-bottom:6px}
+.game-desc{font-size:13px;color:#c0b0d0;margin-bottom:12px}
+.footer{margin-top:30px;padding:20px 0;font-size:13px;color:#8060a0;border-top:1px solid rgba(255,140,0,0.2)}
+.footer a{color:#ff8c00;text-decoration:none;margin:0 5px}
 </style>
 </head>
 <body>
@@ -146,41 +60,81 @@ h1{
 <div class="bat" style="animation-delay:-5s;">🦇</div>
 <div class="bat" style="animation-delay:-10s;">🦇</div>
 
-<div class="box">
-  <span class="emoji">🔧</span>
-  <h1>ГРОМ БРОНИ</h1>
-  <div class="subtitle">ТЕХНИЧЕСКИЕ РАБОТЫ<span class="dots"><span>.</span><span>.</span><span>.</span></span></div>
+<div class="container">
 
-  <div class="text">
-    🚀 Мы обновляем игру!<br>
-    Скоро будет <b>новая версия</b> с крутыми фишками.<br>
-    Спасибо за терпение! 🎃
+  <div class="hero">
+    <h1>ГРОМ БРОНИ</h1>
+    <p class="subtitle">🎃 ТАНКОВАЯ АРКАДА 🎃</p>
+    <p class="version">Версия 3.0 · Halloween · Android + Web · Автор: Мухаммад, 9 лет</p>
+    <div class="slogan">🏆 300+ ТАНКОВ · 100 КАРТ · СОЮЗНИКИ-БОТЫ 🏆</div>
   </div>
 
-  <div class="progress">
-    <div class="progress-bar" id="bar"></div>
+  <div class="buttons">
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn btn-main">📥 СКАЧАТЬ APK ДЛЯ ANDROID</a>
+    <a href="game.html" class="btn online">▶️ ИГРАТЬ ОНЛАЙН</a>
+    <a href="https://arcadelab.ai/play/game-pixelfox56" class="btn arcade">🎮 ИГРАТЬ НА ARCADE LAB</a>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip">📦 СКАЧАТЬ ZIP</a>
   </div>
 
-  <div class="contact">
-    📱 Следи за новостями:<br>
-    <a href="https://github.com/majidovmuhammad23774/Frontier-site">GitHub</a>
+  <div class="block">
+    <h2>🎮 Наши игры</h2>
+    <div class="games-grid">
+      <div class="game-card">
+        <span class="game-icon">🚜</span>
+        <div class="game-title">Гром Брони</div>
+        <div class="game-desc">300+ танков, 100 карт, союзники-боты</div>
+        <a href="game.html" class="btn online" style="padding:10px;font-size:14px;">▶️ Играть</a>
+      </div>
+      <div class="game-card">
+        <span class="game-icon">🚀</span>
+        <div class="game-title">Космо Турбикс</div>
+        <div class="game-desc">Космическая аркада с инопланетянами</div>
+        <a href="https://majidovmuhammad23774.github.io/Cosmo-turbiks/" class="btn arcade" style="padding:10px;font-size:14px;">▶️ Играть</a>
+      </div>
+    </div>
   </div>
 
-  <div class="version">© Мухаммад 2026 · Версия 3.0 в разработке</div>
+  <div class="block">
+    <h2>🎯 Что в игре «Гром Брони»</h2>
+    <ul>
+      <li>🚜 <b>300+ танков</b> — от «Стандарт» до «Мега Капитан 5»</li>
+      <li>🗺️ <b>100 карт</b> — Пустыня, Лес, Горный Каньон, Космос...</li>
+      <li>🤝 <b>Союзники-боты</b> — 2-5 помощников в бою</li>
+      <li>💥 <b>Враги стреляют</b> с 1-й волны</li>
+      <li>🎃 <b>Хэллоуин-скины</b> — Тыква, Скелет, Призрак, Ведьма, Зомби</li>
+      <li>📦 <b>8 кейсов</b> — включая 💎 Миф-Дарлинг и 👑 Ультрический</li>
+      <li>🏅 <b>Боевой пропуск</b> — 10 уровней наград</li>
+      <li>🐛 <b>Гусеницы → Мотыльки</b> — уникальная механика</li>
+      <li>💾 <b>Сохранение прогресса</b></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2>📖 Как установить APK</h2>
+    <ul>
+      <li><b>Способ 1:</b> Скачай APK → открой → разреши установку → играй</li>
+      <li><b>Способ 2:</b> Скачай ZIP → распакуй → установи APK</li>
+      <li><b>Способ 3:</b> Нажми «Играть онлайн» — игра в браузере</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2>🎮 Управление</h2>
+    <ul>
+      <li>🕹️ Джойстик — движение (слева)</li>
+      <li>🔥 ОГОНЬ — стрельба (справа)</li>
+      <li>🤝 Союзники помогают в бою</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    © Автор: Мухаммад, 2026 🎃<br>
+    Игра создана на HTML + JavaScript<br>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site">GitHub</a> ·
+    <a href="privacy.html">Политика конфиденциальности</a>
+  </div>
+
 </div>
-
-<script>
-// Прогресс-бар (просто для красоты — показывает "работы идут")
-const bar = document.getElementById('bar');
-let progress = 0;
-setInterval(() => {
-  progress += Math.random() * 8;
-  if (progress > 95) progress = 15; // сброс, чтобы не выглядело "завершено"
-  bar.style.width = progress + '%';
-}, 800);
-
-console.log('🔧 Технические работы · Гром Брони');
-</script>
 
 </body>
 </html>
