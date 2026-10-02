@@ -99,7 +99,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <div class="menu">
       <button class="btn btn-green"  onclick="openBattle()">⚔️ В БОЙ</button>
       <button class="btn btn-blue"   onclick="openHangar()">🚜 АНГАР</button>
-      <button class="btn btn-purple" onclick="openSkins()">🎨 СКИНЫ (300)</button>
+      <button class="btn btn-purple" onclick="openTanks()">🚜 ТАНКИ (300)</button>
       <button class="btn btn-blue"   onclick="openProfile()">👤 ПРОФИЛЬ</button>
       <button class="btn btn-gold"   onclick="openHelper()">🤖 ПОМОЩНИК</button>
       <button class="btn btn-blue"   onclick="openCases()">📦 КЕЙСЫ</button>
@@ -135,9 +135,9 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <button class="btn btn-blue back-btn" onclick="closeHangar()">◀ НАЗАД</button>
   </div>
 
-  <div class="screen" id="screen-skins">
-    <div class="screen-title">🎨 СКИНЫ</div>
-    <div id="skinsList"></div>
+  <div class="screen" id="screen-tanks">
+    <div class="screen-title">🚜 ТАНКИ</div>
+    <div id="tanksList"></div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
@@ -177,12 +177,12 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   </div>
 
   <div class="screen" id="screen-event">
-    <div class="screen-title">🎃 ХЭЛЛОУИН-СОБЫТИЕ</div>
+    <div class="screen-title">🎃 СОБЫТИЕ</div>
     <div class="event-card">
       <span class="event-emoji">🎃</span>
       <div style="font-size:20px;font-weight:bold;color:#ff8c00;margin-bottom:10px;">НОЧЬ ТЫКВ!</div>
       <div style="color:#ffcc99;font-size:14px;line-height:1.5;margin-bottom:15px;">
-        🧟 Зомби-танки<br>💀 Карта «Кладбище»<br>👻 Скин «Тыква» в награду
+        🧟 Зомби-танки<br>💀 Карта «Руины»<br>👻 Скин «Тыква» в награду
       </div>
       <button class="btn btn-event" onclick="startEvent()">🎃 ИГРАТЬ СОБЫТИЕ</button>
     </div>
@@ -194,6 +194,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   <canvas id="battle-canvas"></canvas>
   <div class="hud">
     <div class="hud-box">❤️ <span id="player-hp">100</span></div>
+    <div class="hud-box">🤝 <span id="allies-left">0</span></div>
     <div class="hud-box">👾 <span id="enemies-left">0</span></div>
     <div class="hud-box">🌊 <span id="wave-num">1</span></div>
     <div class="hud-box">🦋 <span id="moths-count">0</span></div>
@@ -216,7 +217,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 </div>
 <script>
 // ============================================
-// 🎃 ГРОМ БРОНИ · 2D · 300 ТАНКОВ
+// 🎃 ГРОМ БРОНИ · 2D · 300 ТАНКОВ · 100 КАРТ
 // ============================================
 
 // ========== ДАННЫЕ ==========
@@ -242,7 +243,7 @@ function showToast(msg){
   t.innerText = msg;
   t.classList.add('show');
   clearTimeout(t._timer);
-  t._timer = setTimeout(()=>t.classList.remove('show'), 2500);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 3000);
 }
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -260,6 +261,59 @@ function toggleMusic(){
   if(music.paused){ music.volume=0.3; music.play().catch(()=>{}); showToast('🎵 Музыка включена'); }
   else { music.pause(); showToast('🔇 Музыка выключена'); }
 }
+
+// ========== 100 КАРТ ==========
+const MAP_NAMES = [
+  'Пустыня','Лес','Горы','Горный Каньон','Космос','Луна','Марс','Лёд','Снег','Вулкан',
+  'Джунгли','Болото','Пляж','Город','Руины','Пещера','Мост','Река','Озеро','Остров',
+  'Арктика','Антарктика','Саванна','Прерии','Каньон','Скалы','Дюны','Оазис','Мираж','Шторм',
+  'Ураган','Циклон','Тайфун','Смерч','Гроза','Молния','Дождь','Туман','Мгла','Ночь',
+  'Рассвет','Закат','Заря','Полночь','Лунная ночь','Звёздное небо','Галактика','Туманность','Комета','Метеор',
+  'Астероид','Орбита','Станция','Корабль','Шаттл','Ракета','Спутник','Планета','Солнце','Меркурий',
+  'Венера','Юпитер','Сатурн','Уран','Нептун','Плутон','Церера','Титан','Европа','Ио',
+  'Каллисто','Ганимед','Фобос','Деймос','Пояс астероидов','Пояс Койпера','Чёрная дыра','Квазар','Пульсар','Нейтронная звезда',
+  'Красный гигант','Белый карлик','Сверхновая','Центр галактики','Орион','Андромеда','Млечный путь','Магелланово облако','Треугольник','Пегас',
+  'Кассиопея','Большая Медведица','Малая Медведица','Дракон','Лебедь','Лира','Орёл','Скорпион','Весы','Рыбы'
+];
+
+const MAP_COLORS = [
+  '#c2a878','#2d5016','#6b6b6b','#8b5a2b','#0a0510','#dddddd','#c1440e','#aaddff','#ffffff','#ff4500',
+  '#1b4332','#4a5d23','#f4e4bc','#4a4a4a','#8b7355','#3a2a1a','#654321','#2c5faa','#1e90ff','#00ced1',
+  '#f0f8ff','#e0ffff','#9acd32','#daa520','#8b4513','#708090','#f4a460','#3cb371','#9370db','#4169e1',
+  '#dc143c','#ff6347','#ff8c00','#ffd700','#adff2f','#00fa9a','#40e0d0','#87ceeb','#6a5acd','#191970',
+  '#ff1493','#ff69b4','#ffb6c1','#ffe4e1','#fff0f5','#e6e6fa','#d8bfd8','#dda0dd','#ee82ee','#da70d6',
+  '#ba55d3','#9370db','#8a2be2','#9400d3','#9932cc','#8b008b','#800080','#4b0082','#483d8b','#6a5acd',
+  '#7b68ee','#8470ff','#4169e1','#1e90ff','#00bfff','#87ceeb','#87cefa','#00ced1','#48d1cc','#20b2aa',
+  '#008b8b','#008080','#2e8b57','#3cb371','#00ff7f','#00fa9a','#7cfc00','#7fff00','#adff2f','#ffff00',
+  '#ffd700','#ffa500','#ff8c00','#ff7f50','#ff6347','#ff4500','#ff0000','#dc143c','#b22222','#8b0000'
+];
+
+const MAP_FEATURES = [
+  { name: 'Норма',    speedMod: 1.0, damageMod: 1.0, hpMod: 1.0 },
+  { name: 'Скользко', speedMod: 1.5, damageMod: 1.0, hpMod: 1.0 },
+  { name: 'Грязь',    speedMod: 0.5, damageMod: 1.0, hpMod: 1.0 },
+  { name: 'Жарко',    speedMod: 1.0, damageMod: 1.2, hpMod: 0.8 },
+  { name: 'Холодно',  speedMod: 0.8, damageMod: 1.0, hpMod: 1.2 },
+  { name: 'Опасно',   speedMod: 1.0, damageMod: 1.5, hpMod: 0.9 },
+  { name: 'Спокойно', speedMod: 1.0, damageMod: 0.8, hpMod: 1.1 },
+  { name: 'Тёмно',    speedMod: 0.9, damageMod: 1.1, hpMod: 1.0 }
+];
+
+const MAPS = [];
+for (let i = 0; i < MAP_NAMES.length; i++) {
+  const color = MAP_COLORS[i % MAP_COLORS.length];
+  const feature = MAP_FEATURES[i % MAP_FEATURES.length];
+  MAPS.push({
+    id: 'map_' + i,
+    name: MAP_NAMES[i],
+    color: color,
+    feature: feature.name,
+    speedMod: feature.speedMod,
+    damageMod: feature.damageMod,
+    hpMod: feature.hpMod
+  });
+}
+console.log('🗺️ Создано карт: ' + MAPS.length);
 
 // ========== 300 ТАНКОВ ==========
 const SKIN_NAMES = [
@@ -304,16 +358,16 @@ for (let p = 0; p < SKIN_PREFIX.length; p++) {
     }
   }
 }
-console.log('🎃 Создано танков: ' + SKINS.length);
+console.log('🚜 Создано танков: ' + SKINS.length);
 
-// ========== СКИНЫ С ПАГИНАЦИЕЙ ==========
+// ========== ТАНКИ С ПАГИНАЦИЕЙ ==========
 let skinPage = 0;
 const SKINS_PER_PAGE = 20;
 
-function openSkins(){ skinPage = 0; renderSkins(); showScreen('screen-skins'); }
+function openTanks(){ skinPage = 0; renderTanks(); showScreen('screen-tanks'); }
 
-function renderSkins(){
-  const list = document.getElementById('skinsList');
+function renderTanks(){
+  const list = document.getElementById('tanksList');
   list.innerHTML = '';
 
   const totalPages = Math.ceil(SKINS.length / SKINS_PER_PAGE);
@@ -339,17 +393,17 @@ function renderSkins(){
   const nav = document.createElement('div');
   nav.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px;padding:10px;background:rgba(40,20,70,0.6);border-radius:10px;';
   nav.innerHTML = `
-    <button class="buy-btn" onclick="changeSkinPage(-1)" ${skinPage===0?'disabled':''}>◀</button>
+    <button class="buy-btn" onclick="changeTankPage(-1)" ${skinPage===0?'disabled':''}>◀</button>
     <span style="font-weight:bold;">${skinPage+1} / ${totalPages}</span>
-    <button class="buy-btn" onclick="changeSkinPage(1)" ${skinPage>=totalPages-1?'disabled':''}>▶</button>
+    <button class="buy-btn" onclick="changeTankPage(1)" ${skinPage>=totalPages-1?'disabled':''}>▶</button>
   `;
   list.appendChild(nav);
 }
 
-function changeSkinPage(dir){
+function changeTankPage(dir){
   const totalPages = Math.ceil(SKINS.length / SKINS_PER_PAGE);
   skinPage = Math.max(0, Math.min(totalPages-1, skinPage + dir));
-  renderSkins();
+  renderTanks();
 }
 
 function buySkin(id){
@@ -359,12 +413,12 @@ function buySkin(id){
   playerData.gold -= skin.price;
   playerData.unlockedSkins.push(id);
   playerData.currentSkin = id;
-  saveGame(); updateUI(); renderSkins();
+  saveGame(); updateUI(); renderTanks();
   showToast('🎉 Куплено: ' + skin.name);
 }
 function equipSkin(id){
   playerData.currentSkin = id;
-  saveGame(); renderSkins();
+  saveGame(); renderTanks();
   showToast('✅ Надет: ' + SKINS.find(s=>s.id===id).name);
 }
 
@@ -623,23 +677,28 @@ function buildTank3D(skinId){
 // ========== 2D БОЙ ==========
 const battle = {
   canvas:null, ctx:null, player:null, playerHp:100,
-  enemies:[], bullets:[], caterpillars:[], moths:0,
+  enemies:[], allies:[], bullets:[], caterpillars:[], moths:0,
   keys:{ up:false, down:false, left:false, right:false },
   wave:1, running:false, lastTime:0, cooldown:0,
-  W:0, H:0
+  W:0, H:0, map:null
 };
 function openBattle(){ showScreen('screen-battle'); }
 function startBattle(waveNum){
   battle.wave = waveNum;
   battle.playerHp = 100;
-  battle.enemies = []; battle.bullets = []; battle.caterpillars = [];
+  battle.enemies = []; battle.allies = []; battle.bullets = []; battle.caterpillars = [];
   battle.moths = 0;
   battle.keys = { up:false, down:false, left:false, right:false };
   battle.cooldown = 0; battle.running = true;
+
+  // 🗺️ Случайная карта
+  battle.map = MAPS[Math.floor(Math.random() * MAPS.length)];
+
   document.getElementById('battle-screen').classList.add('active');
   document.getElementById('wave-num').innerText = waveNum;
   document.getElementById('player-hp').innerText = 100;
   document.getElementById('moths-count').innerText = 0;
+  setTimeout(() => showToast('🗺️ Карта: ' + battle.map.name + ' (' + battle.map.feature + ')'), 500);
   setTimeout(initBattle2D, 50);
   initBattleControls();
 }
@@ -677,8 +736,25 @@ function spawnEnemies2D(wave){
     });
   }
   document.getElementById('enemies-left').innerText = battle.enemies.length;
-}
-function initBattleControls(){
+
+  // 🤝 Союзники-боты (2-5)
+  const alliesCount = Math.min(2 + Math.floor(wave/2), 5);
+  for(let i=0; i<alliesCount; i++){
+    const angle = (Math.PI*2/alliesCount)*(i+0.5);
+    const dist = 100 + Math.random()*60;
+    battle.allies.push({
+      x: battle.W/2 + Math.cos(angle)*dist,
+      y: battle.H/2 + Math.sin(angle)*dist,
+      angle: 0,
+      hp: 50 + wave*5,
+      speed: 80 + wave*3,
+      lastShot: 0,
+      shotInterval: 1.2,
+      color: '#4caf50'
+    });
+  }
+  document.getElementById('allies-left').innerText = battle.allies.length;
+}function initBattleControls(){
   document.onkeydown = e => {
     if(e.key==='w'||e.key==='ArrowUp') battle.keys.up = true;
     if(e.key==='s'||e.key==='ArrowDown') battle.keys.down = true;
@@ -716,7 +792,8 @@ function fireBullet2D(){
     vx: Math.cos(battle.player.angle) * 500,
     vy: Math.sin(battle.player.angle) * 500,
     life: 3,
-    damage: 25 + battle.moths * 5
+    damage: 25 + battle.moths * 5,
+    friendly: true
   });
 }
 
@@ -754,6 +831,7 @@ function battleLoop2D(now){
   battle.player.x = Math.max(20, Math.min(battle.W-20, battle.player.x));
   battle.player.y = Math.max(20, Math.min(battle.H-20, battle.player.y));
 
+  // 🐛 Гусеницы
   if(Math.random() < 0.02 && battle.caterpillars.length < 5){
     const a = Math.random()*Math.PI*2;
     const d = 60 + Math.random()*40;
@@ -768,11 +846,13 @@ function battleLoop2D(now){
     if(battle.caterpillars[i].life <= 0) battle.caterpillars.splice(i,1);
   }
 
+  // 🦋 Лечение
   if(battle.moths >= 5 && battle.playerHp < 100){
     battle.playerHp = Math.min(100, battle.playerHp + 2*dt);
     document.getElementById('player-hp').innerText = Math.floor(battle.playerHp);
   }
 
+  // Пули
   for(let i = battle.bullets.length-1; i >= 0; i--){
     const b = battle.bullets[i];
     b.x += b.vx * dt; b.y += b.vy * dt;
@@ -780,23 +860,59 @@ function battleLoop2D(now){
     if(b.life <= 0 || b.x<0 || b.x>battle.W || b.y<0 || b.y>battle.H){
       battle.bullets.splice(i,1); continue;
     }
-    for(let j = battle.enemies.length-1; j >= 0; j--){
-      const e = battle.enemies[j];
-      if(Math.hypot(b.x-e.x, b.y-e.y) < 20){
-        e.hp -= b.damage;
-        battle.bullets.splice(i,1);
-        if(e.hp <= 0){
-          battle.enemies.splice(j,1);
-          playerData.gold += 100;
-          playerData.wins++;
-          saveGame(); updateUI();
-          document.getElementById('enemies-left').innerText = battle.enemies.length;
+    // Только вражеские пули бьют врагов
+    if(b.friendly !== false){
+      for(let j = battle.enemies.length-1; j >= 0; j--){
+        const e = battle.enemies[j];
+        if(Math.hypot(b.x-e.x, b.y-e.y) < 20){
+          e.hp -= b.damage;
+          battle.bullets.splice(i,1);
+          if(e.hp <= 0){
+            battle.enemies.splice(j,1);
+            playerData.gold += 100;
+            playerData.wins++;
+            saveGame(); updateUI();
+            document.getElementById('enemies-left').innerText = battle.enemies.length;
+          }
+          break;
         }
-        break;
       }
     }
   }
 
+  // 🤝 СОЮЗНИКИ-БОТЫ
+  battle.allies.forEach(a => {
+    let closest = null, minDist = 9999;
+    battle.enemies.forEach(e => {
+      const d = Math.hypot(e.x - a.x, e.y - a.y);
+      if(d < minDist) { minDist = d; closest = e; }
+    });
+    if(closest){
+      const ddx = closest.x - a.x;
+      const ddy = closest.y - a.y;
+      const dist = Math.hypot(ddx, ddy);
+      a.angle = Math.atan2(ddy, ddx);
+      if(dist > 200){
+        a.x += (ddx/dist) * a.speed * dt;
+        a.y += (ddy/dist) * a.speed * dt;
+      }
+      a.lastShot += dt;
+      if(a.lastShot > a.shotInterval && dist < 400){
+        a.lastShot = 0;
+        battle.bullets.push({
+          x: a.x + Math.cos(a.angle)*30,
+          y: a.y + Math.sin(a.angle)*30,
+          vx: Math.cos(a.angle)*500,
+          vy: Math.sin(a.angle)*500,
+          life: 2,
+          damage: 20,
+          friendly: true
+        });
+      }
+    }
+  });
+
+  // Враги — стреляют с 1-й волны
   battle.enemies.forEach(e => {
     const ddx = battle.player.x - e.x;
     const ddy = battle.player.y - e.y;
@@ -809,31 +925,43 @@ function battleLoop2D(now){
     e.lastShot += dt;
     if(e.lastShot > e.shotInterval && dist < 400){
       e.lastShot = 0;
-      battle.playerHp -= 5 + battle.wave;
-      if(battle.playerHp < 0) battle.playerHp = 0;
-      document.getElementById('player-hp').innerText = battle.playerHp;
-      if(battle.playerHp <= 0) endBattle2D(false);
+      if(battle.allies.length > 0 && Math.random() < 0.4){
+        const target = battle.allies[Math.floor(Math.random()*battle.allies.length)];
+        target.hp -= 10 + battle.wave;
+        if(target.hp <= 0){
+          battle.allies.splice(battle.allies.indexOf(target), 1);
+          document.getElementById('allies-left').innerText = battle.allies.length;
+        }
+      } else {
+        battle.playerHp -= 5 + battle.wave;
+        if(battle.playerHp < 0) battle.playerHp = 0;
+        document.getElementById('player-hp').innerText = battle.playerHp;
+        if(battle.playerHp <= 0) endBattle2D(false);
+      }
     }
   });
 
   if(battle.enemies.length === 0 && battle.running) endBattle2D(true);
 
-  ctx.fillStyle = '#0a0510';
+  // 🎨 Рисуем всё
+  ctx.fillStyle = battle.map ? battle.map.color : '#0a0510';
   ctx.fillRect(0, 0, battle.W, battle.H);
 
-  ctx.strokeStyle = 'rgba(255,102,0,0.1)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
   ctx.lineWidth = 1;
   for(let x = 0; x < battle.W; x += 50){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,battle.H); ctx.stroke(); }
   for(let y = 0; y < battle.H; y += 50){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(battle.W,y); ctx.stroke(); }
 
   battle.caterpillars.forEach(c => {
-    ctx.fillStyle = '#7a9a3a';    ctx.beginPath();
+    ctx.fillStyle = '#7a9a3a';
+    ctx.beginPath();
     ctx.arc(c.x, c.y, 10, 0, Math.PI*2);
     ctx.fill();
     ctx.strokeStyle = '#3a5a1a';
     ctx.stroke();
   });
 
+  battle.allies.forEach(a => drawTank2D(ctx, a.x, a.y, a.angle, a.color));
   battle.enemies.forEach(e => drawTank2D(ctx, e.x, e.y, e.angle, e.color));
   drawTank2D(ctx, battle.player.x, battle.player.y, battle.player.angle, battle.player.color);
 
@@ -856,14 +984,16 @@ function endBattle2D(win){
     playerData.gold += battle.wave*500;
     playerData.level = Math.max(playerData.level, battle.wave);
     saveGame(); updateUI();
-    showToast('🏆 Победа! +' + (battle.wave*500) + ' 🪙');
-  } else showToast('💀 Поражение...');
-  setTimeout(()=> exitBattle(), 1500);
+    showToast('🏆 У противника закончились все машины! Победа! +' + (battle.wave*500) + ' 🪙');
+  } else {
+    showToast('💀 Ух! Мы проиграли, уходим. Но в следующий раз победа будет наша!');
+  }
+  setTimeout(()=> exitBattle(), 2500);
 }
 function exitBattle(){
   battle.running = false;
   document.getElementById('battle-screen').classList.remove('active');
-  battle.enemies = []; battle.bullets = []; battle.caterpillars = [];
+  battle.enemies = []; battle.bullets = []; battle.caterpillars = []; battle.allies = [];
   showScreen('screen-main');
 }
 
