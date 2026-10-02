@@ -20,7 +20,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
 .logo small{display:block;font-size:16px;color:#ff6600;font-weight:bold;letter-spacing:6px;margin-top:6px;-webkit-text-fill-color:#ff6600}
 .menu{display:flex;flex-direction:column;gap:10px;flex:1}
-.btn{padding:16px;font-size:17px;font-weight:bold;color:#fff;border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-shadow:0 1px 2px rgba(0,0,0,0.5);letter-spacing:1px;font-family:inherit;transition:transform 0.1s}
+.btn{padding:16px;font-size:17px;font-weight:bold;color:#fff;border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-shadow:0 1px 2px rgba(0,0,0,0.5);letter-spacing:1px;font-family:inherit;transition:transform 0.1s;text-decoration:none}
 .btn:active{transform:translateY(3px)}
 .btn-green{background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 4px 0 #0d3010}
 .btn-blue{background:linear-gradient(180deg,#5a4db8,#2c2470);box-shadow:0 4px 0 #1a1245}
@@ -29,6 +29,10 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 .btn-red{background:linear-gradient(180deg,#c62828,#5c1010);box-shadow:0 4px 0 #3a0808}
 .btn-event{background:linear-gradient(180deg,#ff4500,#8b0000);box-shadow:0 4px 0 #4a0000,0 0 25px rgba(255,69,0,0.7);animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 4px 0 #4a0000,0 0 25px rgba(255,69,0,0.7)}50%{box-shadow:0 4px 0 #4a0000,0 0 40px rgba(255,69,0,1)}}
+.btn.apk{background:linear-gradient(180deg,#3a8a3a,#2a602a);border:2px solid #5aca5a;box-shadow:0 4px 0 #0d3010}
+.btn.tar{background:linear-gradient(180deg,#ff8c00,#8b4500);border:2px solid #ffb366;box-shadow:0 4px 0 #4a2000}
+.btn.zip{background:linear-gradient(180deg,#5a4db8,#2c2470);border:2px solid #7a6de8;box-shadow:0 4px 0 #1a1245}
+.btn.arcade{background:linear-gradient(180deg,#1e88e5,#0d47a1);border:2px solid #42a5f5;box-shadow:0 4px 0 #062a5c}
 .screen{display:none;flex-direction:column;gap:10px;flex:1}
 .screen.active{display:flex}
 .screen-title{text-align:center;font-size:22px;font-weight:bold;color:#ff8c00;margin-bottom:15px}
@@ -78,10 +82,6 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
-  <source src="https://actions.google.com/sounds/v1/horror/haunted_house_ambience.ogg" type="audio/ogg">
-</audio>
-
 <div class="bat" style="animation-delay:0s;">🦇</div>
 <div class="bat" style="animation-delay:-5s;">🦇</div>
 <div class="bat" style="animation-delay:-10s;">🦇</div>
@@ -104,8 +104,9 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
       <button class="btn btn-gold"   onclick="openHelper()">🤖 ПОМОЩНИК</button>
       <button class="btn btn-blue"   onclick="openCases()">📦 КЕЙСЫ</button>
       <button class="btn btn-gold"   onclick="openPass()">🏅 БОЕВОЙ ПРОПУСК</button>
+      <button class="btn btn-gold"   onclick="openPromo()">🎁 ПРОМОКОД</button>
       <button class="btn btn-event"  onclick="openEvent()">🎃 СОБЫТИЕ</button>
-      <button class="btn btn-purple" onclick="toggleMusic()">🎵 МУЗЫКА</button>
+      <button class="btn btn-green"  onclick="openSite()">📥 СКАЧАТЬ НА САЙТЕ</button>
       <button class="btn btn-red"    onclick="exitGame()">🚪 ВЫХОД</button>
     </div>
   </div>
@@ -176,6 +177,26 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
+  <div class="screen" id="screen-promo">
+    <div class="screen-title">🎁 ПРОМОКОД</div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:20px;text-align:center;">
+      <div style="font-size:60px;margin-bottom:10px;">🎁</div>
+      <div style="font-weight:bold;margin-bottom:15px;">Введи промокод</div>
+      <input type="text" id="promoInput" placeholder="НАПРИМЕР: START2026" maxlength="20"
+        style="width:100%;padding:14px;font-size:16px;font-weight:bold;text-align:center;text-transform:uppercase;border:2px solid #ff8c00;border-radius:10px;background:#0f0518;color:#fff;outline:none;font-family:inherit;margin-bottom:12px;letter-spacing:2px;">
+      <button class="btn btn-green" onclick="applyPromo()">✅ АКТИВИРОВАТЬ</button>
+      <div style="margin-top:15px;font-size:12px;color:#8866aa;text-align:left;line-height:1.6;">
+        <b style="color:#ff8c00;">📋 Доступные коды:</b><br>
+        START2026 · GROM · BRONI · TANK · HALLOWEEN<br>
+        PUMPKIN · GHOST · SKELETON · ZOMBIE · WITCH<br>
+        HELP · GEMS100 · GOLD · RICH · LEGEND<br>
+        MYTH · ULTRA · SECRET · PIXELFOX · ARMOR
+      </div>
+      <div id="usedPromos" style="margin-top:15px;font-size:12px;color:#8866aa;text-align:left;"></div>
+    </div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
   <div class="screen" id="screen-event">
     <div class="screen-title">🎃 СОБЫТИЕ</div>
     <div class="event-card">
@@ -185,6 +206,20 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
         🧟 Зомби-танки<br>💀 Карта «Руины»<br>👻 Скин «Тыква» в награду
       </div>
       <button class="btn btn-event" onclick="startEvent()">🎃 ИГРАТЬ СОБЫТИЕ</button>
+    </div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-site">
+    <div class="screen-title">🌐 САЙТ ИГРЫ</div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:20px;text-align:center;">
+      <div style="font-size:60px;margin-bottom:10px;">🎮</div>
+      <div style="font-weight:bold;margin-bottom:15px;">Гром Брони — версия 3.0</div>
+      <a href="index.html" class="btn" style="margin-bottom:10px;background:linear-gradient(180deg,#9c27b0,#4a1259);border:2px solid #c85aca;">🏠 ГЛАВНАЯ СТРАНИЦА</a>
+      <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn apk" style="margin-bottom:10px;">📱 СКАЧАТЬ ДЛЯ ANDROID (APK)</a>
+      <a href="GromBroni.tar.gz" download class="btn tar" style="margin-bottom:10px;">🖥️ СКАЧАТЬ ДЛЯ ПК (Linux)</a>
+      <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip" style="margin-bottom:10px;">📦 СКАЧАТЬ ZIP (Windows/Mac)</a>
+      <a href="https://arcadelab.ai/play/game-pixelfox56" class="btn arcade">🎮 ИГРАТЬ НА ARCADE LAB</a>
     </div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
@@ -226,12 +261,14 @@ try {
   playerData = JSON.parse(localStorage.getItem('grom_broni_save')) || {
     gold:1000, gems:50, level:1, wins:0, helperLevel:1,
     unlockedSkins:['standard'], currentSkin:'standard',
-    openedCases:0, passClaimed:[]
+    openedCases:0, passClaimed:[], usedPromos:[]
   };
 } catch(e) {
   playerData = { gold:1000, gems:50, level:1, wins:0, helperLevel:1,
-    unlockedSkins:['standard'], currentSkin:'standard', openedCases:0, passClaimed:[] };
+    unlockedSkins:['standard'], currentSkin:'standard', openedCases:0, passClaimed:[], usedPromos:[] };
 }
+if(!playerData.usedPromos) playerData.usedPromos = [];
+
 function saveGame(){ try{ localStorage.setItem('grom_broni_save', JSON.stringify(playerData)); }catch(e){} }
 function updateUI(){
   document.getElementById('gold').innerText = playerData.gold;
@@ -251,15 +288,66 @@ function showScreen(id){
   window.scrollTo(0,0);
 }
 
-// ========== МУЗЫКА ==========
-const music = document.getElementById('bgMusic');
-function startMusic(){ if(music && music.paused){ music.volume=0.3; music.play().catch(()=>{}); } }
-document.addEventListener('touchstart', startMusic, {once:true});
-document.addEventListener('click', startMusic, {once:true});
-function toggleMusic(){
-  if(!music) return;
-  if(music.paused){ music.volume=0.3; music.play().catch(()=>{}); showToast('🎵 Музыка включена'); }
-  else { music.pause(); showToast('🔇 Музыка выключена'); }
+// ========== ПРОМОКОДЫ ==========
+const PROMOCODES = {
+  'START2026': { gold: 5000 },
+  'GROM':      { gold: 3000 },
+  'BRONI':     { gold: 3000 },
+  'TANK':      { gold: 5000 },
+  'HALLOWEEN': { gold: 10000, skin: 'pumpkin' },
+  'PUMPKIN':   { gold: 7000 },
+  'GHOST':     { gold: 7000 },
+  'SKELETON':  { gold: 7000 },
+  'ZOMBIE':    { gold: 8000 },
+  'WITCH':     { gold: 8000 },
+  'HELP':      { gold: 5000 },
+  'GEMS100':   { gems: 100 },
+  'GOLD':      { gold: 15000 },
+  'RICH':      { gold: 50000 },
+  'LEGEND':    { gold: 100000 },
+  'MYTH':      { gold: 500000 },
+  'ULTRA':     { gold: 1000000 },
+  'SECRET':    { gold: 999999 },
+  'PIXELFOX':  { gold: 25000 },
+  'ARMOR':     { gold: 30000 }
+};
+
+function openPromo(){
+  renderUsedPromos();
+  showScreen('screen-promo');
+}
+
+function renderUsedPromos(){
+  const el = document.getElementById('usedPromos');
+  if(!el) return;
+  if(playerData.usedPromos.length === 0){
+    el.innerHTML = '<b style="color:#8866aa;">✅ Активировано: пока ничего</b>';
+  } else {
+    el.innerHTML = '<b style="color:#8866aa;">✅ Активировано (' + playerData.usedPromos.length + '):</b><br>' + playerData.usedPromos.join(' · ');
+  }
+}
+
+function applyPromo(){
+  const input = document.getElementById('promoInput');
+  const code = input.value.trim().toUpperCase();
+  if(!code){ showToast('⚠️ Введи код!'); return; }
+  if(!PROMOCODES[code]){ showToast('❌ Код не найден!'); return; }
+  if(playerData.usedPromos.includes(code)){ showToast('⚠️ Код уже использован!'); return; }
+
+  const reward = PROMOCODES[code];
+  let msg = '🎁 ' + code + ': ';
+  if(reward.gold){ playerData.gold += reward.gold; msg += '+' + reward.gold.toLocaleString() + ' 🪙 '; }
+  if(reward.gems){ playerData.gems += reward.gems; msg += '+' + reward.gems + ' 💎 '; }
+  if(reward.skin && !playerData.unlockedSkins.includes(reward.skin)){
+    playerData.unlockedSkins.push(reward.skin);
+    msg += '+ Скин!';
+  }
+
+  playerData.usedPromos.push(code);
+  saveGame(); updateUI();
+  input.value = '';
+  renderUsedPromos();
+  showToast(msg);
 }
 
 // ========== 100 КАРТ ==========
@@ -276,58 +364,29 @@ const MAP_NAMES = [
   'Кассиопея','Большая Медведица','Малая Медведица','Дракон','Лебедь','Лира','Орёл','Скорпион','Весы','Рыбы'
 ];
 
-const MAP_COLORS = [
-  '#c2a878','#2d5016','#6b6b6b','#8b5a2b','#0a0510','#dddddd','#c1440e','#aaddff','#ffffff','#ff4500',
-  '#1b4332','#4a5d23','#f4e4bc','#4a4a4a','#8b7355','#3a2a1a','#654321','#2c5faa','#1e90ff','#00ced1',
-  '#f0f8ff','#e0ffff','#9acd32','#daa520','#8b4513','#708090','#f4a460','#3cb371','#9370db','#4169e1',
-  '#dc143c','#ff6347','#ff8c00','#ffd700','#adff2f','#00fa9a','#40e0d0','#87ceeb','#6a5acd','#191970',
-  '#ff1493','#ff69b4','#ffb6c1','#ffe4e1','#fff0f5','#e6e6fa','#d8bfd8','#dda0dd','#ee82ee','#da70d6',
-  '#ba55d3','#9370db','#8a2be2','#9400d3','#9932cc','#8b008b','#800080','#4b0082','#483d8b','#6a5acd',
-  '#7b68ee','#8470ff','#4169e1','#1e90ff','#00bfff','#87ceeb','#87cefa','#00ced1','#48d1cc','#20b2aa',
-  '#008b8b','#008080','#2e8b57','#3cb371','#00ff7f','#00fa9a','#7cfc00','#7fff00','#adff2f','#ffff00',
-  '#ffd700','#ffa500','#ff8c00','#ff7f50','#ff6347','#ff4500','#ff0000','#dc143c','#b22222','#8b0000'
-];
+const MAP_COLORS = ['#c2a878','#2d5016','#6b6b6b','#8b5a2b','#0a0510','#dddddd','#c1440e','#aaddff','#ffffff','#ff4500','#1b4332','#4a5d23','#f4e4bc','#4a4a4a','#8b7355','#3a2a1a','#654321','#2c5faa','#1e90ff','#00ced1','#f0f8ff','#e0ffff','#9acd32','#daa520','#8b4513','#708090','#f4a460','#3cb371','#9370db','#4169e1','#dc143c','#ff6347','#ff8c00','#ffd700','#adff2f','#00fa9a','#40e0d0','#87ceeb','#6a5acd','#191970','#ff1493','#ff69b4','#ffb6c1','#ffe4e1','#fff0f5','#e6e6fa','#d8bfd8','#dda0dd','#ee82ee','#da70d6','#ba55d3','#9370db','#8a2be2','#9400d3','#9932cc','#8b008b','#800080','#4b0082','#483d8b','#6a5acd','#7b68ee','#8470ff','#4169e1','#1e90ff','#00bfff','#87ceeb','#87cefa','#00ced1','#48d1cc','#20b2aa','#008b8b','#008080','#2e8b57','#3cb371','#00ff7f','#00fa9a','#7cfc00','#7fff00','#adff2f','#ffff00','#ffd700','#ffa500','#ff8c00','#ff7f50','#ff6347','#ff4500','#ff0000','#dc143c','#b22222','#8b0000'];
 
 const MAP_FEATURES = [
-  { name: 'Норма',    speedMod: 1.0, damageMod: 1.0, hpMod: 1.0 },
+  { name: 'Норма', speedMod: 1.0, damageMod: 1.0, hpMod: 1.0 },
   { name: 'Скользко', speedMod: 1.5, damageMod: 1.0, hpMod: 1.0 },
-  { name: 'Грязь',    speedMod: 0.5, damageMod: 1.0, hpMod: 1.0 },
-  { name: 'Жарко',    speedMod: 1.0, damageMod: 1.2, hpMod: 0.8 },
-  { name: 'Холодно',  speedMod: 0.8, damageMod: 1.0, hpMod: 1.2 },
-  { name: 'Опасно',   speedMod: 1.0, damageMod: 1.5, hpMod: 0.9 },
+  { name: 'Грязь', speedMod: 0.5, damageMod: 1.0, hpMod: 1.0 },
+  { name: 'Жарко', speedMod: 1.0, damageMod: 1.2, hpMod: 0.8 },
+  { name: 'Холодно', speedMod: 0.8, damageMod: 1.0, hpMod: 1.2 },
+  { name: 'Опасно', speedMod: 1.0, damageMod: 1.5, hpMod: 0.9 },
   { name: 'Спокойно', speedMod: 1.0, damageMod: 0.8, hpMod: 1.1 },
-  { name: 'Тёмно',    speedMod: 0.9, damageMod: 1.1, hpMod: 1.0 }
+  { name: 'Тёмно', speedMod: 0.9, damageMod: 1.1, hpMod: 1.0 }
 ];
 
 const MAPS = [];
 for (let i = 0; i < MAP_NAMES.length; i++) {
   const color = MAP_COLORS[i % MAP_COLORS.length];
   const feature = MAP_FEATURES[i % MAP_FEATURES.length];
-  MAPS.push({
-    id: 'map_' + i,
-    name: MAP_NAMES[i],
-    color: color,
-    feature: feature.name,
-    speedMod: feature.speedMod,
-    damageMod: feature.damageMod,
-    hpMod: feature.hpMod
-  });
+  MAPS.push({ id: 'map_' + i, name: MAP_NAMES[i], color, feature: feature.name, speedMod: feature.speedMod, damageMod: feature.damageMod, hpMod: feature.hpMod });
 }
 console.log('🗺️ Создано карт: ' + MAPS.length);
 
 // ========== 300 ТАНКОВ ==========
-const SKIN_NAMES = [
-  'Стальной','Броневой','Гром','Титан','Феникс','Дракон','Лев','Тигр','Волк','Медведь',
-  'Орёл','Ястреб','Сокол','Ворон','Барс','Пантера','Гепард','Ягуар','Кобра','Гадюка',
-  'Скорпион','Паук','Краб','Акула','Кит','Дельфин','Осьминог','Кракен','Гидра','Цербер',
-  'Хищник','Охотник','Стрелок','Снайпер','Штурм','Шторм','Ураган','Смерч','Циклон','Тайфун',
-  'Вулкан','Магма','Лава','Огонь','Пламя','Искра','Молния','Гроза','Буря','Мороз',
-  'Лёд','Снег','Зима','Метель','Вьюга','Север','Полюс','Арктика','Космос','Звезда',
-  'Луна','Солнце','Марс','Юпитер','Сатурн','Нептун','Плутон','Комета','Метеор','Астероид',
-  'Галактика','Туманность','Орбита','Ракета','Спутник','Станция','Корабль','Шаттл','Рыцарь','Король',
-  'Император','Царь','Хан','Султан','Шах','Вождь','Генерал','Маршал','Адмирал','Капитан'
-];
-
+const SKIN_NAMES = ['Стальной','Броневой','Гром','Титан','Феникс','Дракон','Лев','Тигр','Волк','Медведь','Орёл','Ястреб','Сокол','Ворон','Барс','Пантера','Гепард','Ягуар','Кобра','Гадюка','Скорпион','Паук','Краб','Акула','Кит','Дельфин','Осьминог','Кракен','Гидра','Цербер','Хищник','Охотник','Стрелок','Снайпер','Штурм','Шторм','Ураган','Смерч','Циклон','Тайфун','Вулкан','Магма','Лава','Огонь','Пламя','Искра','Молния','Гроза','Буря','Мороз','Лёд','Снег','Зима','Метель','Вьюга','Север','Полюс','Арктика','Космос','Звезда','Луна','Солнце','Марс','Юпитер','Сатурн','Нептун','Плутон','Комета','Метеор','Астероид','Галактика','Туманность','Орбита','Ракета','Спутник','Станция','Корабль','Шаттл','Рыцарь','Король','Император','Царь','Хан','Султан','Шах','Вождь','Генерал','Маршал','Адмирал','Капитан'];
 const SKIN_PREFIX = ['', 'Супер ', 'Мега '];
 const SKIN_COLORS = ['#4caf50','#ff6600','#dddddd','#aaddff','#9c27b0','#7a9a3a','#c62828','#2c5faa','#d4a017','#ff00ff','#00ffff','#ffcc00','#ff1493','#00ff7f','#8b00ff','#ff4500'];
 
@@ -348,12 +407,7 @@ for (let p = 0; p < SKIN_PREFIX.length; p++) {
       if (SKINS.length >= 300) break outer;
       const color = SKIN_COLORS[(n + p + c) % SKIN_COLORS.length];
       const price = 500 + (p * 10000) + (n * 500) + (c * 2000);
-      SKINS.push({
-        id: 'tank_' + tankIndex,
-        name: SKIN_PREFIX[p] + SKIN_NAMES[n] + (c > 0 ? ' ' + (c+1) : ''),
-        price: price,
-        color: color
-      });
+      SKINS.push({ id: 'tank_' + tankIndex, name: SKIN_PREFIX[p] + SKIN_NAMES[n] + (c > 0 ? ' ' + (c+1) : ''), price, color });
       tankIndex++;
     }
   }
@@ -369,7 +423,6 @@ function openTanks(){ skinPage = 0; renderTanks(); showScreen('screen-tanks'); }
 function renderTanks(){
   const list = document.getElementById('tanksList');
   list.innerHTML = '';
-
   const totalPages = Math.ceil(SKINS.length / SKINS_PER_PAGE);
   const start = skinPage * SKINS_PER_PAGE;
   const pageSkins = SKINS.slice(start, start + SKINS_PER_PAGE);
@@ -384,8 +437,7 @@ function renderTanks(){
         <span style="display:inline-block;width:24px;height:24px;background:${skin.color};border-radius:4px;border:2px solid #fff;flex-shrink:0;"></span>
         <span>${owned?(equipped?'✅ ':'🔓 '):'🔒 '}${skin.name}${skin.price>0?' — '+skin.price.toLocaleString()+' 🪙':''}</span>
       </div>
-      ${owned ? (equipped ? '<button class="buy-btn owned-btn">✔</button>'
-                          : `<button class="buy-btn" onclick="equipSkin('${skin.id}')">Надеть</button>`)
+      ${owned ? (equipped ? '<button class="buy-btn owned-btn">✔</button>' : `<button class="buy-btn" onclick="equipSkin('${skin.id}')">Надеть</button>`)
               : `<button class="buy-btn" onclick="buySkin('${skin.id}')">Купить</button>`}`;
     list.appendChild(div);
   });
@@ -424,14 +476,14 @@ function equipSkin(id){
 
 // ========== КЕЙСЫ ==========
 const CASES = [
-  { id:'common',    name:'Обычный',         price:1000,      rarity:'common' },
-  { id:'rare',      name:'Редкий',          price:10000,     rarity:'rare' },
-  { id:'superrare', name:'Сверхредкий',     price:50000,     rarity:'superrare' },
-  { id:'epic',      name:'Эпический',       price:200000,    rarity:'epic' },
-  { id:'legend',    name:'Легендарный',     price:1000000,   rarity:'legend' },
-  { id:'mythic',    name:'Мифический',      price:5000000,   rarity:'mythic' },
-  { id:'mythdarling',name:'💎 Миф-Дарлинг', price:6000000,   rarity:'mythdarling' },
-  { id:'ultra',     name:'👑 Ультрический', price:100000000, rarity:'ultra' }
+  { id:'common', name:'Обычный', price:1000, rarity:'common' },
+  { id:'rare', name:'Редкий', price:10000, rarity:'rare' },
+  { id:'superrare', name:'Сверхредкий', price:50000, rarity:'superrare' },
+  { id:'epic', name:'Эпический', price:200000, rarity:'epic' },
+  { id:'legend', name:'Легендарный', price:1000000, rarity:'legend' },
+  { id:'mythic', name:'Мифический', price:5000000, rarity:'mythic' },
+  { id:'mythdarling', name:'💎 Миф-Дарлинг', price:6000000, rarity:'mythdarling' },
+  { id:'ultra', name:'👑 Ультрический', price:100000000, rarity:'ultra' }
 ];
 function openCases(){ renderCases(); showScreen('screen-cases'); }
 function renderCases(){
@@ -441,14 +493,8 @@ function renderCases(){
     const div = document.createElement('div');
     div.className = 'case-item';
     div.innerHTML = `
-      <div style="flex:1;">
-        <div style="font-weight:bold;">📦 ${c.name}</div>
-        <div class="r-${c.rarity}" style="display:inline-block;margin-top:6px;">${c.rarity.toUpperCase()}</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-weight:bold;color:#ffd700;margin-bottom:6px;font-size:12px;">${c.price.toLocaleString()} 🪙</div>
-        <button class="buy-btn" onclick="buyCase('${c.id}')">Открыть</button>
-      </div>`;
+      <div style="flex:1;"><div style="font-weight:bold;">📦 ${c.name}</div><div class="r-${c.rarity}" style="display:inline-block;margin-top:6px;">${c.rarity.toUpperCase()}</div></div>
+      <div style="text-align:right;"><div style="font-weight:bold;color:#ffd700;margin-bottom:6px;font-size:12px;">${c.price.toLocaleString()} 🪙</div><button class="buy-btn" onclick="buyCase('${c.id}')">Открыть</button></div>`;
     list.appendChild(div);
   });
 }
@@ -458,44 +504,29 @@ function buyCase(id){
   if(playerData.gold < c.price){ showToast('❌ Не хватает золота!'); return; }
   playerData.gold -= c.price;
   playerData.openedCases++;
-
   if(id === 'mythdarling'){
     const gold = 5000000 + Math.floor(Math.random()*5000000);
     const gems = 50 + Math.floor(Math.random()*100);
-    playerData.gold += gold;
-    playerData.gems += gems;
+    playerData.gold += gold; playerData.gems += gems;
     const locked = SKINS.filter(s=>!playerData.unlockedSkins.includes(s.id));
     if(locked.length > 0){
       const win = locked[Math.floor(Math.random()*locked.length)];
       playerData.unlockedSkins.push(win.id);
       showToast('💎 МИФ-ДАРЛИНГ: ' + win.name + ' + ' + gold.toLocaleString() + ' 🪙 + ' + gems + ' 💎!');
     } else showToast('💎 МИФ-ДАРЛИНГ: +' + gold.toLocaleString() + ' 🪙 + ' + gems + ' 💎!');
-    saveGame(); updateUI(); renderCases();
-    return;
+    saveGame(); updateUI(); renderCases(); return;
   }
   if(id === 'ultra'){
-    const hasCoins = Math.random() < 0.7;
     const gold = 50000000 + Math.floor(Math.random()*100000000);
     const gems = 100 + Math.floor(Math.random()*200);
-    playerData.gold += gold;
-    playerData.gems += gems;
+    playerData.gold += gold; playerData.gems += gems;
     let txt = '👑 УЛЬТРА: +' + gold.toLocaleString() + ' 🪙 + ' + gems + ' 💎';
-    if(hasCoins){
-      const coins = 100 + Math.floor(Math.random()*900);
-      playerData.gems += coins;
-      txt += ' + 💰' + coins;
-    }
+    if(Math.random() < 0.7){ const coins = 100 + Math.floor(Math.random()*900); playerData.gems += coins; txt += ' + 💰' + coins; }
     const locked = SKINS.filter(s=>!playerData.unlockedSkins.includes(s.id));
-    if(locked.length > 0){
-      const win = locked[Math.floor(Math.random()*locked.length)];
-      playerData.unlockedSkins.push(win.id);
-      txt += ' + ' + win.name;
-    }
+    if(locked.length > 0){ const win = locked[Math.floor(Math.random()*locked.length)]; playerData.unlockedSkins.push(win.id); txt += ' + ' + win.name; }
     showToast(txt);
-    saveGame(); updateUI(); renderCases();
-    return;
+    saveGame(); updateUI(); renderCases(); return;
   }
-
   const isDouble = Math.random() < 0.15;
   let bonus = Math.floor(c.price/3);
   if(isDouble) bonus *= 2;
@@ -508,41 +539,35 @@ function buyCase(id){
 // ========== ПРОФИЛЬ ==========
 function openProfile(){
   document.getElementById('p-level').innerText = playerData.level;
-  document.getElementById('p-gold').innerText  = playerData.gold;
-  document.getElementById('p-gems').innerText  = playerData.gems;
+  document.getElementById('p-gold').innerText = playerData.gold;
+  document.getElementById('p-gems').innerText = playerData.gems;
   document.getElementById('p-skins').innerText = playerData.unlockedSkins.length;
   document.getElementById('p-cases').innerText = playerData.openedCases;
-  document.getElementById('p-wins').innerText  = playerData.wins;
+  document.getElementById('p-wins').innerText = playerData.wins;
   showScreen('screen-profile');
 }
 
 // ========== ПОМОЩНИК ==========
 function openHelper(){
   document.getElementById('helperLevel').innerText = playerData.helperLevel;
-  document.getElementById('helperCost').innerText  = playerData.helperLevel * 500;
+  document.getElementById('helperCost').innerText = playerData.helperLevel * 500;
   showScreen('screen-helper');
 }
 function upgradeHelper(){
   const cost = playerData.helperLevel * 500;
   if(playerData.gold < cost){ showToast('❌ Не хватает золота!'); return; }
-  playerData.gold -= cost;
-  playerData.helperLevel++;
+  playerData.gold -= cost; playerData.helperLevel++;
   saveGame(); updateUI(); openHelper();
   showToast('⬆️ Помощник улучшен до ур. ' + playerData.helperLevel);
 }
 
 // ========== ПРОПУСК ==========
 const PASS_REWARDS = [
-  { lvl:1,  reward:'500 🪙',              gold:500 },
-  { lvl:2,  reward:'1000 🪙',             gold:1000 },
-  { lvl:3,  reward:'5 💎',                gems:5 },
-  { lvl:4,  reward:'2000 🪙',             gold:2000 },
-  { lvl:5,  reward:'5000 🪙 + 10 💎',     gold:5000, gems:10 },
-  { lvl:6,  reward:'10000 🪙',            gold:10000 },
-  { lvl:7,  reward:'20 💎',               gems:20 },
-  { lvl:8,  reward:'25000 🪙',            gold:25000 },
-  { lvl:9,  reward:'50000 🪙',            gold:50000 },
-  { lvl:10, reward:'100000 🪙 + 50 💎',   gold:100000, gems:50 }
+  { lvl:1, reward:'500 🪙', gold:500 },{ lvl:2, reward:'1000 🪙', gold:1000 },
+  { lvl:3, reward:'5 💎', gems:5 },{ lvl:4, reward:'2000 🪙', gold:2000 },
+  { lvl:5, reward:'5000 🪙 + 10 💎', gold:5000, gems:10 },{ lvl:6, reward:'10000 🪙', gold:10000 },
+  { lvl:7, reward:'20 💎', gems:20 },{ lvl:8, reward:'25000 🪙', gold:25000 },
+  { lvl:9, reward:'50000 🪙', gold:50000 },{ lvl:10, reward:'100000 🪙 + 50 💎', gold:100000, gems:50 }
 ];
 function openPass(){ renderPass(); showScreen('screen-pass'); }
 function renderPass(){
@@ -550,15 +575,10 @@ function renderPass(){
   list.innerHTML = '';
   PASS_REWARDS.forEach(p => {
     const unlocked = playerData.level >= p.lvl;
-    const claimed  = playerData.passClaimed.includes(p.lvl);
+    const claimed = playerData.passClaimed.includes(p.lvl);
     const div = document.createElement('div');
     div.className = 'pass-level' + (claimed ? ' claimed' : '');
-    div.innerHTML = `
-      <span>🏅 Ур. ${p.lvl}</span>
-      <span style="color:#ffd700;font-size:13px;">${p.reward}</span>
-      ${claimed ? '<span style="color:#666;">✔</span>'
-                : unlocked ? `<button class="buy-btn" onclick="claimPass(${p.lvl})">Забрать</button>`
-                           : '<span style="color:#666;">🔒</span>'}`;
+    div.innerHTML = `<span>🏅 Ур. ${p.lvl}</span><span style="color:#ffd700;font-size:13px;">${p.reward}</span>${claimed ? '<span style="color:#666;">✔</span>' : unlocked ? `<button class="buy-btn" onclick="claimPass(${p.lvl})">Забрать</button>` : '<span style="color:#666;">🔒</span>'}`;
     list.appendChild(div);
   });
 }
@@ -573,25 +593,48 @@ function claimPass(lvl){
   showToast('🎁 Награда получена!');
 }
 
-// ========== СОБЫТИЕ ==========
+// ========== СОБЫТИЕ (ЗОМБИ-АПОКАЛИПСИС) ==========
 function openEvent(){ showScreen('screen-event'); }
+
 function startEvent(){
-  if(Math.random() < 0.05){
-    playerData.gold += 50000;
-    playerData.gems += 50;
-    if(!playerData.unlockedSkins.includes('zombie')){
-      playerData.unlockedSkins.push('zombie');
-      showToast('🎃 СЕКРЕТ! Скин Зомби + 50000 🪙 + 50 💎!');
-    } else showToast('🎃 СЕКРЕТ! +50000 🪙 + 50 💎!');
-  } else if(!playerData.unlockedSkins.includes('pumpkin')){
-    playerData.unlockedSkins.push('pumpkin');
-    showToast('🎃 Открыт скин Тыква!');
-  } else {
-    playerData.gold += 5000;
-    showToast('🎃 +5000 🪙');
-  }
-  saveGame(); updateUI();
+  showToast('🧟 ЗОМБИ-АПОКАЛИПСИС! Готовься!');
+  setTimeout(() => startZombieBattle(), 800);
 }
+
+function startZombieBattle(){
+  battle.wave = 5;
+  battle.playerHp = 100;
+  battle.enemies = []; battle.allies = []; battle.bullets = []; battle.caterpillars = [];
+  battle.moths = 0;
+  battle.keys = { up:false, down:false, left:false, right:false };
+  battle.cooldown = 0; battle.running = true;
+  battle.isZombie = true;
+  battle.map = { name: '🧟 Кладбище', color: '#1a0a0a', feature: 'Зомби' };
+
+  document.getElementById('battle-screen').classList.add('active');
+  document.getElementById('wave-num').innerText = 'ZOMBIE';
+  document.getElementById('player-hp').innerText = 100;
+  document.getElementById('moths-count').innerText = 0;
+  document.getElementById('enemies-left').innerText = 0;
+
+  setTimeout(() => {
+    initBattle2D();
+    battle.enemies = [];
+    const zombieCount = 15;
+    for(let i=0; i<zombieCount; i++){
+      const angle = (Math.PI*2/zombieCount)*i;
+      const dist = 200 + Math.random()*150;
+      battle.enemies.push({ x: battle.W/2 + Math.cos(angle)*dist, y: battle.H/2 + Math.sin(angle)*dist, angle: 0, hp: 80, speed: 40, lastShot: 0, shotInterval: 2, color: '#4a7a1a' });
+    }
+    document.getElementById('enemies-left').innerText = battle.enemies.length;
+    battle.allies = [];
+    document.getElementById('allies-left').innerText = 0;
+  }, 50);
+  initBattleControls();
+}
+
+// ========== САЙТ ==========
+function openSite(){ showScreen('screen-site'); }
 
 // ========== АНГАР 3D ==========
 let hScene, hCam, hRen, hTank, hRotate = true, hDragging = false, hLastX = 0;
@@ -603,8 +646,7 @@ function initHangar(){
   const w = canvas.clientWidth, h = canvas.clientHeight;
   hScene = new THREE.Scene();
   hCam = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
-  hCam.position.set(0, 2.5, 6);
-  hCam.lookAt(0, 0.5, 0);
+  hCam.position.set(0, 2.5, 6); hCam.lookAt(0, 0.5, 0);
   hRen = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
   hRen.setSize(w, h, false);
   hRen.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -613,30 +655,19 @@ function initHangar(){
   dir.position.set(5, 10, 5); hScene.add(dir);
   const point = new THREE.PointLight(0xff6600, 1, 20);
   point.position.set(-3, 3, 3); hScene.add(point);
-  const ground = new THREE.Mesh(new THREE.CircleGeometry(4, 32),
-    new THREE.MeshStandardMaterial({ color:0x1a0a2e, roughness:0.9 }));
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(4, 32), new THREE.MeshStandardMaterial({ color:0x1a0a2e, roughness:0.9 }));
   ground.rotation.x = -Math.PI/2; ground.position.y = -0.5; hScene.add(ground);
-  hTank = buildTank3D(playerData.currentSkin);
-  hScene.add(hTank);
+  hTank = buildTank3D(playerData.currentSkin); hScene.add(hTank);
   canvas.addEventListener('touchstart', e => { hDragging=true; hRotate=false; hLastX=e.touches[0].clientX; });
   canvas.addEventListener('touchmove', e => { if(!hDragging||!hTank) return; hTank.rotation.y += (e.touches[0].clientX-hLastX)*0.01; hLastX=e.touches[0].clientX; });
   canvas.addEventListener('touchend', ()=> hDragging=false);
   canvas.addEventListener('mousedown', e => { hDragging=true; hRotate=false; hLastX=e.clientX; });
   window.addEventListener('mousemove', e => { if(!hDragging||!hTank) return; hTank.rotation.y += (e.clientX-hLastX)*0.01; hLastX=e.clientX; });
   window.addEventListener('mouseup', ()=> hDragging=false);
-  updateHangarName();
-  animateHangar();
+  updateHangarName(); animateHangar();
 }
-function updateHangarName(){
-  const skin = SKINS.find(s=>s.id===playerData.currentSkin);
-  if(skin) document.getElementById('currentTankName').innerText = skin.name;
-}
-function animateHangar(){
-  if(!hRen) return;
-  requestAnimationFrame(animateHangar);
-  if(hTank && hRotate) hTank.rotation.y += 0.008;
-  hRen.render(hScene, hCam);
-}
+function updateHangarName(){ const skin = SKINS.find(s=>s.id===playerData.currentSkin); if(skin) document.getElementById('currentTankName').innerText = skin.name; }
+function animateHangar(){ if(!hRen) return; requestAnimationFrame(animateHangar); if(hTank && hRotate) hTank.rotation.y += 0.008; hRen.render(hScene, hCam); }
 function changeTank(dir){
   const idx = playerData.unlockedSkins.indexOf(playerData.currentSkin);
   let next = idx + dir;
@@ -644,11 +675,7 @@ function changeTank(dir){
   if(next >= playerData.unlockedSkins.length) next = 0;
   playerData.currentSkin = playerData.unlockedSkins[next];
   saveGame(); updateHangarName();
-  if(hScene && hTank){
-    hScene.remove(hTank);
-    hTank = buildTank3D(playerData.currentSkin);
-    hScene.add(hTank);
-  }
+  if(hScene && hTank){ hScene.remove(hTank); hTank = buildTank3D(playerData.currentSkin); hScene.add(hTank); }
   const skin = SKINS.find(s=>s.id===playerData.currentSkin);
   showToast('🚜 ' + (skin ? skin.name : ''));
 }
@@ -656,21 +683,15 @@ function buildTank3D(skinId){
   const skin = SKINS.find(s=>s.id===skinId) || SKINS[0];
   const color = parseInt(skin.color.replace('#',''), 16);
   const group = new THREE.Group();
-  const body = new THREE.Mesh(new THREE.BoxGeometry(2.4,0.7,1.6),
-    new THREE.MeshStandardMaterial({ color, metalness:0.4, roughness:0.6 }));
+  const body = new THREE.Mesh(new THREE.BoxGeometry(2.4,0.7,1.6), new THREE.MeshStandardMaterial({ color, metalness:0.4, roughness:0.6 }));
   group.add(body);
-  const turret = new THREE.Mesh(new THREE.BoxGeometry(1.3,0.7,1.1),
-    new THREE.MeshStandardMaterial({ color, metalness:0.5, roughness:0.5 }));
+  const turret = new THREE.Mesh(new THREE.BoxGeometry(1.3,0.7,1.1), new THREE.MeshStandardMaterial({ color, metalness:0.5, roughness:0.5 }));
   turret.position.set(0, 0.7, 0); group.add(turret);
-  const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,1.8,12),
-    new THREE.MeshStandardMaterial({ color:0x222222, metalness:0.8 }));
-  barrel.rotation.z = Math.PI/2;
-  barrel.position.set(1.2, 0.75, 0); group.add(barrel);
+  const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,1.8,12), new THREE.MeshStandardMaterial({ color:0x222222, metalness:0.8 }));
+  barrel.rotation.z = Math.PI/2; barrel.position.set(1.2, 0.75, 0); group.add(barrel);
   const trackMat = new THREE.MeshStandardMaterial({ color:0x222222, roughness:0.9 });
-  const trackL = new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,0.35), trackMat);
-  trackL.position.set(0, -0.35, 0.75); group.add(trackL);
-  const trackR = new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,0.35), trackMat);
-  trackR.position.set(0, -0.35, -0.75); group.add(trackR);
+  const trackL = new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,0.35), trackMat); trackL.position.set(0, -0.35, 0.75); group.add(trackL);
+  const trackR = new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,0.35), trackMat); trackR.position.set(0, -0.35, -0.75); group.add(trackR);
   return group;
 }
 
@@ -680,20 +701,18 @@ const battle = {
   enemies:[], allies:[], bullets:[], caterpillars:[], moths:0,
   keys:{ up:false, down:false, left:false, right:false },
   wave:1, running:false, lastTime:0, cooldown:0,
-  W:0, H:0, map:null
+  W:0, H:0, map:null, isZombie:false
 };
 function openBattle(){ showScreen('screen-battle'); }
 function startBattle(waveNum){
   battle.wave = waveNum;
+  battle.isZombie = false;
   battle.playerHp = 100;
   battle.enemies = []; battle.allies = []; battle.bullets = []; battle.caterpillars = [];
   battle.moths = 0;
   battle.keys = { up:false, down:false, left:false, right:false };
   battle.cooldown = 0; battle.running = true;
-
-  // 🗺️ Случайная карта
   battle.map = MAPS[Math.floor(Math.random() * MAPS.length)];
-
   document.getElementById('battle-screen').classList.add('active');
   document.getElementById('wave-num').innerText = waveNum;
   document.getElementById('player-hp').innerText = 100;
@@ -706,16 +725,10 @@ function initBattle2D(){
   const canvas = document.getElementById('battle-canvas');
   battle.canvas = canvas;
   battle.ctx = canvas.getContext('2d');
-  battle.W = window.innerWidth;
-  battle.H = window.innerHeight;
-  canvas.width = battle.W;
-  canvas.height = battle.H;
-  battle.player = {
-    x: battle.W/2, y: battle.H/2,
-    angle: 0,
-    color: (SKINS.find(s=>s.id===playerData.currentSkin)?.color) || '#4caf50'
-  };
-  spawnEnemies2D(battle.wave);
+  battle.W = window.innerWidth; battle.H = window.innerHeight;
+  canvas.width = battle.W; canvas.height = battle.H;
+  battle.player = { x: battle.W/2, y: battle.H/2, angle: 0, color: (SKINS.find(s=>s.id===playerData.currentSkin)?.color) || '#4caf50' };
+  if(!battle.isZombie) spawnEnemies2D(battle.wave);
   battle.lastTime = performance.now();
   requestAnimationFrame(battleLoop2D);
 }
@@ -724,37 +737,18 @@ function spawnEnemies2D(wave){
   for(let i=0; i<count; i++){
     const angle = (Math.PI*2/count)*i;
     const dist = 200 + Math.random()*100;
-    battle.enemies.push({
-      x: battle.W/2 + Math.cos(angle)*dist,
-      y: battle.H/2 + Math.sin(angle)*dist,
-      angle: 0,
-      hp: 30 + wave*10,
-      speed: 60 + wave*5,
-      lastShot: 0,
-      shotInterval: Math.max(1.5, 3 - wave*0.1),
-      color: '#c62828'
-    });
+    battle.enemies.push({ x: battle.W/2 + Math.cos(angle)*dist, y: battle.H/2 + Math.sin(angle)*dist, angle: 0, hp: 30 + wave*10, speed: 60 + wave*5, lastShot: 0, shotInterval: Math.max(1.5, 3 - wave*0.1), color: '#c62828' });
   }
   document.getElementById('enemies-left').innerText = battle.enemies.length;
-
-  // 🤝 Союзники-боты (2-5)
   const alliesCount = Math.min(2 + Math.floor(wave/2), 5);
   for(let i=0; i<alliesCount; i++){
     const angle = (Math.PI*2/alliesCount)*(i+0.5);
     const dist = 100 + Math.random()*60;
-    battle.allies.push({
-      x: battle.W/2 + Math.cos(angle)*dist,
-      y: battle.H/2 + Math.sin(angle)*dist,
-      angle: 0,
-      hp: 50 + wave*5,
-      speed: 80 + wave*3,
-      lastShot: 0,
-      shotInterval: 1.2,
-      color: '#4caf50'
-    });
+    battle.allies.push({ x: battle.W/2 + Math.cos(angle)*dist, y: battle.H/2 + Math.sin(angle)*dist, angle: 0, hp: 50 + wave*5, speed: 80 + wave*3, lastShot: 0, shotInterval: 1.2, color: '#4caf50' });
   }
   document.getElementById('allies-left').innerText = battle.allies.length;
-}function initBattleControls(){
+}
+function initBattleControls(){
   document.onkeydown = e => {
     if(e.key==='w'||e.key==='ArrowUp') battle.keys.up = true;
     if(e.key==='s'||e.key==='ArrowDown') battle.keys.down = true;
@@ -779,37 +773,21 @@ function fireBullet2D(){
     const c = battle.caterpillars[i];
     const d = Math.hypot(c.x - battle.player.x, c.y - battle.player.y);
     if(d < 60){
-      battle.caterpillars.splice(i,1);
-      battle.moths++;
+      battle.caterpillars.splice(i,1); battle.moths++;
       document.getElementById('moths-count').innerText = battle.moths;
       showToast('🐛→🦋 Мотылёк! Всего: ' + battle.moths);
       return;
     }
   }
-  battle.bullets.push({
-    x: battle.player.x + Math.cos(battle.player.angle) * 30,
-    y: battle.player.y + Math.sin(battle.player.angle) * 30,
-    vx: Math.cos(battle.player.angle) * 500,
-    vy: Math.sin(battle.player.angle) * 500,
-    life: 3,
-    damage: 25 + battle.moths * 5,
-    friendly: true
-  });
+  battle.bullets.push({ x: battle.player.x + Math.cos(battle.player.angle) * 30, y: battle.player.y + Math.sin(battle.player.angle) * 30, vx: Math.cos(battle.player.angle) * 500, vy: Math.sin(battle.player.angle) * 500, life: 3, damage: 25 + battle.moths * 5, friendly: true });
 }
 
 function drawTank2D(ctx, x, y, angle, color){
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-  ctx.fillStyle = color;
-  ctx.fillRect(-15, -12, 30, 24);
-  ctx.fillStyle = '#222';
-  ctx.fillRect(-18, -14, 36, 5);
-  ctx.fillRect(-18, 9, 36, 5);
-  ctx.fillStyle = '#111';
-  ctx.fillRect(10, -3, 22, 6);
-  ctx.fillStyle = color;
-  ctx.fillRect(-8, -8, 16, 16);
+  ctx.save(); ctx.translate(x, y); ctx.rotate(angle);
+  ctx.fillStyle = color; ctx.fillRect(-15, -12, 30, 24);
+  ctx.fillStyle = '#222'; ctx.fillRect(-18, -14, 36, 5); ctx.fillRect(-18, 9, 36, 5);
+  ctx.fillStyle = '#111'; ctx.fillRect(10, -3, 22, 6);
+  ctx.fillStyle = color; ctx.fillRect(-8, -8, 16, 16);
   ctx.restore();
 }
 
@@ -823,54 +801,40 @@ function battleLoop2D(now){
 
   const sp = 200 * dt;
   let dx = 0, dy = 0;
-  if(battle.keys.up)    dx += Math.cos(battle.player.angle) * sp, dy += Math.sin(battle.player.angle) * sp;
-  if(battle.keys.down)  dx -= Math.cos(battle.player.angle) * sp, dy -= Math.sin(battle.player.angle) * sp;
-  if(battle.keys.left)  battle.player.angle -= 2.5 * dt;
+  if(battle.keys.up) dx += Math.cos(battle.player.angle) * sp, dy += Math.sin(battle.player.angle) * sp;
+  if(battle.keys.down) dx -= Math.cos(battle.player.angle) * sp, dy -= Math.sin(battle.player.angle) * sp;
+  if(battle.keys.left) battle.player.angle -= 2.5 * dt;
   if(battle.keys.right) battle.player.angle += 2.5 * dt;
   battle.player.x += dx; battle.player.y += dy;
   battle.player.x = Math.max(20, Math.min(battle.W-20, battle.player.x));
   battle.player.y = Math.max(20, Math.min(battle.H-20, battle.player.y));
 
-  // 🐛 Гусеницы
   if(Math.random() < 0.02 && battle.caterpillars.length < 5){
-    const a = Math.random()*Math.PI*2;
-    const d = 60 + Math.random()*40;
-    battle.caterpillars.push({
-      x: battle.player.x + Math.cos(a)*d,
-      y: battle.player.y + Math.sin(a)*d,
-      life: 8
-    });
+    const a = Math.random()*Math.PI*2; const d = 60 + Math.random()*40;
+    battle.caterpillars.push({ x: battle.player.x + Math.cos(a)*d, y: battle.player.y + Math.sin(a)*d, life: 8 });
   }
   for(let i = battle.caterpillars.length-1; i >= 0; i--){
     battle.caterpillars[i].life -= dt;
     if(battle.caterpillars[i].life <= 0) battle.caterpillars.splice(i,1);
   }
 
-  // 🦋 Лечение
   if(battle.moths >= 5 && battle.playerHp < 100){
     battle.playerHp = Math.min(100, battle.playerHp + 2*dt);
     document.getElementById('player-hp').innerText = Math.floor(battle.playerHp);
   }
 
-  // Пули
   for(let i = battle.bullets.length-1; i >= 0; i--){
     const b = battle.bullets[i];
-    b.x += b.vx * dt; b.y += b.vy * dt;
-    b.life -= dt;
-    if(b.life <= 0 || b.x<0 || b.x>battle.W || b.y<0 || b.y>battle.H){
-      battle.bullets.splice(i,1); continue;
-    }
-    // Только вражеские пули бьют врагов
+    b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
+    if(b.life <= 0 || b.x<0 || b.x>battle.W || b.y<0 || b.y>battle.H){ battle.bullets.splice(i,1); continue; }
     if(b.friendly !== false){
       for(let j = battle.enemies.length-1; j >= 0; j--){
         const e = battle.enemies[j];
         if(Math.hypot(b.x-e.x, b.y-e.y) < 20){
-          e.hp -= b.damage;
-          battle.bullets.splice(i,1);
+          e.hp -= b.damage; battle.bullets.splice(i,1);
           if(e.hp <= 0){
             battle.enemies.splice(j,1);
-            playerData.gold += 100;
-            playerData.wins++;
+            playerData.gold += 100; playerData.wins++;
             saveGame(); updateUI();
             document.getElementById('enemies-left').innerText = battle.enemies.length;
           }
@@ -880,58 +844,34 @@ function battleLoop2D(now){
     }
   }
 
-  // 🤝 СОЮЗНИКИ-БОТЫ
   battle.allies.forEach(a => {
     let closest = null, minDist = 9999;
-    battle.enemies.forEach(e => {
-      const d = Math.hypot(e.x - a.x, e.y - a.y);
-      if(d < minDist) { minDist = d; closest = e; }
-    });
+    battle.enemies.forEach(e => { const d = Math.hypot(e.x - a.x, e.y - a.y); if(d < minDist) { minDist = d; closest = e; } });
     if(closest){
-      const ddx = closest.x - a.x;
-      const ddy = closest.y - a.y;
+      const ddx = closest.x - a.x, ddy = closest.y - a.y;
       const dist = Math.hypot(ddx, ddy);
       a.angle = Math.atan2(ddy, ddx);
-      if(dist > 200){
-        a.x += (ddx/dist) * a.speed * dt;
-        a.y += (ddy/dist) * a.speed * dt;
-      }
+      if(dist > 200){ a.x += (ddx/dist) * a.speed * dt; a.y += (ddy/dist) * a.speed * dt; }
       a.lastShot += dt;
       if(a.lastShot > a.shotInterval && dist < 400){
         a.lastShot = 0;
-        battle.bullets.push({
-          x: a.x + Math.cos(a.angle)*30,
-          y: a.y + Math.sin(a.angle)*30,
-          vx: Math.cos(a.angle)*500,
-          vy: Math.sin(a.angle)*500,
-          life: 2,
-          damage: 20,
-          friendly: true
-        });
+        battle.bullets.push({ x: a.x + Math.cos(a.angle)*30, y: a.y + Math.sin(a.angle)*30, vx: Math.cos(a.angle)*500, vy: Math.sin(a.angle)*500, life: 2, damage: 20, friendly: true });
       }
     }
   });
 
-  // Враги — стреляют с 1-й волны
   battle.enemies.forEach(e => {
-    const ddx = battle.player.x - e.x;
-    const ddy = battle.player.y - e.y;
+    const ddx = battle.player.x - e.x, ddy = battle.player.y - e.y;
     const dist = Math.hypot(ddx, ddy);
     e.angle = Math.atan2(ddy, ddx);
-    if(dist > 150){
-      e.x += (ddx/dist) * e.speed * dt;
-      e.y += (ddy/dist) * e.speed * dt;
-    }
+    if(dist > 150){ e.x += (ddx/dist) * e.speed * dt; e.y += (ddy/dist) * e.speed * dt; }
     e.lastShot += dt;
     if(e.lastShot > e.shotInterval && dist < 400){
       e.lastShot = 0;
       if(battle.allies.length > 0 && Math.random() < 0.4){
         const target = battle.allies[Math.floor(Math.random()*battle.allies.length)];
         target.hp -= 10 + battle.wave;
-        if(target.hp <= 0){
-          battle.allies.splice(battle.allies.indexOf(target), 1);
-          document.getElementById('allies-left').innerText = battle.allies.length;
-        }
+        if(target.hp <= 0){ battle.allies.splice(battle.allies.indexOf(target), 1); document.getElementById('allies-left').innerText = battle.allies.length; }
       } else {
         battle.playerHp -= 5 + battle.wave;
         if(battle.playerHp < 0) battle.playerHp = 0;
@@ -943,22 +883,15 @@ function battleLoop2D(now){
 
   if(battle.enemies.length === 0 && battle.running) endBattle2D(true);
 
-  // 🎨 Рисуем всё
   ctx.fillStyle = battle.map ? battle.map.color : '#0a0510';
   ctx.fillRect(0, 0, battle.W, battle.H);
-
-  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1;
   for(let x = 0; x < battle.W; x += 50){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,battle.H); ctx.stroke(); }
   for(let y = 0; y < battle.H; y += 50){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(battle.W,y); ctx.stroke(); }
 
   battle.caterpillars.forEach(c => {
-    ctx.fillStyle = '#7a9a3a';
-    ctx.beginPath();
-    ctx.arc(c.x, c.y, 10, 0, Math.PI*2);
-    ctx.fill();
-    ctx.strokeStyle = '#3a5a1a';
-    ctx.stroke();
+    ctx.fillStyle = '#7a9a3a'; ctx.beginPath(); ctx.arc(c.x, c.y, 10, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#3a5a1a'; ctx.stroke();
   });
 
   battle.allies.forEach(a => drawTank2D(ctx, a.x, a.y, a.angle, a.color));
@@ -967,13 +900,9 @@ function battleLoop2D(now){
 
   ctx.fillStyle = '#ffcc00';
   battle.bullets.forEach(b => {
-    ctx.beginPath();
-    ctx.arc(b.x, b.y, 5, 0, Math.PI*2);
-    ctx.fill();
+    ctx.beginPath(); ctx.arc(b.x, b.y, 5, 0, Math.PI*2); ctx.fill();
     ctx.fillStyle = 'rgba(255,150,0,0.4)';
-    ctx.beginPath();
-    ctx.arc(b.x, b.y, 10, 0, Math.PI*2);
-    ctx.fill();
+    ctx.beginPath(); ctx.arc(b.x, b.y, 10, 0, Math.PI*2); ctx.fill();
     ctx.fillStyle = '#ffcc00';
   });
 }
@@ -981,10 +910,19 @@ function battleLoop2D(now){
 function endBattle2D(win){
   battle.running = false;
   if(win){
-    playerData.gold += battle.wave*500;
-    playerData.level = Math.max(playerData.level, battle.wave);
+    if(battle.isZombie){
+      playerData.gold += 50000; playerData.gems += 50;
+      if(!playerData.unlockedSkins.includes('zombie')){
+        playerData.unlockedSkins.push('zombie');
+        showToast('🧟 ЗОМБИ-АПОКАЛИПСИС ПРОЙДЕН! +50000 🪙 +50 💎 + Скин «Зомби»!');
+      } else showToast('🧟 ЗОМБИ-АПОКАЛИПСИС ПРОЙДЕН! +50000 🪙 +50 💎');
+      battle.isZombie = false;
+    } else {
+      playerData.gold += battle.wave*500;
+      playerData.level = Math.max(playerData.level, battle.wave);
+      showToast('🏆 У противника закончились все машины! Победа! +' + (battle.wave*500) + ' 🪙');
+    }
     saveGame(); updateUI();
-    showToast('🏆 У противника закончились все машины! Победа! +' + (battle.wave*500) + ' 🪙');
   } else {
     showToast('💀 Ух! Мы проиграли, уходим. Но в следующий раз победа будет наша!');
   }
@@ -994,12 +932,12 @@ function exitBattle(){
   battle.running = false;
   document.getElementById('battle-screen').classList.remove('active');
   battle.enemies = []; battle.bullets = []; battle.caterpillars = []; battle.allies = [];
+  battle.isZombie = false;
   showScreen('screen-main');
 }
 
 function exitGame(){
   if(confirm('Выйти из игры? 🎃')){
-    if(music) music.pause();
     document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#ff8c00;font-size:24px;text-align:center;padding:20px;background:#0a0510;font-family:inherit;">🎃 До встречи!<br><span style="font-size:14px;color:#8866aa;margin-top:20px;display:block;">Обнови страницу, чтобы вернуться</span></div>';
   }
 }
