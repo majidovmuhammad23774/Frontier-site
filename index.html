@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Гром Брони ⚔️ Танковая игра</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💣</text></svg>">
-<meta name="description" content="Гром Брони — эпическая танковая аркада. 300+ танков, мультиплеер, рейтинг, бонус +5 000 000!">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💣</text></svg>">
+<meta name="description" content="Гром Брони — эпическая танковая аркада. 300+ танков, рейтинг, бонус +5 000 000!">
 <style>
 :root {
   --primary: #ff6600;
@@ -15,9 +15,7 @@
   --panel-border: rgba(150, 60, 220, 0.35);
   --text-main: #f0e6ff;
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
-
 body {
   background: var(--bg-dark);
   background-image:
@@ -26,14 +24,13 @@ body {
     radial-gradient(circle at 50% 50%, #160829 0%, #0a0514 100%);
   background-attachment: fixed;
   color: var(--text-main);
-  font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   padding: 20px 15px;
   text-align: center;
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
 }
-
 body::before {
   content: "";
   position: fixed;
@@ -47,14 +44,7 @@ body::before {
   z-index: 1;
   pointer-events: none;
 }
-
-.container {
-  max-width: 680px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
+.container { max-width: 680px; margin: 0 auto; position: relative; z-index: 2; }
 .hero {
   padding: 40px 20px;
   border-radius: 24px;
@@ -64,7 +54,6 @@ body::before {
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-
 h1 {
   font-size: 48px;
   font-weight: 900;
@@ -74,25 +63,9 @@ h1 {
   background-clip: text;
   color: transparent;
   margin: 10px 0;
-  text-shadow: 0 4px 20px rgba(255,102,0,0.2);
 }
-
-.subtitle {
-  font-size: 16px;
-  color: #ffaa44;
-  margin-bottom: 8px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.version {
-  font-size: 13px;
-  color: #b39ddb;
-  margin-bottom: 20px;
-  opacity: 0.9;
-}
-
+.subtitle { font-size: 16px; color: #ffaa44; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+.version { font-size: 13px; color: #b39ddb; margin-bottom: 20px; opacity: 0.9; }
 .slogan {
   background: rgba(255, 102, 0, 0.12);
   border: 1.5px solid #ff6600;
@@ -103,74 +76,28 @@ h1 {
   font-size: 15px;
   font-weight: 700;
   color: #ffe0cc;
-  box-shadow: inset 0 0 15px rgba(255,102,0,0.1);
   animation: pulse 2s infinite alternate;
 }
-
 @keyframes pulse {
   0% { transform: scale(1); box-shadow: 0 0 10px rgba(255,102,0,0.2); }
   100% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,102,0,0.4); }
 }
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: center;
-  margin: 30px 0;
-}
-
+.buttons { display: flex; flex-direction: column; gap: 14px; align-items: center; margin: 30px 0; }
 .btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 460px;
-  padding: 18px 25px;
-  font-size: 18px;
-  font-weight: 800;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 16px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; max-width: 460px; padding: 18px 25px;
+  font-size: 18px; font-weight: 800; color: #fff; text-decoration: none;
+  border-radius: 16px; border: 2px solid transparent; cursor: pointer;
+  transition: all 0.25s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255,102,0,0.2);
-}
-
-.btn:active {
-  transform: translateY(-1px) scale(0.99);
-}
-
-.btn-main {
-  background: linear-gradient(180deg, #ff7700, #d50000);
-  border-color: #ff9933;
-  box-shadow: 0 0 30px var(--primary-glow);
-  font-size: 20px;
-  padding: 20px 25px;
-}
-.btn-main:hover {
-  box-shadow: 0 0 40px rgba(255,102,0,0.9);
-}
-
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: translateY(-1px) scale(0.99); }
+.btn-main { background: linear-gradient(180deg, #ff7700, #d50000); border-color: #ff9933; box-shadow: 0 0 30px var(--primary-glow); font-size: 20px; padding: 20px 25px; }
 .btn.rating { background: linear-gradient(180deg, #ab47bc, #6a1b9a); border-color: #e1bee7; }
-.btn.rating:hover { box-shadow: 0 0 25px rgba(171,71,188,0.6); }
-
 .btn.apk { background: linear-gradient(180deg, #4caf50, #1b5e20); border-color: #a5d6a7; }
-.btn.apk:hover { box-shadow: 0 0 25px rgba(76,175,80,0.6); }
-
 .btn.arcade { background: linear-gradient(180deg, #2196f3, #0d47a1); border-color: #90caf9; }
-.btn.arcade:hover { box-shadow: 0 0 25px rgba(33,150,243,0.6); }
-
 .btn.tar { background: linear-gradient(180deg, #ef6c00, #a73a00); border-color: #ffb74d; }
 .btn.zip { background: linear-gradient(180deg, #651fff, #311b92); border-color: #b388ff; }
-
 .block {
   background: var(--panel-bg);
   border: 2px solid var(--panel-border);
@@ -181,51 +108,12 @@ h1 {
   text-align: left;
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
-
-.block h2 {
-  color: #ff9900;
-  font-size: 22px;
-  margin-bottom: 16px;
-  text-align: center;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.block li {
-  font-size: 15px;
-  color: #e2d7f5;
-  padding: 12px 6px;
-  list-style: none;
-  border-bottom: 1px solid rgba(255,140,0,0.12);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
+.block h2 { color: #ff9900; font-size: 22px; margin-bottom: 16px; text-align: center; letter-spacing: 1px; text-transform: uppercase; }
+.block li { font-size: 15px; color: #e2d7f5; padding: 12px 6px; list-style: none; border-bottom: 1px solid rgba(255,140,0,0.12); display: flex; align-items: center; gap: 10px; }
 .block li:last-child { border: none; }
-
-.footer {
-  margin-top: 40px;
-  padding: 25px 0;
-  font-size: 14px;
-  color: #9575cd;
-  border-top: 1px solid rgba(255,140,0,0.15);
-  line-height: 1.6;
-}
-
-.footer a {
-  color: #ff9900;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 8px;
-  background: rgba(255,140,0,0.05);
-  transition: background 0.2s;
-}
-
-.footer a:hover {
-  background: rgba(255,140,0,0.15);
-}
+.footer { margin-top: 40px; padding: 25px 0; font-size: 14px; color: #9575cd; border-top: 1px solid rgba(255,140,0,0.15); line-height: 1.6; }
+.footer a { color: #ff9900; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 8px; background: rgba(255,140,0,0.05); }
+.footer a:hover { background: rgba(255,140,0,0.15); }
 </style>
 </head>
 <body>
@@ -242,10 +130,10 @@ h1 {
   <div class="buttons">
     <a href="game.html" class="btn btn-main"><span>🎮</span> ИГРАТЬ ОНЛАЙН</a>
     <a href="game.html" class="btn rating"><span>🏆</span> РЕЙТИНГ ИГРОКОВ</a>
-    <a href="https://github.com" download class="btn apk"><span>📱</span> СКАЧАТЬ APK</a>
-    <a href="https://arcadelab.ai" class="btn arcade"><span>🎮</span> ARCADE LAB</a>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn apk"><span>📱</span> СКАЧАТЬ APK</a>
+    <a href="https://arcadelab.ai/play/game-pixelfox56" class="btn arcade"><span>🎮</span> ARCADE LAB</a>
     <a href="GromBroni.tar.gz" download class="btn tar"><span>🖥️</span> ДЛЯ ПК (Linux)</a>
-    <a href="https://github.com" download class="btn zip"><span>📦</span> ZIP (Windows/Mac)</a>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip" download class="btn zip"><span>📦</span> ZIP (Windows/Mac)</a>
   </div>
 
   <div class="block">
@@ -253,36 +141,36 @@ h1 {
     <ul>
       <li><span>🪙</span> <span><b>+5 000 000 золота</b> при первом запуске!</span></li>
       <li><span>💎</span> <span><b>+500 кристаллов</b> для мощного старта</span></li>
-      <li><span>⭐</span> <span><b>ПРЕМИУМ статус</b> — постоянный бонус ×2 к золоту</span></li>
+      <li><span>⭐</span> <span><b>ПРЕМИУМ статус</b> — ×2 к золоту</span></li>
     </ul>
   </div>
 
   <div class="block">
     <h2>🏆 ЧТО НОВОГО</h2>
     <ul>
-      <li><span>🏆</span> <span><b>РЕЙТИНГ</b> — глобальный топ-20 лучших игроков!</span></li>
-      <li><span>👤</span> <span><b>Никнеймы</b> — надежно сохраняются на сервере</span></li>
-      <li><span>🪖</span> <span><b>300+ танков</b> в твоем ангаре</span></li>
-      <li><span>📦</span> <span><b>5 кейсов</b> — выбивай крутое золото и скины</span></li>
-      <li><span>🎁</span> <span><b>8 секретных промокодов</b></span></li>
-      <li><span>🤖</span> <span><b>Помощник</b> — всегда ответит на твои вопросы</span></li>
+      <li><span>🏆</span> <span><b>РЕЙТИНГ</b> — глобальный топ-20 игроков!</span></li>
+      <li><span>👤</span> <span><b>Никнеймы</b> — сохраняются на сервере</span></li>
+      <li><span>🪖</span> <span><b>300+ танков</b> в ангаре</span></li>
+      <li><span>📦</span> <span><b>7 кейсов</b> — золото и скины</span></li>
+      <li><span>🎁</span> <span><b>8 промокодов</b></span></li>
+      <li><span>🤖</span> <span><b>Помощник</b> — ответит на вопросы</span></li>
     </ul>
   </div>
 
   <div class="block">
     <h2>🎮 КАК НАЧАТЬ ИГРУ</h2>
     <ul>
-      <li><span>1️⃣</span> <span>Нажми кнопку <b>ИГРАТЬ ОНЛАЙН</b></span></li>
-      <li><span>2️⃣</span> <span>Выбери боевую <b>волну</b></span></li>
-      <li><span>3️⃣</span> <span><b>▲▼◀▶</b> — управление движением, <b>🔥</b> — мощный выстрел</span></li>
-      <li><span>4️⃣</span> <span>Победи всех врагов и <b>попади в мировой рейтинг</b>!</span></li>
+      <li><span>1️⃣</span> <span>Нажми <b>ИГРАТЬ ОНЛАЙН</b></span></li>
+      <li><span>2️⃣</span> <span>Выбери <b>волну</b></span></li>
+      <li><span>3️⃣</span> <span><b>▲▼◀▶</b> — движение, <b>🔥</b> — выстрел</span></li>
+      <li><span>4️⃣</span> <span>Победи и <b>попади в топ</b>!</span></li>
     </ul>
   </div>
 
   <div class="footer">
-    © Автор игры: Мухаммад, 2026 💣<br>
-    Разработано с использованием HTML5 + JavaScript<br><br>
-    <a href="https://github.com" target="_blank">Проект на GitHub</a>
+    © Автор: Мухаммад, 2026 💣<br>
+    Игра создана на HTML5 + JavaScript<br><br>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site" target="_blank">Проект на GitHub</a>
   </div>
 
 </div>
