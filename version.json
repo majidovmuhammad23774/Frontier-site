@@ -1,6 +1,95 @@
 {
-  "version": "12.3.1",
-  "date": "2026-09-17",
-  "download_url": "https://majidovmuhammad23774.github.io/Frontier-site/main.py",
-  "site_url": "https://majidovmuhammad23774.github.io/Frontier-site"
+  "version": "12.0",
+  "name": "Гром Брони",
+  "fullName": "Гром Брони — Танковая Аркада",
+  "author": "Мухаммад",
+  "studio": "PixelFox56",
+  "updated": "2026-10-05",
+  "releaseDate": "2026-10-05",
+  "platform": ["Android", "Web"],
+  "ageRating": "6+",
+  "language": "ru",
+  
+  "features": [
+    "300+ танков",
+    "3D ангар",
+    "7 кейсов",
+    "Рейтинг топ-20",
+    "8 промокодов",
+    "Помощник-бот",
+    "Бонус +5 000 000",
+    "Премиум статус",
+    "Админ-панель",
+    "2D бой с союзниками",
+    "Гусеницы → Мотыльки"
+  ],
+  
+  "stats": {
+    "tanks": 300,
+    "cases": 7,
+    "promocodes": 8,
+    "achievements": 500,
+    "waves": 30,
+    "maps": 100,
+    "players": 116,
+    "arcadeLabTop": "Топ-3"
+  },
+  
+  "links": {
+    "site": "https://grombroni.netlify.app/",
+    "game": "https://grombroni.netlify.app/game.html",
+    "github": "https://github.com/majidovmuhammad23774/Frontier-site",
+    "githubPages": "https://majidovmuhammad23774.github.io/Frontier-site/",
+    "cosmo": "https://majidovmuhammad23774.github.io/Cosmo-turbiks/",
+    "apk": "https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk",
+    "zip": "https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.zip",
+    "tarGz": "GromBroni.tar.gz",
+    "arcade": "https://arcadelab.ai/play/game-pixelfox56",
+    "server": "https://frontier-site5.onrender.com/"
+  },
+  
+  "changelog": {
+    "12.0": {
+      "date": "2026-10-05",
+      "changes": [
+        "Добавлен рейтинг топ-20",
+        "Добавлен бонус +5 000 000",
+        "Добавлен премиум статус",
+        "Добавлена админ-панель",
+        "300 танков",
+        "7 кейсов",
+        "8 промокодов"
+      ]
+    },
+    "11.0": {
+      "date": "2026-10-04",
+      "changes": [
+        "Попытка мультиплеера (отложена)",
+        "Сервер на Render",
+        "WebSocket"
+      ]
+    },
+    "10.0": {
+      "date": "2026-10-03",
+      "changes": [
+        "Промокоды",
+        "Помощник-бот",
+        "2D бой с союзниками"
+      ]
+    },
+    "9.0": {
+      "date": "2026-10-02",
+      "changes": [
+        "Ангар 3D",
+        "300 танков",
+        "Кейсы"
+      ]
+    }
+  },
+  
+  "license": "© Мухаммад (PixelFox56), 2026",
+  "contact": {
+    "arcadeLab": "game-pixelfox56",
+    "githubUser": "majidovmuhammad23774"
+  }
 }
