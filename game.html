@@ -14,7 +14,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 .top-bar{background:linear-gradient(180deg,rgba(30,10,50,0.9),rgba(15,5,30,0.9));border:2px solid #6a2b9a;border-radius:12px;padding:10px;display:flex;justify-content:space-around;margin-bottom:15px;flex-shrink:0;flex-wrap:wrap;gap:5px}
 .resource{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:bold}
 .resource .val{color:#ff8c00}
-.logo{text-align:center;font-size:34px;font-weight:900;letter-spacing:2px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px}
+.logo{text-align:center;font-size:34px;font-weight:900;letter-spacing:2px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px;flex-shrink:0}
 .logo small{display:block;font-size:16px;color:#ff6600;font-weight:bold;letter-spacing:6px;margin-top:6px;-webkit-text-fill-color:#ff6600}
 .menu{display:flex;flex-direction:column;gap:8px;flex:1}
 .btn{padding:14px;font-size:16px;font-weight:bold;color:#fff;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;text-decoration:none}
@@ -51,6 +51,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 .dpad button{background:rgba(40,20,70,0.85);border:2px solid #ff8c00;border-radius:10px;color:#fff;font-size:22px;font-weight:bold;cursor:pointer;font-family:inherit}
 .dpad .empty{visibility:hidden}
 .fire-btn{width:100px;height:100px;border-radius:50%;border:4px solid #ff4500;background:linear-gradient(180deg,#ff4500,#8b0000);color:#fff;font-size:18px;font-weight:900;cursor:pointer;font-family:inherit;align-self:flex-end}
+#exit-battle{position:absolute;top:10px;right:10px;z-index:20;background:linear-gradient(180deg,#c62828,#5c1010);border:2px solid #ff6666;border-radius:10px;padding:8px 14px;color:#fff;font-weight:bold;cursor:pointer;font-family:inherit;font-size:14px}
 </style>
 </head>
 <body>
@@ -61,7 +62,6 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   <div class="top-bar">
     <div class="resource">🪙 <span class="val" id="gold">1000</span></div>
     <div class="resource">💎 <span class="val" id="gems">50</span></div>
-    <div class="resource">📜 <span class="val" id="bonds">0</span></div>
     <div class="resource">🏅 <span class="val" id="level">1</span></div>
   </div>
   <div class="logo">ГРОМ БРОНИ<small>🚜 3D 🚜</small></div>
@@ -69,28 +69,16 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   <div class="screen active" id="screen-main">
     <div class="menu">
       <button class="btn btn-green"    onclick="openBattle()">⚔️ В БОЙ</button>
-      <button class="btn btn-blue"     onclick="openMultiplayer()">🌐 МУЛЬТИПЛЕЕР</button>
       <button class="btn btn-blue"     onclick="openHangar()">🚜 АНГАР</button>
       <button class="btn btn-purple"   onclick="openTanks()">🚜 ТАНКИ</button>
       <button class="btn btn-blue"     onclick="openProfile()">👤 ПРОФИЛЬ</button>
       <button class="btn btn-gold"     onclick="openHelper()">🤖 ПОМОЩНИК</button>
       <button class="btn btn-blue"     onclick="openCases()">📦 КЕЙСЫ</button>
+      <button class="btn btn-purple"   onclick="openLeaderboard()">🏆 РЕЙТИНГ</button>
       <button class="btn btn-gold"     onclick="openPromo()">🎁 ПРОМОКОД</button>
       <button class="btn btn-green"    onclick="openSite()">📥 СКАЧАТЬ APK</button>
       <button class="btn btn-red"      onclick="exitGame()">🚪 ВЫХОД</button>
     </div>
-  </div>
-
-  <div class="screen" id="screen-multiplayer">
-    <div class="screen-title">🌐 МУЛЬТИПЛЕЕР</div>
-    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:15px;">
-      <input type="text" id="gameNameInput" placeholder="Название игры" maxlength="20" style="width:100%;padding:12px;font-size:14px;border:2px solid #ff8c00;border-radius:10px;background:#0f0518;color:#fff;outline:none;margin-bottom:10px;font-family:inherit;">
-      <button class="btn btn-green" onclick="createGameFromInput()">🎮 СОЗДАТЬ ИГРУ</button>
-    </div>
-    <div class="screen-title" style="margin-top:15px;">📋 СПИСОК ИГР</div>
-    <div id="gamesList" style="max-height:300px;overflow-y:auto;"><div style="text-align:center;color:#8866aa;padding:15px;">⏳ Загрузка...</div></div>
-    <button class="btn btn-blue" onclick="refreshGames()">🔄 ОБНОВИТЬ</button>
-    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
   <div class="screen" id="screen-battle">
@@ -110,11 +98,9 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
       <button class="arrow-btn" onclick="changeTank(-1)">◀</button>
       <div style="flex:1;text-align:center;">
         <div style="font-weight:bold;font-size:16px;" id="currentTankName">Стандарт</div>
-        <div style="font-size:12px;color:#8866aa;" id="currentTankLevel">Ур. 1/10</div>
       </div>
       <button class="arrow-btn" onclick="changeTank(1)">▶</button>
     </div>
-    <button class="btn btn-gold" onclick="upgradeCurrentTank()">⬆️ УЛУЧШИТЬ (<span id="upgradeCost">500</span> 🪙)</button>
     <button class="btn btn-blue back-btn" onclick="closeHangar()">◀ НАЗАД</button>
   </div>
 
@@ -126,12 +112,10 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 
   <div class="screen" id="screen-profile">
     <div class="screen-title">👤 ПРОФИЛЬ</div>
-    <div class="stat-row" id="premiumRow" style="display:none;border-color:#ffcc00;background:linear-gradient(180deg,#4a3a0a,#2a1a00);"><span>⭐ Статус:</span><span style="color:#ffcc00;font-weight:bold;">ПРЕМИУМ</span></div>
     <div class="stat-row"><span>🏅 Уровень:</span><span id="p-level">1</span></div>
     <div class="stat-row"><span>🪙 Золото:</span><span id="p-gold">1000</span></div>
     <div class="stat-row"><span>💎 Кристаллы:</span><span id="p-gems">50</span></div>
     <div class="stat-row"><span>🚜 Танков:</span><span id="p-skins">1</span></div>
-    <div class="stat-row"><span>📦 Кейсов:</span><span id="p-cases">0</span></div>
     <div class="stat-row"><span>⚔️ Побед:</span><span id="p-wins">0</span></div>
     <div class="stat-row"><span>🎮 Ник:</span><input type="text" id="nickInput" maxlength="15" placeholder="Игрок" style="flex:1;padding:4px;font-size:13px;border:2px solid #ff8c00;border-radius:6px;background:#0f0518;color:#fff;outline:none;text-align:center;"></div>
     <button class="btn btn-green" onclick="changeNick()">💾 СОХРАНИТЬ НИК</button>
@@ -151,6 +135,13 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   <div class="screen" id="screen-cases">
     <div class="screen-title">📦 КЕЙСЫ</div>
     <div id="casesList"></div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-leaderboard">
+    <div class="screen-title">🏆 ТОП-20</div>
+    <div id="leaderboardList" style="max-height:400px;overflow-y:auto;"><div style="text-align:center;color:#8866aa;padding:15px;">⏳ Загрузка...</div></div>
+    <button class="btn btn-blue" onclick="refreshLeaderboard()">🔄 ОБНОВИТЬ</button>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
 
@@ -184,7 +175,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <div class="hud-box">👾 <span id="enemies-left">0</span></div>
     <div class="hud-box">🌊 <span id="wave-num">1</span></div>
   </div>
-  <button id="exit-battle" style="position:absolute;top:10px;right:10px;z-index:20;background:linear-gradient(180deg,#c62828,#5c1010);border:2px solid #ff6666;border-radius:10px;padding:8px 14px;color:#fff;font-weight:bold;cursor:pointer;font-family:inherit;" onclick="exitBattle()">✖ ВЫЙТИ</button>
+  <button id="exit-battle" onclick="exitBattle()">✖ ВЫЙТИ</button>
   <div id="controls">
     <div class="dpad">
       <button class="empty"></button>
@@ -202,7 +193,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 </div>
 <script>
 // ============================================
-// 🚜 ГРОМ БРОНИ 3D · v11.0 · WEBSOCKET
+// 🚜 ГРОМ БРОНИ 3D · v12.0 · РЕЙТИНГ
 // ============================================
 
 // ========== ДАННЫЕ ==========
@@ -214,7 +205,6 @@ if(!playerData.level) playerData.level = 1;
 if(!playerData.wins) playerData.wins = 0;
 if(!playerData.unlockedSkins) playerData.unlockedSkins = ['standard'];
 if(!playerData.currentSkin) playerData.currentSkin = 'standard';
-if(!playerData.tankLevels) playerData.tankLevels = {};
 if(!playerData.openedCases) playerData.openedCases = 0;
 if(!playerData.usedPromos) playerData.usedPromos = [];
 if(!playerData.nickname) playerData.nickname = 'Игрок';
@@ -239,269 +229,73 @@ function showScreen(id){
   window.scrollTo(0,0);
 }
 
-// ========== 🌐 WEBSOCKET МУЛЬТИПЛЕЕР ==========
-const SERVER_URL = 'https://frontier-site5.onrender.com';
-const WS_URL = 'wss://frontier-site5.onrender.com';
-let ws = null, myId = null, myRoom = null, roomPlayers = {};
+// ========== 🏆 РЕЙТИНГ И НИКНЕЙМЫ ==========
+const RATING_URL = 'https://frontier-site5.onrender.com';
 
-function openMultiplayer(){ showScreen('screen-multiplayer'); refreshGames(); }
-
-async function createGame(name, host){
-  try {
-    const res = await fetch(SERVER_URL + '/create', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, host: host })
-    });
-    const data = await res.json();
-    if(data.success){ showToast('🎮 Игра создана: ' + name); return data.game; }
-    else showToast('❌ ' + data.error);
-  } catch(e) { showToast('❌ Сервер просыпается... подожди 30 сек'); }
+function openLeaderboard(){
+  showScreen('screen-leaderboard');
+  refreshLeaderboard();
 }
 
-async function getGames(){
-  try { const res = await fetch(SERVER_URL + '/games'); return await res.json(); }
-  catch(e) { return []; }
-}
-
-async function joinGame(id, player){
-  try {
-    const res = await fetch(SERVER_URL + '/join', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id, player: player })
-    });
-    const data = await res.json();
-    if(data.success){
-      myRoom = id;
-      showToast('✅ Ты в комнате: ' + data.game.name);
-      connectWebSocket(id, player);
-      showRoomScreen(data.game);
-    }
-    else showToast('❌ ' + data.error);
-  } catch(e) { showToast('❌ Сервер не отвечает'); }
-}
-
-function createGameFromInput(){
-  const input = document.getElementById('gameNameInput');
-  const name = input.value.trim();
-  if(!name){ showToast('⚠️ Введи название!'); return; }
-  createGame(name, playerData.nickname);
-  input.value = '';
-  setTimeout(refreshGames, 1500);
-}
-
-async function refreshGames(){
-  const list = document.getElementById('gamesList');
+async function refreshLeaderboard(){
+  const list = document.getElementById('leaderboardList');
   if(!list) return;
   list.innerHTML = '<div style="text-align:center;color:#8866aa;padding:15px;">⏳ Загрузка...</div>';
-  const games = await getGames();
-  list.innerHTML = '';
-  if(!games || games.length === 0){
-    list.innerHTML = '<div style="color:#8866aa;text-align:center;padding:15px;">Пока нет игр. Создай первую!</div>';
-    return;
-  }
-  games.forEach(g => {
-    const div = document.createElement('div');
-    div.className = 'case-item';
-    div.style.marginBottom = '8px';
-    div.innerHTML = '<div style="flex:1;"><div style="font-weight:bold;">🎮 ' + g.name + '</div><div style="font-size:11px;color:#8866aa;">Хост: ' + g.host + ' · Игроков: ' + g.players.length + '</div></div><button class="buy-btn" onclick="joinGame(\'' + g.id + '\', \'' + playerData.nickname + '\')">Войти</button>';
-    list.appendChild(div);
-  });
-}
-
-setInterval(() => {
-  const screen = document.getElementById('screen-multiplayer');
-  if(screen && screen.classList.contains('active')) refreshGames();
-}, 5000);
-
-// --- ПОКАЗ КОМНАТЫ ---
-function showRoomScreen(game){
-  const ov = document.createElement('div');
-  ov.id = 'roomOverlay';
-  ov.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;padding:15px;';
-  ov.innerHTML = '<div style="background:linear-gradient(180deg,#2a1a4a,#0a0510);border:4px solid #4caf50;border-radius:20px;padding:25px 18px;text-align:center;max-width:400px;width:100%;box-shadow:0 0 80px rgba(76,175,80,0.8);">' +
-    '<div style="font-size:60px;">🎮</div>' +
-    '<h1 style="color:#4caf50;font-size:22px;margin:10px 0;">КОМНАТА</h1>' +
-    '<div style="color:#fff;font-size:16px;font-weight:bold;margin:10px 0;">' + game.name + '</div>' +
-    '<div id="roomStatus" style="color:#ff8c00;font-size:14px;margin:10px 0;">⏳ Ждём друга...</div>' +
-    '<div id="roomPlayersList" style="margin:15px 0;"></div>' +
-    '<button onclick="closeRoom()" style="background:linear-gradient(180deg,#666,#333);color:#fff;border:none;border-radius:12px;padding:12px 30px;font-size:14px;cursor:pointer;font-family:inherit;">ВЫЙТИ</button>' +
-    '</div>';
-  document.body.appendChild(ov);
-}
-
-function closeRoom(){
-  if(ws){ ws.close(); ws = null; }
-  const ov = document.getElementById('roomOverlay');
-  if(ov) ov.remove();
-}
-
-// --- ПОДКЛЮЧЕНИЕ К WEBSOCKET ---
-function connectWebSocket(roomId, playerName){
-  if(ws && ws.readyState === WebSocket.OPEN) ws.close();
-  showToast('🔌 Подключение...');
-  try { ws = new WebSocket(WS_URL); }
-  catch(e) { showToast('❌ Ошибка подключения'); return; }
-  
-  ws.onopen = () => {
-    console.log('✅ WebSocket подключен');
-    ws.send(JSON.stringify({ type: 'join', roomId: roomId, name: playerName }));
-  };
-  
-  ws.onmessage = (event) => {
-    try { handleServerMessage(JSON.parse(event.data)); }
-    catch(e) { console.error('Ошибка:', e); }
-  };
-  
-  ws.onerror = (e) => { console.error('WS error:', e); };
-  ws.onclose = () => { console.log('❌ WS отключен'); ws = null; };
-}
-
-// --- ОБРАБОТКА СООБЩЕНИЙ ---
-function handleServerMessage(data){
-  console.log('📥', data);
-  switch(data.type){
-    case 'roomState':
-      myId = data.yourId;
-      roomPlayers = data.players || {};
-      updateRoomUI();
-      break;
-    case 'playerJoined':
-      roomPlayers[data.player.id] = data.player;
-      updateRoomUI();
-      showToast('🟢 ' + data.player.name + ' вошёл!');
-      break;
-    case 'playerLeft':
-      delete roomPlayers[data.id];
-      updateRoomUI();
-      showToast('🔴 Игрок вышел');
-      break;
-    case 'gameStart':
-      showToast('🎮 ИГРА НАЧАЛАСЬ!');
-      closeRoom();
-      startRealMultiplayerBattle(data);
-      break;
-    case 'playerUpdate':
-      updateEnemyPlayer(data);
-      break;
-    case 'playerShot':
-      drawEnemyBullet(data);
-      break;
-    case 'enemyRemoved':
-      removeEnemyFromServer(data);
-      break;
-    case 'newWave':
-      spawnServerWave(data);
-      break;
+  try {
+    const res = await fetch(RATING_URL + '/leaderboard');
+    const scores = await res.json();
+    list.innerHTML = '';
+    if(!scores || scores.length === 0){
+      list.innerHTML = '<div style="text-align:center;color:#8866aa;padding:15px;">Пока нет игроков. Играй и стань первым!</div>';
+      return;
+    }
+    scores.forEach((s, i) => {
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '🏅';
+      const isMe = s.nickname === playerData.nickname;
+      const div = document.createElement('div');
+      div.className = 'case-item';
+      div.style.marginBottom = '8px';
+      if(isMe) div.style.borderColor = '#ffcc00';
+      div.innerHTML = '<div style="flex:1;display:flex;align-items:center;gap:10px;">' +
+        '<span style="font-size:24px;">' + medal + '</span>' +
+        '<div style="flex:1;">' +
+          '<div style="font-weight:bold;color:' + (isMe ? '#ffcc00' : '#fff') + ';">' + (i+1) + '. ' + s.nickname + (isMe ? ' (ты)' : '') + '</div>' +
+          '<div style="font-size:11px;color:#8866aa;">Волна: ' + (s.wave || 0) + '</div>' +
+        '</div>' +
+        '<div style="font-weight:bold;color:#ffd700;font-size:16px;">' + s.score.toLocaleString() + '</div>' +
+      '</div>';
+      list.appendChild(div);
+    });
+  } catch(e) {
+    list.innerHTML = '<div style="text-align:center;color:#ff6666;padding:15px;">❌ Сервер просыпается... подожди 30 сек</div>';
   }
 }
 
-function updateRoomUI(){
-  const list = document.getElementById('roomPlayersList');
-  if(!list) return;
-  list.innerHTML = '';
-  const count = Object.keys(roomPlayers).length;
-  Object.values(roomPlayers).forEach(p => {
-    const div = document.createElement('div');
-    div.style.cssText = 'background:rgba(76,175,80,0.2);border:2px solid #4caf50;border-radius:8px;padding:8px;margin:5px 0;font-weight:bold;color:#4caf50;text-align:center;';
-    div.innerText = (p.id === myId ? '👑 ' : '🎮 ') + p.name + (p.id === myId ? ' (ты)' : '');
-    list.appendChild(div);
-  });
-  const status = document.getElementById('roomStatus');
-  if(status){
-    if(count >= 2){ status.innerText = '✅ Готово! Начинаем...'; status.style.color = '#4caf50'; }
-    else { status.innerText = '⏳ Ждём друга... (' + count + '/2)'; status.style.color = '#ff8c00'; }
-  }
+async function sendScore(score, wave){
+  if(!playerData.nickname || playerData.nickname === 'Игрок') return;
+  try {
+    await fetch(RATING_URL + '/score', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nickname: playerData.nickname, score: score, wave: wave })
+    });
+    console.log('📊 Счёт отправлен: ' + score);
+  } catch(e) { console.log('❌ Не удалось отправить счёт'); }
 }
 
-// --- ЗАПУСК РЕАЛЬНОГО БОЯ ---
-function startRealMultiplayerBattle(data){
-  battle.isRealMultiplayer = true;
-  battle.serverEnemies = (data.enemies || []).map(e => ({
-    id: e.id, x: window.innerWidth/2 + e.x, y: window.innerHeight/2 + e.y,
-    angle: 0, hp: e.hp, speed: e.speed, color: e.color,
-    lastShot: 0, shotInterval: 2, isServer: true
-  }));
-  battle.wave = data.wave || 1;
-  battle.playerHp = 100;
-  battle.enemies = battle.serverEnemies.slice();
-  battle.allies = [];
-  battle.bullets = [];
-  battle.caterpillars = [];
-  battle.moths = 0;
-  battle.keys = { up:false, down:false, left:false, right:false };
-  battle.cooldown = 0; battle.running = true;
-  
-  document.getElementById('battle-screen').classList.add('active');
-  document.getElementById('wave-num').innerText = battle.wave;
-  document.getElementById('player-hp').innerText = 100;
-  document.getElementById('enemies-left').innerText = battle.enemies.length;
-  
-  const canvas = document.getElementById('battle-canvas');
-  battle.canvas = canvas;
-  battle.ctx = canvas.getContext('2d');
-  battle.W = window.innerWidth; battle.H = window.innerHeight;
-  canvas.width = battle.W; canvas.height = battle.H;
-  
-  battle.player = { x: battle.W/2, y: battle.H/2, angle: 0, color: (SKINS.find(s=>s.id===playerData.currentSkin)?.color) || '#4caf50' };
-  
-  battle.lastTime = performance.now();
-  requestAnimationFrame(battleLoop2D);
-  initBattleControls();
+async function saveNickToServer(nickname){
+  try {
+    await fetch(RATING_URL + '/save-nick', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nickname: nickname })
+    });
+    console.log('👤 Ник сохранён: ' + nickname);
+  } catch(e) { console.log('❌ Не удалось сохранить ник'); }
 }
 
-// --- СИНХРОНИЗАЦИЯ ---
-let syncTimer = 0;
-function syncPosition(){
-  if(!ws || ws.readyState !== WebSocket.OPEN || !battle.player) return;
-  ws.send(JSON.stringify({
-    type: 'update',
-    x: battle.player.x - battle.W/2,
-    y: battle.player.y - battle.H/2,
-    angle: battle.player.angle,
-    hp: battle.playerHp
-  }));
-}
-
-function updateEnemyPlayer(data){
-  if(!battle.enemyPlayers) battle.enemyPlayers = {};
-  battle.enemyPlayers[data.id] = {
-    x: battle.W/2 + data.x,
-    y: battle.H/2 + data.y,
-    angle: data.angle,
-    hp: data.hp,
-    name: (roomPlayers[data.id] && roomPlayers[data.id].name) || 'Друг',
-    color: '#ff8c00'
-  };
-}
-
-function drawEnemyBullet(data){
-  if(!battle.enemyBullets) battle.enemyBullets = [];
-  battle.enemyBullets.push({
-    x: battle.W/2 + data.x, y: battle.H/2 + data.y,
-    angle: data.angle, life: 1.5,
-    vx: Math.cos(data.angle)*500, vy: Math.sin(data.angle)*500
-  });
-}
-
-function removeEnemyFromServer(data){
-  battle.enemies = battle.enemies.filter(e => e.id !== data.enemyId);
-  document.getElementById('enemies-left').innerText = battle.enemies.length;
-}
-
-function spawnServerWave(data){
-  battle.enemies = (data.enemies || []).map(e => ({
-    id: e.id, x: battle.W/2 + e.x, y: battle.H/2 + e.y,
-    angle: 0, hp: e.hp, speed: e.speed, color: e.color,
-    lastShot: 0, shotInterval: 2, isServer: true
-  }));
-  battle.wave = data.wave;
-  document.getElementById('wave-num').innerText = data.wave;
-  document.getElementById('enemies-left').innerText = battle.enemies.length;
-  showToast('🌊 Волна ' + data.wave);
-}
-
-// ========== 🎁 СЮРПРИЗ ==========
-const SURPRISE_KEY = 'grom_surprise_v6';
+// ========== 🎁 СЮРПРИЗ +5 000 000 ==========
+const SURPRISE_KEY = 'grom_surprise_v7';
 function checkSurprise(){
   if(localStorage.getItem(SURPRISE_KEY) === 'yes') return;
   playerData.gold += 5000000;
@@ -513,13 +307,9 @@ function checkSurprise(){
     const ov = document.createElement('div');
     ov.id = 'surpriseOverlay';
     ov.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:15px;';
-    ov.innerHTML = '<div style="background:linear-gradient(180deg,#2a1a4a,#0a0510);border:4px solid #ffcc00;border-radius:20px;padding:25px 18px;text-align:center;max-width:400px;width:100%;"><div style="font-size:70px;">🎁</div><h1 style="color:#ffcc00;font-size:26px;">СЮРПРИЗ!</h1><div style="font-size:24px;color:#ffcc00;margin:15px 0;">+5 000 000 🪙</div><button onclick="document.getElementById(\'surpriseOverlay\').remove()" style="background:linear-gradient(180deg,#4caf50,#1b5e20);color:#fff;border:none;border-radius:12px;padding:16px 40px;font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;">🎮 ЗАБРАТЬ!</button></div>';
+    ov.innerHTML = '<div style="background:linear-gradient(180deg,#2a1a4a,#0a0510);border:4px solid #ffcc00;border-radius:20px;padding:25px 18px;text-align:center;max-width:400px;width:100%;"><div style="font-size:70px;">🎁</div><h1 style="color:#ffcc00;font-size:26px;">СЮРПРИЗ!</h1><div style="font-size:24px;color:#ffcc00;margin:15px 0;">+5 000 000 🪙</div><div style="color:#aaddff;font-size:14px;">+500 💎 + ПРЕМИУМ</div><button onclick="document.getElementById(\'surpriseOverlay\').remove()" style="background:linear-gradient(180deg,#4caf50,#1b5e20);color:#fff;border:none;border-radius:12px;padding:16px 40px;font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:15px;">🎮 ЗАБРАТЬ!</button></div>';
     document.body.appendChild(ov);
   }, 800);
-}
-function updatePremiumUI(){
-  const premRow = document.getElementById('premiumRow');
-  if(premRow) premRow.style.display = playerData.isPremium ? 'flex' : 'none';
 }
 
 // ========== 300 ТАНКОВ ==========
@@ -531,7 +321,9 @@ const SKINS = [
   { id:'standard', name:'Стандарт', price:0, color:'#4caf50' },
   { id:'red', name:'🔴 Красный', price:800, color:'#c62828' },
   { id:'blue', name:'🔵 Синий', price:800, color:'#2c5faa' },
-  { id:'gold', name:'🟡 Золотой', price:5000, color:'#d4a017' }
+  { id:'gold', name:'🟡 Золотой', price:5000, color:'#d4a017' },
+  { id:'silver', name:'⚪ Серебряный', price:3500, color:'#dddddd' },
+  { id:'black', name:'⚫ Чёрный', price:10000, color:'#1a1a1a' }
 ];
 
 let tankIndex = 1;
@@ -547,28 +339,7 @@ for (let p = 0; p < SKIN_PREFIX.length; p++) {
     }
   }
 }
-
-// ========== ПРОКАЧКА ==========
-function getTankLevel(id){ return playerData.tankLevels[id] || 1; }
-function getUpgradeCost(id){ return 500 * getTankLevel(id); }
-function upgradeCurrentTank(){
-  const id = playerData.currentSkin;
-  const lvl = getTankLevel(id);
-  if(lvl >= 10){ showToast('⭐ Максимум!'); return; }
-  const cost = getUpgradeCost(id);
-  if(playerData.gold < cost){ showToast('❌ Мало золота!'); return; }
-  playerData.gold -= cost;
-  playerData.tankLevels[id] = lvl + 1;
-  saveGame(); updateUI(); updateHangarLevel();
-  showToast('⬆️ Ур. ' + (lvl + 1) + '!');
-}
-function updateHangarLevel(){
-  const lvl = getTankLevel(playerData.currentSkin);
-  const el = document.getElementById('currentTankLevel');
-  const costEl = document.getElementById('upgradeCost');
-  if(el) el.innerText = 'Ур. ' + lvl + '/10';
-  if(costEl) costEl.innerText = lvl >= 10 ? 'MAX' : getUpgradeCost(playerData.currentSkin);
-}
+console.log('🚜 Создано танков: ' + SKINS.length);
 
 // ========== ТАНКИ ==========
 let skinPage = 0;
@@ -651,11 +422,9 @@ function openProfile(){
   document.getElementById('p-gold').innerText = playerData.gold;
   document.getElementById('p-gems').innerText = playerData.gems;
   document.getElementById('p-skins').innerText = playerData.unlockedSkins.length;
-  document.getElementById('p-cases').innerText = playerData.openedCases;
   document.getElementById('p-wins').innerText = playerData.wins;
   const ni = document.getElementById('nickInput');
   if(ni) ni.value = playerData.nickname;
-  updatePremiumUI();
   showScreen('screen-profile');
 }
 function changeNick(){
@@ -664,14 +433,15 @@ function changeNick(){
   if(!n){ showToast('⚠️ Введи ник!'); return; }
   playerData.nickname = n;
   saveGame();
-  showToast('✅ Ник: ' + n);
+  saveNickToServer(n);
+  showToast('✅ Ник: ' + n + ' (сохранён)');
 }
 
 // ========== ПОМОЩНИК ==========
 const HELPER_ANSWERS = [
   { keys: ['привет'], answer: 'Привет!' },
   { keys: ['как играть'], answer: '⚔️ В БОЙ → волна → ▲▼◀▶ + 🔥' },
-  { keys: ['мультиплеер','друг'], answer: '🌐 МУЛЬТИПЛЕЕР — создай, друг войдёт!' },
+  { keys: ['рейтинг','топ'], answer: '🏆 РЕЙТИНГ — топ-20 игроков!' },
   { keys: ['ник','имя'], dynamic: 'nickname' },
   { keys: ['автор'], answer: 'Мухаммад (PixelFox56)! 🚜' }
 ];
@@ -703,8 +473,7 @@ function askHelper(){
 const PROMOCODES = {
   'START2026': { gold: 5000 }, 'GROM': { gold: 3000 }, 'TANK': { gold: 5000 },
   'GEMS100': { gems: 100 }, 'GOLD': { gold: 15000 }, 'RICH': { gold: 50000 },
-  'LEGEND': { gold: 100000 }, 'ULTRA': { gold: 1000000 },
-  'MULTIPLAYER': { gold: 100000, bonds: 100 }
+  'LEGEND': { gold: 100000 }, 'ULTRA': { gold: 1000000 }
 };
 function openPromo(){ renderUsedPromos(); showScreen('screen-promo'); }
 function renderUsedPromos(){
@@ -729,7 +498,7 @@ function applyPromo(){
 // ========== САЙТ ==========
 function openSite(){ showScreen('screen-site'); }// ========== АНГАР 3D ==========
 let hScene, hCam, hRen, hTank, hRotate = true, hDragging = false, hLastX = 0;
-function openHangar(){ showScreen('screen-hangar'); setTimeout(initHangar, 100); updateHangarLevel(); }
+function openHangar(){ showScreen('screen-hangar'); setTimeout(initHangar, 100); }
 function closeHangar(){ hRotate = true; if(hRen){ hRen.dispose(); hRen=null; } showScreen('screen-main'); }
 function initHangar(){
   if(hRen) return;
@@ -760,7 +529,6 @@ function initHangar(){
 function updateHangarName(){
   const skin = SKINS.find(s=>s.id===playerData.currentSkin);
   if(skin) document.getElementById('currentTankName').innerText = skin.name;
-  updateHangarLevel();
 }
 function animateHangar(){ if(!hRen) return; requestAnimationFrame(animateHangar); if(hTank && hRotate) hTank.rotation.y += 0.008; hRen.render(hScene, hCam); }
 function changeTank(dir){
@@ -791,14 +559,13 @@ function buildTank3D(skinId){
 }
 
 // ========== 2D БОЙ ==========
-const battle = { canvas:null, ctx:null, player:null, playerHp:100, enemies:[], allies:[], bullets:[], caterpillars:[], moths:0, enemyPlayers:{}, enemyBullets:[], keys:{ up:false, down:false, left:false, right:false }, wave:1, running:false, lastTime:0, cooldown:0, W:0, H:0, isRealMultiplayer:false };
+const battle = { canvas:null, ctx:null, player:null, playerHp:100, enemies:[], bullets:[], keys:{ up:false, down:false, left:false, right:false }, wave:1, running:false, lastTime:0, cooldown:0, W:0, H:0 };
 
 function openBattle(){ showScreen('screen-battle'); }
 function startBattle(waveNum){
   battle.wave = waveNum;
   battle.playerHp = 100;
-  battle.enemies = []; battle.allies = []; battle.bullets = []; battle.caterpillars = [];
-  battle.moths = 0;
+  battle.enemies = []; battle.bullets = [];
   battle.keys = { up:false, down:false, left:false, right:false };
   battle.cooldown = 0; battle.running = true;
   document.getElementById('battle-screen').classList.add('active');
@@ -814,7 +581,7 @@ function initBattle2D(){
   battle.W = window.innerWidth; battle.H = window.innerHeight;
   canvas.width = battle.W; canvas.height = battle.H;
   battle.player = { x: battle.W/2, y: battle.H/2, angle: 0, color: (SKINS.find(s=>s.id===playerData.currentSkin)?.color) || '#4caf50' };
-  if(!battle.isRealMultiplayer) spawnEnemies2D(battle.wave);
+  spawnEnemies2D(battle.wave);
   battle.lastTime = performance.now();
   requestAnimationFrame(battleLoop2D);
 }
@@ -826,12 +593,6 @@ function spawnEnemies2D(wave){
     battle.enemies.push({ x: battle.W/2 + Math.cos(angle)*dist, y: battle.H/2 + Math.sin(angle)*dist, angle: 0, hp: 30 + wave*10, speed: 60 + wave*5, lastShot: 0, shotInterval: Math.max(1.5, 3 - wave*0.1), color: '#c62828' });
   }
   document.getElementById('enemies-left').innerText = battle.enemies.length;
-  const alliesCount = Math.min(2 + Math.floor(wave/2), 5);
-  for(let i=0; i<alliesCount; i++){
-    const angle = (Math.PI*2/alliesCount)*(i+0.5);
-    const dist = 100 + Math.random()*60;
-    battle.allies.push({ x: battle.W/2 + Math.cos(angle)*dist, y: battle.H/2 + Math.sin(angle)*dist, angle: 0, hp: 50 + wave*5, speed: 80 + wave*3, lastShot: 0, shotInterval: 1.2, color: '#4caf50' });
-  }
 }
 function initBattleControls(){
   document.onkeydown = e => {
@@ -853,22 +614,15 @@ function fireBullet2D(){
   if(!battle.running || !battle.player) return;
   if(battle.cooldown > 0) return;
   battle.cooldown = 0.4;
-  if(battle.isRealMultiplayer && ws && ws.readyState === WebSocket.OPEN){
-    ws.send(JSON.stringify({ type: 'shoot', x: battle.player.x - battle.W/2, y: battle.player.y - battle.H/2, angle: battle.player.angle }));
-  }
-  battle.bullets.push({ x: battle.player.x + Math.cos(battle.player.angle) * 30, y: battle.player.y + Math.sin(battle.player.angle) * 30, vx: Math.cos(battle.player.angle) * 500, vy: Math.sin(battle.player.angle) * 500, life: 3, damage: 25, friendly: true });
+  battle.bullets.push({ x: battle.player.x + Math.cos(battle.player.angle) * 30, y: battle.player.y + Math.sin(battle.player.angle) * 30, vx: Math.cos(battle.player.angle) * 500, vy: Math.sin(battle.player.angle) * 500, life: 3, damage: 25 });
 }
-function drawTank2D(ctx, x, y, angle, color, name){
+function drawTank2D(ctx, x, y, angle, color){
   ctx.save(); ctx.translate(x, y); ctx.rotate(angle);
   ctx.fillStyle = color; ctx.fillRect(-15, -12, 30, 24);
   ctx.fillStyle = '#222'; ctx.fillRect(-18, -14, 36, 5); ctx.fillRect(-18, 9, 36, 5);
   ctx.fillStyle = '#111'; ctx.fillRect(10, -3, 22, 6);
   ctx.fillStyle = color; ctx.fillRect(-8, -8, 16, 16);
   ctx.restore();
-  if(name){
-    ctx.fillStyle = '#fff'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
-    ctx.fillText(name, x, y - 25);
-  }
 }
 function battleLoop2D(now){
   if(!battle.running) return;
@@ -886,12 +640,6 @@ function battleLoop2D(now){
   battle.player.x += dx; battle.player.y += dy;
   battle.player.x = Math.max(20, Math.min(battle.W-20, battle.player.x));
   battle.player.y = Math.max(20, Math.min(battle.H-20, battle.player.y));
-  
-  // Синхронизация каждые 100 мс
-  syncTimer += dt;
-  if(syncTimer > 0.1){ syncTimer = 0; if(battle.isRealMultiplayer) syncPosition(); }
-  
-  // Пули
   for(let i = battle.bullets.length-1; i >= 0; i--){
     const b = battle.bullets[i];
     b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
@@ -903,9 +651,6 @@ function battleLoop2D(now){
         if(e.hp <= 0){
           battle.enemies.splice(j,1);
           playerData.gold += 100; playerData.wins++;
-          if(battle.isRealMultiplayer && e.id && ws && ws.readyState === WebSocket.OPEN){
-            ws.send(JSON.stringify({ type: 'enemyKilled', enemyId: e.id }));
-          }
           saveGame(); updateUI();
           document.getElementById('enemies-left').innerText = battle.enemies.length;
         }
@@ -913,16 +658,6 @@ function battleLoop2D(now){
       }
     }
   }
-  
-  // Другие игроки
-  if(battle.enemyPlayers){
-    Object.keys(battle.enemyPlayers).forEach(id => {
-      const p = battle.enemyPlayers[id];
-      drawTank2D(ctx, p.x, p.y, p.angle, p.color, p.name);
-    });
-  }
-  
-  // Враги
   battle.enemies.forEach(e => {
     const ddx = battle.player.x - e.x, ddy = battle.player.y - e.y;
     const dist = Math.hypot(ddx, ddy);
@@ -937,18 +672,14 @@ function battleLoop2D(now){
       if(battle.playerHp <= 0) endBattle2D(false);
     }
   });
-  if(battle.enemies.length === 0 && battle.running && !battle.isRealMultiplayer) endBattle2D(true);
-  
-  // Рисуем
+  if(battle.enemies.length === 0 && battle.running) endBattle2D(true);
   ctx.fillStyle = '#0a0510';
   ctx.fillRect(0, 0, battle.W, battle.H);
   ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1;
   for(let x = 0; x < battle.W; x += 50){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,battle.H); ctx.stroke(); }
   for(let y = 0; y < battle.H; y += 50){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(battle.W,y); ctx.stroke(); }
-  
   battle.enemies.forEach(e => drawTank2D(ctx, e.x, e.y, e.angle, e.color));
-  drawTank2D(ctx, battle.player.x, battle.player.y, battle.player.angle, battle.player.color, 'Ты');
-  
+  drawTank2D(ctx, battle.player.x, battle.player.y, battle.player.angle, battle.player.color);
   ctx.fillStyle = '#ffcc00';
   battle.bullets.forEach(b => {
     ctx.beginPath(); ctx.arc(b.x, b.y, 5, 0, Math.PI*2); ctx.fill();
@@ -962,8 +693,10 @@ function endBattle2D(win){
     playerData.gold += reward;
     playerData.level = Math.max(playerData.level, Math.floor(battle.wave / 2) + 1);
     saveGame(); updateUI();
+    sendScore(battle.wave * 100, battle.wave);
     showToast('🏆 Победа! +' + reward.toLocaleString() + ' 🪙');
   } else {
+    sendScore(battle.wave * 50, battle.wave);
     showToast('💀 Поражение...');
   }
   setTimeout(()=> exitBattle(), 2500);
@@ -971,9 +704,7 @@ function endBattle2D(win){
 function exitBattle(){
   battle.running = false;
   document.getElementById('battle-screen').classList.remove('active');
-  battle.enemies = []; battle.bullets = []; battle.caterpillars = []; battle.allies = [];
-  battle.enemyPlayers = {}; battle.enemyBullets = [];
-  battle.isRealMultiplayer = false;
+  battle.enemies = []; battle.bullets = [];
   showScreen('screen-main');
 }
 function exitGame(){
@@ -983,11 +714,10 @@ function exitGame(){
 }
 
 // ========== СТАРТ ==========
-console.log('🚜 Гром Брони 3D v11.0 загружена!');
+console.log('🚜 Гром Брони 3D v12.0 загружена!');
 updateUI();
 saveGame();
 checkSurprise();
-setTimeout(updatePremiumUI, 2000);
 </script>
 
 </body>
