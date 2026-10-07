@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://majidovmuhammad23774.github.io/Frontier-site/sitemap.xml
