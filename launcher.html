@@ -3,56 +3,274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Армор Геймс — Лаунчер</title>
+<title>Гром Танков — Лаунчер</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚜</text></svg>">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
-body{background:linear-gradient(180deg,#0a0e1a,#05080f);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif;color:#d0dae8;padding:20px;text-align:center;overflow-x:hidden}
-h1{color:#e8b84a;font-size:34px;font-weight:900;margin-bottom:6px;text-shadow:0 0 25px rgba(232,184,74,0.6);letter-spacing:3px}
-.sub{color:#7fc8ff;font-size:14px;margin-bottom:25px}
-.games{display:flex;flex-direction:column;gap:18px;width:100%;max-width:420px}
-.card{background:linear-gradient(180deg,#152030,#0f1626);border:3px solid #3a6ea5;border-radius:20px;padding:22px 18px;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;transition:transform 0.15s}
-.card:active{transform:scale(0.97)}
-.card.tank{border-color:#e8b84a;box-shadow:0 0 30px rgba(232,184,74,0.3)}
-.card.space{border-color:#7fc8ff;box-shadow:0 0 30px rgba(127,200,255,0.3)}
-.emoji{font-size:60px;margin-bottom:8px}
-.card h2{font-size:22px;margin-bottom:6px;font-weight:900}
-.card.tank h2{color:#e8b84a}
-.card.space h2{color:#7fc8ff}
-.card p{font-size:13px;color:#a8b8c8;margin-bottom:14px;line-height:1.5}
-.play-btn{display:inline-block;padding:14px 40px;font-size:16px;font-weight:bold;border-radius:12px;color:#fff;width:100%}
-.card.tank .play-btn{background:linear-gradient(180deg,#c8a042,#8a6b1e);box-shadow:0 4px 15px rgba(200,160,66,0.5)}
-.card.space .play-btn{background:linear-gradient(180deg,#3a6ea5,#244a75);box-shadow:0 4px 15px rgba(58,110,165,0.5)}
-.footer{margin-top:30px;font-size:12px;color:#606070}
-.footer b{color:#7fc8ff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;user-select:none}
+body{
+  background:#0a0510;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,140,0,0.25) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(150,0,200,0.25) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+#bgCanvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
+.launcher{
+  position:relative;
+  z-index:2;
+  width:90%;
+  max-width:500px;
+  background:linear-gradient(180deg, rgba(30,10,50,0.95), rgba(15,5,30,0.98));
+  border:2px solid #ff8c00;
+  border-radius:20px;
+  padding:30px 25px;
+  box-shadow:0 0 60px rgba(255,140,0,0.5);
+  text-align:center;
+}
+.logo{
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:3px;
+  background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-bottom:5px;
+  animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+  from{filter:drop-shadow(0 0 5px #ff6600)}
+  to{filter:drop-shadow(0 0 25px #ff6600)}
+}
+.subtitle{
+  font-size:14px;
+  color:#ff6600;
+  letter-spacing:8px;
+  font-weight:bold;
+  margin-bottom:30px;
+}
+.news-box{
+  background:rgba(0,0,0,0.5);
+  border:2px solid #5a3a8a;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:20px;
+  text-align:left;
+  max-height:150px;
+  overflow-y:auto;
+}
+.news-title{
+  font-size:14px;
+  color:#ffcc00;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+.news-item{
+  font-size:12px;
+  color:#aaddff;
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,140,0,0.15);
+}
+.news-item:last-child{border:none}
+.progress-wrap{
+  margin-bottom:20px;
+}
+.progress-bar{
+  width:100%;
+  height:14px;
+  background:rgba(0,0,0,0.7);
+  border:2px solid #5a3a8a;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ffcc00,#ff6600,#cc0066);
+  border-radius:8px;
+  transition:width 0.3s ease;
+  box-shadow:0 0 15px #ff6600;
+}
+.progress-text{
+  font-size:12px;
+  color:#ffcc00;
+  margin-top:6px;
+  font-weight:bold;
+}
+.play-btn{
+  width:100%;
+  padding:20px;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#fff;
+  border:3px solid #ff8c00;
+  border-radius:14px;
+  background:linear-gradient(180deg,#4caf50,#1b5e20);
+  cursor:pointer;
+  font-family:inherit;
+  box-shadow:0 6px 0 #0d3010, 0 0 30px rgba(76,175,80,0.6);
+  transition:all 0.15s;
+  text-transform:uppercase;
+}
+.play-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 0 #0d3010, 0 0 40px rgba(76,175,80,0.9);
+}
+.play-btn:active{
+  transform:translateY(4px);
+  box-shadow:0 2px 0 #0d3010;
+}
+.play-btn:disabled{
+  background:linear-gradient(180deg,#555,#222);
+  border-color:#666;
+  box-shadow:0 6px 0 #111;
+  cursor:not-allowed;
+  opacity:0.7;
+}
+.socials{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+.social-btn{
+  padding:8px 14px;
+  font-size:12px;
+  font-weight:bold;
+  color:#fff;
+  text-decoration:none;
+  background:linear-gradient(180deg,#5a4db8,#2c2470);
+  border:2px solid #aaddff;
+  border-radius:10px;
+  transition:0.2s;
+}
+.social-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 15px rgba(170,221,255,0.6);
+}
+.version{
+  font-size:11px;
+  color:#8866aa;
+  margin-top:15px;
+}
 </style>
 </head>
 <body>
 
-<h1>🎮 АРМОР ГЕЙМС</h1>
-<p class="sub">Выбери игру и играй!</p>
+<canvas id="bgCanvas"></canvas>
 
-<div class="games">
+<div class="launcher">
+  <div class="logo">ГРОМ ТАНКОВ</div>
+  <div class="subtitle">Л А У Н Ч Е Р</div>
 
-<a href="https://majidovmuhammad23774.github.io/Frontier-site/game.html" class="card tank">
-<span class="emoji">🚜</span>
-<h2>ГРОМ БРОНИ</h2>
-<p>Танковые бои • 30 волн • 40+ танков • Мультиплеер</p>
-<span class="play-btn">▶ ИГРАТЬ ОНЛАЙН</span>
-</a>
+  <div class="news-box">
+    <div class="news-title">📰 ЧТО НОВОГО</div>
+    <div class="news-item">🎒 Рюкзак — носи до 20 предметов!</div>
+    <div class="news-item">🚁 Вертолёты — летающие враги с 3-й волны!</div>
+    <div class="news-item">🏅 Звания — от Новобранца до Легенды!</div>
+    <div class="news-item">☢️ Карта САЭС — радиация и противогаз!</div>
+  </div>
 
-<a href="https://majidovmuhammad23774.github.io/Cosmo-turbiks/game.html" class="card space">
-<span class="emoji">🚀</span>
-<h2>КОСМО ТУРБИКС</h2>
-<p>Космическая аркада • Инопланетяне • Напарники</p>
-<span class="play-btn">▶ ИГРАТЬ ОНЛАЙН</span>
-</a>
+  <div class="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text" id="progressText">Загрузка... 0%</div>
+  </div>
 
+  <button class="play-btn" id="playBtn" disabled>⏳ ЗАГРУЗКА...</button>
+
+  <div class="socials">
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site" target="_blank" class="social-btn">📦 GitHub</a>
+    <a href="https://arcadelab.ai/play/game-pixelfox56" class="social-btn">🎮 ArcadeLab</a>
+  </div>
+
+  <div class="version">v21.0 · © Мухаммад, 2026</div>
 </div>
 
-<div class="footer">
-© 2026 <b>Армор Геймс Студио</b><br>
-Мухаммад Маджидов, 9 лет
-</div>
+<script>
+// ========== 🎨 АНИМИРОВАННЫЙ ФОН ==========
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize); resize();
+
+const stars = [];
+for(let i = 0; i < 100; i++){
+  stars.push({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    r: Math.random() * 2 + 0.5,
+    speed: Math.random() * 0.5 + 0.1,
+    alpha: Math.random()
+  });
+}
+
+function animateBg(){
+  ctx.fillStyle = 'rgba(10, 5, 16, 0.3)';
+  ctx.fillRect(0, 0, W, H);
+
+  stars.forEach(s => {
+    s.alpha = 0.3 + Math.sin(Date.now()/500 + s.x) * 0.5;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 200, 100, ${s.alpha})`;
+    ctx.fill();
+    s.y += s.speed;
+    if(s.y > H){ s.y = 0; s.x = Math.random() * W; }
+  });
+
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+// ========== 📊 ЗАГРУЗКА ==========
+let progress = 0;
+const fill = document.getElementById('progressFill');
+const text = document.getElementById('progressText');
+const btn = document.getElementById('playBtn');
+
+const loadingSteps = [
+  'Загрузка ресурсов...',
+  'Подготовка танков...',
+  'Синхронизация...',
+  'Загрузка карт...',
+  'Готово!'
+];
+
+const interval = setInterval(() => {
+  progress += Math.random() * 8 + 3;
+  if(progress >= 100){
+    progress = 100;
+    clearInterval(interval);
+    text.innerText = '✅ ГОТОВО!';
+    btn.disabled = false;
+    btn.innerText = '🎮 ИГРАТЬ';
+  } else {
+    const step = Math.floor(progress / 25);
+    text.innerText = loadingSteps[step] + ' ' + Math.floor(progress) + '%';
+  }
+  fill.style.width = progress + '%';
+}, 200);
+
+// ========== 🎮 КНОПКА ИГРАТЬ ==========
+btn.addEventListener('click', () => {
+  btn.innerText = '🚀 ЗАПУСК...';
+  setTimeout(() => {
+    window.location.href = 'game.html';
+  }, 500);
+});
+</script>
 
 </body>
 </html>
