@@ -2,252 +2,96 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Гром Танков ⚔️ Танковая аркада</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥕</text></svg>">
-<meta name="description" content="Гром Танков — эпическая танковая аркада. 300+ танков, рейтинг, бонус +5 000 000!">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Armor Thunder</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚜</text></svg>">
 <style>
-:root {
-  --primary: #ff8800;
-  --primary-glow: rgba(255, 136, 0, 0.6);
-  --bg-dark: #1a0a05;
-  --panel-bg: rgba(45, 20, 10, 0.65);
-  --panel-border: rgba(255, 136, 0, 0.35);
-  --text-main: #ffeedd;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #1a0a05;
-  background-image:
-    radial-gradient(circle at 15% 15%, rgba(255,136,0,0.25) 0%, transparent 45%),
-    radial-gradient(circle at 85% 85%, rgba(255,80,0,0.2) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, #2a1005 0%, #1a0a05 100%);
-  background-attachment: fixed;
-  color: var(--text-main);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  padding: 20px 15px;
-  text-align: center;
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
-.carrot {
-  position: fixed;
-  font-size: 30px;
-  z-index: 1;
-  pointer-events: none;
-  animation: float 15s linear infinite;
-  opacity: 0.4;
-}
-@keyframes float {
-  0% { transform: translateY(100vh) rotate(0deg); }
-  100% { transform: translateY(-100px) rotate(360deg); }
-}
-.container { max-width: 680px; margin: 0 auto; position: relative; z-index: 2; }
-.hero {
-  padding: 40px 20px;
-  border-radius: 24px;
-  margin-bottom: 25px;
-  background: radial-gradient(circle at 50% 0%, rgba(255,136,0,0.3) 0%, transparent 75%);
-  border: 2px solid rgba(255,136,0,0.4);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-h1 {
-  font-size: 48px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  background: linear-gradient(180deg, #ffdd99 0%, #ff8800 40%, #cc2200 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin: 10px 0;
-  text-shadow: 0 0 30px rgba(255,136,0,0.6);
-}
-.subtitle { font-size: 16px; color: #ffaa44; margin-bottom: 8px; font-weight: 800; letter-spacing: 2px; }
-.version { font-size: 13px; color: #ffcc99; margin-bottom: 20px; opacity: 0.9; }
-.slogan {
-  background: rgba(255, 136, 0, 0.15);
-  border: 1.5px solid #ff8800;
-  border-radius: 16px;
-  padding: 14px;
-  margin: 15px auto 0;
-  max-width: 480px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #ffddaa;
-  animation: pulse 2s infinite alternate;
-}
-@keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 10px rgba(255,136,0,0.3); }
-  100% { transform: scale(1.02); box-shadow: 0 0 25px rgba(255,136,0,0.6); }
-}
-.buttons { display: flex; flex-direction: column; gap: 14px; align-items: center; margin: 30px 0; }
-.btn {
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  width: 100%; max-width: 460px; padding: 18px 25px;
-  font-size: 18px; font-weight: 800; color: #fff; text-decoration: none;
-  border-radius: 16px; border: 2px solid transparent; cursor: pointer;
-  transition: all 0.25s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-.btn:hover { transform: translateY(-3px); }
-.btn-main { background: linear-gradient(180deg, #ff8800, #cc3300); border-color: #ffaa44; box-shadow: 0 0 30px var(--primary-glow); font-size: 20px; padding: 20px 25px; }
-.btn.rating { background: linear-gradient(180deg, #b85500, #6a2200); border-color: #ffbb66; }
-.btn.apk { background: linear-gradient(180deg, #66aa33, #225500); border-color: #aadd66; }
-.btn.arcade { background: linear-gradient(180deg, #ff6600, #992200); border-color: #ffcc66; }
-.block {
-  background: var(--panel-bg);
-  border: 2px solid var(--panel-border);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 24px;
-  margin: 20px 0;
-  text-align: left;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-.block h2 { color: #ff9900; font-size: 22px; margin-bottom: 16px; text-align: center; letter-spacing: 1px; }
-.block li { font-size: 15px; color: #ffe0cc; padding: 12px 6px; list-style: none; border-bottom: 1px solid rgba(255,136,0,0.15); display: flex; align-items: center; gap: 10px; }
-.block li:last-child { border: none; }
-.footer { margin-top: 40px; padding: 25px 0; font-size: 14px; color: #cc8844; border-top: 1px solid rgba(255,136,0,0.2); line-height: 1.6; }
-.footer a { color: #ff9900; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 8px; background: rgba(255,136,0,0.08); }
-
-/* 🥕 Секретная морковка */
-#secretCarrot {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  font-size: 40px;
-  cursor: pointer;
-  z-index: 50;
-  opacity: 0.6;
-  transition: all 0.3s;
-  user-select: none;
-}
-#secretCarrot:hover {
-  opacity: 1;
-  transform: scale(1.2) rotate(15deg);
-  filter: drop-shadow(0 0 20px #ff8800);
-}
-#carrotPopup {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(180deg, #2a1005, #1a0a05);
-  border: 4px solid #ff8800;
-  border-radius: 20px;
-  padding: 30px 25px;
-  z-index: 9999;
-  text-align: center;
-  max-width: 340px;
-  width: 90%;
-  box-shadow: 0 0 60px rgba(255,136,0,0.8);
-}
-#carrotPopup h2 { color: #ffcc00; font-size: 22px; margin: 10px 0; }
-#carrotPopup p { color: #ffddaa; font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
-#carrotPopup button {
-  background: linear-gradient(180deg, #ff8800, #cc3300);
-  border: none; color: #fff;
-  padding: 12px 30px; border-radius: 10px;
-  font-size: 16px; font-weight: bold;
-  cursor: pointer; font-family: inherit;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .container {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+  .logo {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    background: linear-gradient(180deg, #ffcc00, #ff6600 50%, #cc0066);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #ff6600;
+    letter-spacing: 6px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+  }
+  .btn:active { transform: translateY(3px); }
+  .btn-play {
+    background: linear-gradient(180deg, #4caf50, #1b5e20);
+    box-shadow: 0 4px 0 #0d3010;
+  }
+  .btn-register {
+    background: linear-gradient(180deg, #5a4db8, #2c2470);
+    box-shadow: 0 4px 0 #1a1245;
+  }
+  .btn-news {
+    background: linear-gradient(180deg, #9c27b0, #4a1259);
+    box-shadow: 0 4px 0 #2a0833;
+  }
+  .footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #8866aa;
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
-
-  <div class="hero">
-    <p class="subtitle">💣 ТАНКОВАЯ АРКАДА 💣</p>
-    <h1>ГРОМ ТАНКОВ</h1>
-    <p class="version">Версия 22.0 · Android + Web · Автор: Мухаммад, 9 лет</p>
-    <div class="slogan">🎁 БОНУС +5 000 000 🪙 · 🏆 РЕЙТИНГ ИГРОКОВ!</div>
-  </div>
-
-  <div class="buttons">
-    <a href="game.html" class="btn btn-main"><span>🎮</span> ИГРАТЬ ОНЛАЙН</a>
-    <a href="game.html" class="btn rating"><span>🏆</span> РЕЙТИНГ ИГРОКОВ</a>
-    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" download class="btn apk"><span>📱</span> СКАЧАТЬ APK</a>
-    <a href="https://arcadelab.ai/play/game-pixelfox56" class="btn arcade"><span>🎮</span> ARCADE LAB</a>
-  </div>
-
-  <div class="block">
-    <h2>🎁 БОНУСЫ ИГРОКАМ</h2>
-    <ul>
-      <li><span>🪙</span> <span><b>+5 000 000 золота</b> при первом запуске!</span></li>
-      <li><span>🎖️</span> <span><b>Военные облигации</b> — новая валюта</span></li>
-      <li><span>⭐</span> <span><b>ПРЕМИУМ статус</b> — ×2 к золоту</span></li>
-      <li><span>🥕</span> <span><b>Секретная морковка</b> — найди её на сайте!</span></li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>🏆 ЧТО НОВОГО</h2>
-    <ul>
-      <li><span>🎰</span> <span><b>Рулетка карт</b> — случайная карта</span></li>
-      <li><span>👁️</span> <span><b>Вид от 1-го лица</b> — кнопка ВИД</span></li>
-      <li><span>💥</span> <span><b>Вылет из танка</b> — пистолет + противогаз</span></li>
-      <li><span>☢️</span> <span><b>Карта САЭС</b> — радиация!</span></li>
-      <li><span>🔬</span> <span><b>Исследования</b> — 4 фракции</span></li>
-      <li><span>📦</span> <span><b>7 кейсов</b> — золото и скины</span></li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>🎮 КАК НАЧАТЬ ИГРУ</h2>
-    <ul>
-      <li><span>1️⃣</span> <span>Нажми <b>ИГРАТЬ ОНЛАЙН</b></span></li>
-      <li><span>2️⃣</span> <span>Выбери <b>карту</b> в рулетке</span></li>
-      <li><span>3️⃣</span> <span>Управляй <b>джойстиком</b></span></li>
-      <li><span>4️⃣</span> <span>Победи и <b>попади в топ</b>!</span></li>
-    </ul>
-  </div>
-
-  <div class="footer">
-    © Автор: <b>Мухаммад</b>, 2026 🚜<br>
-    Игра создана на HTML5 + JavaScript<br><br>
-    <a href="https://github.com/majidovmuhammad23774/Frontier-site" target="_blank">📦 GitHub</a>
-  </div>
-
+  <div class="logo">🚜 ARMOR THUNDER</div>
+  <div class="subtitle">3D 🚜 3D</div>
+  
+  <a href="register.html" class="btn btn-register">📝 РЕГИСТРАЦИЯ</a>
+  <a href="game.html" class="btn btn-play">🎮 ИГРАТЬ</a>
+  <a href="news.html" class="btn btn-news">📰 НОВОСТИ</a>
+  
+  <div class="footer">© 2026 Armor Thunder</div>
 </div>
-
-<!-- 🥕 СЕКРЕТНАЯ МОРКОВКА -->
-<div id="secretCarrot" onclick="openCarrot()">🥕</div>
-
-<div id="carrotPopup">
-  <div style="font-size:60px;">🥕</div>
-  <h2>Секретная морковка!</h2>
-  <p>Ты нашёл пасхалку!<br>Значит, ты настоящий фанат! 🥕</p>
-  <p style="color:#ff8800;font-weight:bold;font-size:16px;">Промокод: МОРКОВКА</p>
-  <button onclick="closeCarrot()">ЗАКРЫТЬ</button>
-</div>
-
-<script>
-// Плавающие морковки на фоне
-const carrotCount = 15;
-for(let i = 0; i < carrotCount; i++){
-  const carrot = document.createElement('div');
-  carrot.className = 'carrot';
-  carrot.innerText = '🥕';
-  carrot.style.left = Math.random() * 100 + '%';
-  carrot.style.animationDelay = Math.random() * 15 + 's';
-  carrot.style.animationDuration = (10 + Math.random() * 10) + 's';
-  carrot.style.fontSize = (20 + Math.random() * 30) + 'px';
-  document.body.appendChild(carrot);
-}
-
-// Секретная морковка
-function openCarrot(){
-  document.getElementById('carrotPopup').style.display = 'block';
-}
-function closeCarrot(){
-  document.getElementById('carrotPopup').style.display = 'none';
-  alert('🥕 Промокод: МОРКОВКА\n\nВведи его в игре и получи бонус!');
-}
-
-console.log('🥕 Морковная тема активирована!');
-</script>
 
 </body>
 </html>
