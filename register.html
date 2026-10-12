@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Регистрация — Armor Thunder</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚜</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .container {
+    max-width: 400px;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(30,10,50,0.95), rgba(15,5,30,0.95));
+    border: 3px solid #ff8c00;
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+  }
+  .logo {
+    font-size: 32px;
+    font-weight: 900;
+    background: linear-gradient(180deg, #ffcc00, #ff6600);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: #ff6600;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-bottom: 15px;
+  }
+  input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid #5a3a8a;
+    border-radius: 10px;
+    background: #0f0518;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+  }
+  input:focus { border-color: #ff8c00; }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn:active { transform: translateY(3px); }
+  .btn-green {
+    background: linear-gradient(180deg, #4caf50, #1b5e20);
+    box-shadow: 0 4px 0 #0d3010;
+  }
+  .btn-blue {
+    background: linear-gradient(180deg, #5a4db8, #2c2470);
+    box-shadow: 0 4px 0 #1a1245;
+  }
+  .btn-gold {
+    background: linear-gradient(180deg, #d4a017, #5c460d);
+    box-shadow: 0 4px 0 #3a2c08;
+  }
+  .armor-box {
+    background: linear-gradient(180deg, #2a1a4a, #1a0a2e);
+    border: 3px solid #ffcc00;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+    display: none;
+  }
+  .armor-id {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffcc00;
+    letter-spacing: 3px;
+    margin: 10px 0;
+  }
+  .armor-hint {
+    font-size: 12px;
+    color: #aaddff;
+    margin-bottom: 10px;
+  }
+  .error {
+    color: #ff4444;
+    font-size: 13px;
+    margin-bottom: 10px;
+    min-height: 18px;
+  }
+  .back-link {
+    display: block;
+    margin-top: 15px;
+    color: #8866aa;
+    text-decoration: none;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">🚜 ARMOR THUNDER</div>
+  <div class="subtitle">РЕГИСТРАЦИЯ</div>
+  
+  <div id="step1">
+    <div class="title">📝 Создать аккаунт</div>
+    <input type="text" id="nickInput" placeholder="Ник (3-15 букв)" maxlength="15">
+    <input type="password" id="passInput" placeholder="Пароль (4+ символа)">
+    <input type="password" id="pass2Input" placeholder="Повтори пароль">
+    <div class="error" id="errorMsg"></div>
+    <button class="btn btn-green" onclick="register()">✅ СОЗДАТЬ АККАУНТ</button>
+    <a href="index.html" class="back-link">◀ Назад на главную</a>
+  </div>
+  
+  <div id="step2" class="armor-box">
+    <div style="font-size:40px;">🎉</div>
+    <div class="title">Аккаунт создан!</div>
+    <div class="armor-hint">Твой Armor ID:</div>
+    <div class="armor-id" id="armorIdShow">ARMOR-0000</div>
+    <div class="armor-hint">⚠️ Сохрани его! Он нужен для входа и сброса пароля.</div>
+    <button class="btn btn-gold" onclick="copyArmorId()">📋 СКОПИРОВАТЬ</button>
+    <button class="btn btn-green" onclick="goToGame()">🎮 ВОЙТИ В ИГРУ</button>
+  </div>
+  
+  <div id="step3" style="display:none;">
+    <div class="title">🔑 Вход</div>
+    <input type="text" id="loginNick" placeholder="Ник">
+    <input type="password" id="loginPass" placeholder="Пароль">
+    <div class="error" id="loginError"></div>
+    <button class="btn btn-green" onclick="login()">🚀 ВОЙТИ</button>
+    <button class="btn btn-blue" onclick="showReset()">🔓 ЗАБЫЛ ПАРОЛЬ</button>
+  </div>
+  
+  <div id="step4" style="display:none;">
+    <div class="title">🔓 Сброс пароля</div>
+    <div class="armor-hint">Введи свой Armor ID:</div>
+    <input type="text" id="resetArmor" placeholder="ARMOR-0000">
+    <input type="password" id="resetPass" placeholder="Новый пароль">
+    <div class="error" id="resetError"></div>
+    <button class="btn btn-gold" onclick="resetPassword()">✅ СБРОСИТЬ</button>
+    <button class="btn btn-blue" onclick="showLogin()">◀ Назад</button>
+  </div>
+</div>
+
+<script>
+// Хранилище аккаунтов
+function getAccounts() {
+  try {
+    return JSON.parse(localStorage.getItem('armor_accounts')) || {};
+  } catch(e) { return {}; }
+}
+function saveAccounts(acc) {
+  localStorage.setItem('armor_accounts', JSON.stringify(acc));
+}
+
+// Генерация Armor ID (4 цифры)
+function generateArmorId() {
+  const acc = getAccounts();
+  let id;
+  do {
+    id = 'ARMOR-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+  } while (acc[id]);
+  return id;
+}
+
+// Регистрация
+function register() {
+  const nick = document.getElementById('nickInput').value.trim();
+  const pass = document.getElementById('passInput').value;
+  const pass2 = document.getElementById('pass2Input').value;
+  const err = document.getElementById('errorMsg');
+  
+  err.innerText = '';
+  
+  if (nick.length < 3) { err.innerText = '❌ Ник минимум 3 буквы'; return; }
+  if (pass.length < 4) { err.innerText = '❌ Пароль минимум 4 символа'; return; }
+  if (pass !== pass2) { err.innerText = '❌ Пароли не совпадают'; return; }
+  
+  const acc = getAccounts();
+  
+  // Проверка на существующий ник
+  for (let id in acc) {
+    if (acc[id].nick.toLowerCase() === nick.toLowerCase()) {
+      err.innerText = '❌ Такой ник уже занят';
+      return;
+    }
+  }
+  
+  // Создаём аккаунт
+  const armorId = generateArmorId();
+  acc[armorId] = {
+    nick: nick,
+    pass: pass,
+    created: Date.now(),
+    gold: 1000,
+    bonds: 0,
+    level: 1,
+    kills: 0,
+    battles: 0
+  };
+  saveAccounts(acc);
+  
+  // Показываем Armor ID
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+  document.getElementById('armorIdShow').innerText = armorId;
+  
+  // Сохраняем текущий ID
+  localStorage.setItem('armor_current', armorId);
+}
+
+// Копировать Armor ID
+function copyArmorId() {
+  const id = document.getElementById('armorIdShow').innerText;
+  navigator.clipboard.writeText(id).then(() => {
+    alert('✅ Armor ID скопирован: ' + id);
+  }).catch(() => {
+    alert('📋 Твой Armor ID: ' + id + '\n\nСкопируй вручную!');
+  });
+}
+
+// Перейти в игру
+function goToGame() {
+  const id = localStorage.getItem('armor_current');
+  window.location.href = 'game.html?armor=' + id;
+}
+
+// Показать вход
+function showLogin() {
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'block';
+  document.getElementById('step4').style.display = 'none';
+}
+
+// Вход
+function login() {
+  const nick = document.getElementById('loginNick').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginError');
+  
+  err.innerText = '';
+  
+  if (!nick || !pass) { err.innerText = '❌ Заполни все поля'; return; }
+  
+  const acc = getAccounts();
+  
+  for (let id in acc) {
+    if (acc[id].nick.toLowerCase() === nick.toLowerCase()) {
+      if (acc[id].pass === pass) {
+        localStorage.setItem('armor_current', id);
+        localStorage.setItem('armor_nick', acc[id].nick);
+        window.location.href = 'game.html?armor=' + id;
+        return;
+      } else {
+        err.innerText = '❌ Неверный пароль';
+        return;
+      }
+    }
+  }
+  err.innerText = '❌ Игрок не найден';
+}
+
+// Сброс пароля
+function showReset() {
+  document.getElementById('step3').style.display = 'none';
+  document.getElementById('step4').style.display = 'block';
+}
+
+function resetPassword() {
+  const armor = document.getElementById('resetArmor').value.trim().toUpperCase();
+  const newPass = document.getElementById('resetPass').value;
+  const err = document.getElementById('resetError');
+  
+  err.innerText = '';
+  
+  if (!armor.startsWith('ARMOR-')) { err.innerText = '❌ Формат: ARMOR-0000'; return; }
+  if (newPass.length < 4) { err.innerText = '❌ Пароль минимум 4 символа'; return; }
+  
+  const acc = getAccounts();
+  
+  if (!acc[armor]) { err.innerText = '❌ Armor ID не найден'; return; }
+  
+  acc[armor].pass = newPass;
+  saveAccounts(acc);
+  
+  alert('✅ Пароль изменён! Теперь можешь войти.');
+  showLogin();
+}
+
+// При загрузке — проверить, есть ли аккаунт
+window.addEventListener('load', () => {
+  const current = localStorage.getItem('armor_current');
+  if (current) {
+    // Уже зарегистрирован — показать вход
+    showLogin();
+  }
+});
+</script>
+
+</body>
+</html>
