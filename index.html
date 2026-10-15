@@ -2,95 +2,232 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Armor Thunder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armor Thunder — Танковая Аркада</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚜</text></svg>">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
-    color: #fff;
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  .container {
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-  }
-  .logo {
-    font-size: 42px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    background: linear-gradient(180deg, #ffcc00, #ff6600 50%, #cc0066);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 6px;
-  }
-  .subtitle {
-    font-size: 14px;
-    color: #ff6600;
-    letter-spacing: 6px;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
-  .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 16px;
-    margin: 10px 0;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-family: inherit;
-    text-decoration: none;
-  }
-  .btn:active { transform: translateY(3px); }
-  .btn-play {
-    background: linear-gradient(180deg, #4caf50, #1b5e20);
-    box-shadow: 0 4px 0 #0d3010;
-  }
-  .btn-register {
-    background: linear-gradient(180deg, #5a4db8, #2c2470);
-    box-shadow: 0 4px 0 #1a1245;
-  }
-  .btn-news {
-    background: linear-gradient(180deg, #9c27b0, #4a1259);
-    box-shadow: 0 4px 0 #2a0833;
-  }
-  .footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #8866aa;
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#0a0510;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(255,102,0,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(150,0,200,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #1a0a2e 0%, #0a0510 100%);
+  background-attachment:fixed;
+  color:#fff;
+  font-family:'Segoe UI',Arial,sans-serif;
+  min-height:100vh;
+  padding:15px;
+}
+.header{
+  max-width:900px;
+  margin:0 auto 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background:linear-gradient(180deg, rgba(30,10,50,0.9), rgba(15,5,30,0.9));
+  border:2px solid #6a2b9a;
+  border-radius:12px;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.header-logo{
+  font-size:22px;
+  font-weight:900;
+  background:linear-gradient(180deg,#ffcc00,#ff6600);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.header-btn{
+  padding:10px 18px;
+  font-size:14px;
+  font-weight:bold;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-family:inherit;
+  text-decoration:none;
+  background:linear-gradient(180deg,#4caf50,#1b5e20);
+  box-shadow:0 3px 0 #0d3010;
+  display:inline-block;
+}
+.header-btn:active{transform:translateY(2px);box-shadow:none}
+.container{max-width:900px;margin:0 auto}
+.hero{
+  text-align:center;
+  padding:40px 20px;
+  margin-bottom:25px;
+  background:linear-gradient(180deg, rgba(30,10,50,0.95), rgba(15,5,30,0.95));
+  border:3px solid #ff8c00;
+  border-radius:20px;
+}
+.hero-title{
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:2px;
+  background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-bottom:10px;
+}
+.hero-subtitle{
+  font-size:16px;
+  color:#ff8c00;
+  letter-spacing:3px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+.hero-btn{
+  display:inline-block;
+  padding:16px 40px;
+  font-size:18px;
+  font-weight:900;
+  color:#fff;
+  background:linear-gradient(180deg,#4caf50,#1b5e20);
+  box-shadow:0 4px 0 #0d3010;
+  border-radius:12px;
+  text-decoration:none;
+  margin:5px;
+}
+.hero-btn:active{transform:translateY(3px);box-shadow:none}
+.menu{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:12px;
+  margin-bottom:25px;
+}
+.btn{
+  padding:18px;
+  font-size:16px;
+  font-weight:bold;
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-family:inherit;
+  text-decoration:none;
+  text-align:center;
+}
+.btn:active{transform:translateY(3px)}
+.btn-play{background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 4px 0 #0d3010}
+.btn-news{background:linear-gradient(180deg,#9c27b0,#4a1259);box-shadow:0 4px 0 #2a0833}
+.btn-helper{background:linear-gradient(180deg,#d4a017,#5c460d);box-shadow:0 4px 0 #3a2c08}
+.btn-skins{background:linear-gradient(180deg,#8b5a2b,#4a2f0a);box-shadow:0 4px 0 #2a1805}
+.btn-promo{background:linear-gradient(180deg,#ffcc00,#8b6500);box-shadow:0 4px 0 #5c4000;color:#1a0a2e}
+.btn-download{background:linear-gradient(180deg,#1e88e5,#0d47a1);box-shadow:0 4px 0 #082a5c}
+.btn-calm{background:linear-gradient(180deg,#00bcd4,#006064);box-shadow:0 4px 0 #00363a}
+.btn-school{background:linear-gradient(180deg,#00ccff,#005577);box-shadow:0 4px 0 #003347}
+.section{
+  background:linear-gradient(180deg, rgba(30,10,50,0.9), rgba(15,5,30,0.9));
+  border:2px solid #5a3a8a;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+}
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  color:#ffcc00;
+  margin-bottom:15px;
+  text-align:center;
+}
+.feature{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  margin-bottom:8px;
+  background:rgba(15,5,30,0.6);
+  border-radius:10px;
+  font-size:14px;
+}
+.feature-icon{font-size:24px}
+.footer{
+  text-align:center;
+  padding:20px;
+  color:#8866aa;
+  font-size:12px;
+}
+.footer b{color:#ffcc00}
 </style>
 </head>
 <body>
 
+<div class="header">
+  <div class="header-logo">🚜 ARMOR THUNDER</div>
+  <a href="game.html" class="header-btn">🎮 ИГРАТЬ</a>
+</div>
+
 <div class="container">
-  <div class="logo">🚜 ARMOR THUNDER</div>
-  <div class="subtitle">3D 🚜 3D</div>
-  
-  <a href="register.html" class="btn btn-register">📝 РЕГИСТРАЦИЯ</a>
-  <a href="game.html" class="btn btn-play">🎮 ИГРАТЬ</a>
-  <a href="news.html" class="btn btn-news">📰 НОВОСТИ</a>
-  
-  <div class="footer">© 2026 Armor Thunder</div>
+
+  <div class="hero">
+    <div class="hero-title">🚜 ARMOR THUNDER 🚜</div>
+    <div class="hero-subtitle">ТАНКОВАЯ АРКАДА ОТ 1-ГО ЛИЦА</div>
+    <a href="game.html" class="hero-btn">🎮 ИГРАТЬ СЕЙЧАС</a>
+  </div>
+
+  <div class="menu">
+    <a href="game.html" class="btn btn-play">🎮 ИГРАТЬ</a>
+    <a href="news.html" class="btn btn-news">📰 НОВОСТИ</a>
+    <a href="helper.html" class="btn btn-helper">🤖 ПОМОЩНИК</a>
+    <a href="skins.html" class="btn btn-skins">🎨 СКИНЫ</a>
+    <a href="promo.html" class="btn btn-promo">🎁 ПРОМОКОД</a>
+    <a href="school.html" class="btn btn-school">🏫 ШКОЛА</a>
+    <a href="calm.html" class="btn btn-calm">🌊 УСПОКОИТЬСЯ</a>
+    <a href="https://github.com/majidovmuhammad23774/Frontier-site/raw/main/GromBroni.apk" class="btn btn-download">📥 СКАЧАТЬ APK</a>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📖 ОБ ИГРЕ</div>
+    <div class="feature"><div class="feature-icon">🚜</div><div>Бой от первого лица — танк и человек</div></div>
+    <div class="feature"><div class="feature-icon">👾</div><div>Волны врагов: танки, вертолёты, боссы</div></div>
+    <div class="feature"><div class="feature-icon">😈</div><div>Босс «Астроафлефлан» — каждые 5 волн</div></div>
+    <div class="feature"><div class="feature-icon">🥢</div><div>Палочка-выручалочка — убивает с 1 удара</div></div>
+    <div class="feature"><div class="feature-icon">🏫</div><div>Школа математики — реши пример, получи золото</div></div>
+    <div class="feature"><div class="feature-icon">🎁</div><div>Промокоды, кейсы, облигации</div></div>
+    <div class="feature"><div class="feature-icon">🏆</div><div>Звания, рейтинг, ежедневный бонус</div></div>
+    <div class="feature"><div class="feature-icon">📱</div><div>Работает на телефоне и ПК</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📰 НОВОСТИ</div>
+    <div class="feature"><div class="feature-icon">😈</div><div><b>Новый босс:</b> Астроафлефлан — управляет Абубакр!</div></div>
+    <div class="feature"><div class="feature-icon">🏫</div><div><b>Обновление:</b> Школа математики — заработай миллион!</div></div>
+    <div class="feature"><div class="feature-icon">🚁</div><div><b>Событие:</b> Вертолёты — с 3-й волны</div></div>
+    <div class="feature"><div class="feature-icon">🥢</div><div><b>Новое:</b> Палочка-выручалочка за 5000 🪙</div></div>
+    <div class="feature"><div class="feature-icon">🥕</div><div><b>Важно:</b> Секретный промокод МОРКОВКА!</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🎁 АКТИВНЫЕ ПРОМОКОДЫ</div>
+    <div class="feature"><div class="feature-icon">🚀</div><div><b>START2026</b> — 5 000 🪙</div></div>
+    <div class="feature"><div class="feature-icon">🎯</div><div><b>GROM</b> — 3 000 🪙</div></div>
+    <div class="feature"><div class="feature-icon">🚜</div><div><b>TANK</b> — 5 000 🪙</div></div>
+    <div class="feature"><div class="feature-icon">👑</div><div><b>МУХАММАД</b> — 100 000 🪙</div></div>
+    <div class="feature"><div class="feature-icon">🥢</div><div><b>ПАЛОЧКА</b> — Палочка в подарок!</div></div>
+    <div class="feature"><div class="feature-icon">🏫</div><div><b>ШКОЛА2027</b> — 2 027 🪙 + 2 027 🔬</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">👑 КОМАНДА</div>
+    <div class="feature"><div class="feature-icon">👑</div><div><b>Мухаммад</b> — Админ (высшая привилегия)</div></div>
+    <div class="feature"><div class="feature-icon">😈</div><div><b>Абубакр</b> — Астроафлефлан (босс игры)</div></div>
+    <div class="feature"><div class="feature-icon">🛡️</div><div><b>Олег</b> — Модератор</div></div>
+    <div class="feature"><div class="feature-icon">🥕</div><div><b>Зенни</b> — Тестировщик (промокод МОРКОВКА)</div></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 <b>Armor Thunder</b> · Автор: <b>pixelfox56</b>
 </div>
 
 </body>
