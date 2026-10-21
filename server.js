@@ -1,12 +1,17 @@
 // ============================================
-// 🖥️ СЕРВЕР ГРОМ ТАНКОВ · v1.0
+// 🖥️ СЕРВЕР ГРОМ ТАНКОВ · v1.1 (С МУЛЬТИПЛЕЕРОМ)
 // ============================================
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const http = require('http');         // НОВОЕ (для WebSocket)
+const { WebSocketServer } = require('ws'); // НОВОЕ (для WebSocket)
 
 const app = express();
+const server = http.createServer(app); // НОВОЕ: оборачиваем express в http-сервер
+const wss = new WebSocketServer({ server }); // НОВОЕ: создаем WebSocket сервер
+
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, 'scores.json');
 
@@ -32,14 +37,52 @@ function saveScores(scores){
 
 let scores = loadScores();
 
+// ========== 🌐 МУЛЬТИПЛЕЕР (WebSocket) ==========
+let onlinePlayers = {};
+
+wss.on('connection', (ws) => {
+  const id = Math.random().toString(36).substring(2, 9);
+  onlinePlayers[id] = { x: 0, y: 0, angle: 0, turretAngle: 0, color: '#4caf50' };
+
+  ws.send(JSON.stringify({ type: 'init', id: id }));
+
+  ws.on('message', (message) => {
+    try {
+      const data = JSON.parse(message);
+      if (data.type === 'move') {
+        onlinePlayers[id] = { 
+          x: data.x, y: data.y, 
+          angle: data.angle, turretAngle: data.turretAngle, 
+          color: data.color 
+        };
+        broadcast({ type: 'update', id: id, player: onlinePlayers[id] });
+      }
+    } catch(e){}
+  });
+
+  ws.on('close', () => {
+    delete onlinePlayers[id];
+    broadcast({ type: 'remove', id: id });
+  });
+});
+
+function broadcast(data) {
+  const msg = JSON.stringify(data);
+  wss.clients.forEach((client) => {
+    if (client.readyState === 1) { // 1 = OPEN
+      client.send(msg);
+    }
+  });
+}
+
 // ========== 🏠 ГЛАВНАЯ ==========
 app.get('/', (req, res) => {
-  res.send('🚜 Grom Tankov Server OK · Игроков: ' + scores.length);
+  res.send('🚜 Grom Tankov Server OK · Игроков в базе: ' + scores.length + ' · Онлайн: ' + Object.keys(onlinePlayers).length);
 });
 
 // ========== 📥 ПОЛУЧИТЬ ТОП-20 ==========
 app.get('/leaderboard', (req, res) => {
-  const top = scores
+  const top = [...scores]
     .sort((a, b) => b.score - a.score)
     .slice(0, 20);
   res.json(top);
@@ -49,7 +92,6 @@ app.get('/leaderboard', (req, res) => {
 app.post('/score', (req, res) => {
   const { nickname, score, wave } = req.body;
 
-  // Проверка
   if(!nickname || typeof nickname !== 'string' || nickname.length < 3){
     return res.status(400).json({ error: 'Ник минимум 3 буквы' });
   }
@@ -60,18 +102,15 @@ app.post('/score', (req, res) => {
     return res.status(400).json({ error: 'Ник максимум 15 букв' });
   }
 
-  // Ищем игрока
   const existing = scores.find(s => s.nickname.toLowerCase() === nickname.toLowerCase());
 
   if(existing){
-    // Обновляем если счёт больше
     if(score > existing.score){
       existing.score = score;
       existing.wave = wave || existing.wave;
       existing.updated = Date.now();
     }
   } else {
-    // Новый игрок
     scores.push({
       nickname: nickname,
       score: score,
@@ -81,13 +120,10 @@ app.post('/score', (req, res) => {
     });
   }
 
-  // Сортируем и оставляем только топ-100
   scores.sort((a, b) => b.score - a.score);
   scores = scores.slice(0, 100);
-
   saveScores(scores);
 
-  console.log('📥 ' + nickname + ': ' + score + ' очков');
   res.json({ ok: true, rank: scores.findIndex(s => s.nickname.toLowerCase() === nickname.toLowerCase()) + 1 });
 });
 
@@ -96,12 +132,12 @@ app.get('/stats', (req, res) => {
   res.json({
     totalPlayers: scores.length,
     topScore: scores.length > 0 ? scores[0].score : 0,
-    topPlayer: scores.length > 0 ? scores[0].nickname : '—'
+    topPlayer: scores.length > 0 ? scores[0].nickname : '—',
+    online: Object.keys(onlinePlayers).length
   });
 });
 
 // ========== 🚀 ЗАПУСК ==========
-app.listen(PORT, () => {
-  console.log('🚜 Сервер Гром Танков запущен на порту ' + PORT);
-  console.log('📊 Игроков в базе: ' + scores.length);
+server.listen(PORT, () => {
+  console.log('🚜 Сервер Гром Танков (с мультиплеером) запущен на порту ' + PORT);
 });
