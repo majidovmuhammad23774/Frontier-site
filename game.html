@@ -3,21 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Armor Thunder</title>
+<title>Armor Thunder v28</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚜</text></svg>">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow-x:hidden}
-body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(255,102,0,0.15) 0%,transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,0,200,0.15) 0%,transparent 40%),radial-gradient(circle at 50% 50%,#1a0a2e 0%,#0a0510 100%);background-attachment:fixed;color:#fff;font-family:'Segoe UI',Arial,sans-serif;user-select:none;-webkit-user-select:none}
+body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(255,102,0,.15) 0,transparent 40%),radial-gradient(circle at 80% 90%,rgba(150,0,200,.15) 0,transparent 40%),radial-gradient(circle at 50% 50%,#1a0a2e 0,#0a0510 100%);background-attachment:fixed;color:#fff;font-family:'Segoe UI',Arial,sans-serif;user-select:none;-webkit-user-select:none}
 .container{max-width:500px;margin:0 auto;padding:15px;min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:2}
-.top-bar{background:linear-gradient(180deg,rgba(30,10,50,0.9),rgba(15,5,30,0.9));border:2px solid #6a2b9a;border-radius:12px;padding:10px;display:flex;justify-content:space-around;margin-bottom:15px;flex-wrap:wrap;gap:5px}
+.top-bar{background:linear-gradient(180deg,rgba(30,10,50,.9),rgba(15,5,30,.9));border:2px solid #6a2b9a;border-radius:12px;padding:10px;display:flex;justify-content:space-around;margin-bottom:15px;flex-wrap:wrap;gap:5px}
 .resource{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:bold}
-.resource .val{color:#ff8c00}
-.resource .val-bonds{color:#ffcc00}
+.resource .val{color:#ff8c00}.resource .val-bonds{color:#ffcc00}
 .logo{text-align:center;font-size:34px;font-weight:900;letter-spacing:2px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px;cursor:pointer}
 .logo small{display:block;font-size:16px;color:#ff6600;font-weight:bold;letter-spacing:6px;margin-top:6px;-webkit-text-fill-color:#ff6600}
 .menu{display:flex;flex-direction:column;gap:8px;flex:1}
-.btn{padding:14px;font-size:16px;font-weight:bold;color:#fff;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;text-decoration:none}
+.btn{padding:14px;font-size:16px;font-weight:bold;color:#fff;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;text-decoration:none;transition:transform .05s}
 .btn:active{transform:translateY(3px)}
 .btn-green{background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 4px 0 #0d3010}
 .btn-blue{background:linear-gradient(180deg,#5a4db8,#2c2470);box-shadow:0 4px 0 #1a1245}
@@ -27,51 +26,94 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
 .btn-bonds{background:linear-gradient(180deg,#ffcc00,#8b6500);box-shadow:0 4px 0 #5c4000;color:#1a0a2e}
 .btn-stick{background:linear-gradient(180deg,#8b5a2b,#4a2f0a);box-shadow:0 4px 0 #2a1805}
 .btn-school{background:linear-gradient(180deg,#00ccff,#005577);box-shadow:0 4px 0 #003347}
+.btn-camo{background:linear-gradient(180deg,#00ccff,#003347);box-shadow:0 4px 0 #001a2a}
+.btn-controls{background:linear-gradient(180deg,#5a4db8,#2c2470);box-shadow:0 4px 0 #1a1245}
+.btn-trophy{background:linear-gradient(180deg,#ffcc00,#8b6500);box-shadow:0 4px 0 #5c4000;color:#1a0a2e}
+.btn-bp{background:linear-gradient(180deg,#ff6600,#8b3300);box-shadow:0 4px 0 #5c2200}
+.btn-shop{background:linear-gradient(180deg,#00cc66,#006633);box-shadow:0 4px 0 #004422}
+.btn-country{background:linear-gradient(180deg,#ff3300,#661400);box-shadow:0 4px 0 #440e00}
+.btn-lb{background:linear-gradient(180deg,#ffee00,#887700);box-shadow:0 4px 0 #554a00;color:#1a0a2e}
 .screen{display:none;flex-direction:column;gap:10px;flex:1}
 .screen.active{display:flex}
 .screen-title{text-align:center;font-size:22px;font-weight:bold;color:#ff8c00;margin-bottom:15px}
 .back-btn{margin-top:15px}
 .case-item{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .buy-btn{padding:8px 14px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-family:inherit;font-size:13px;color:#fff;background:linear-gradient(180deg,#4caf50,#1b5e20)}
+.buy-btn:active{transform:translateY(2px)}
 .stat-row{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:10px;padding:12px;display:flex;justify-content:space-between;font-weight:bold;font-size:14px;margin-bottom:8px}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(180deg,#ff8c00,#cc5500);color:#fff;padding:12px 24px;border-radius:10px;font-weight:bold;z-index:1000;transition:transform 0.4s ease;pointer-events:none;max-width:90vw;text-align:center;font-size:14px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(180deg,#ff8c00,#cc5500);color:#fff;padding:12px 24px;border-radius:10px;font-weight:bold;z-index:1000;transition:transform .4s ease;pointer-events:none;max-width:90vw;text-align:center;font-size:14px}
 .toast.show{transform:translateX(-50%) translateY(0)}
 #battle-screen{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:500;background:#0a0510;touch-action:none}
 #battle-screen.active{display:block}
 #battle-canvas{width:100%;height:100%;display:block;touch-action:none}
 .hud{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;z-index:10;pointer-events:none;gap:5px;flex-wrap:wrap}
-.hud-box{background:rgba(0,0,0,0.7);border:2px solid #ff8c00;border-radius:10px;padding:6px 10px;font-weight:bold;color:#ffcc00;font-size:12px}
+.hud-box{background:rgba(0,0,0,.7);border:2px solid #ff8c00;border-radius:10px;padding:6px 10px;font-weight:bold;color:#ffcc00;font-size:12px}
 #controls{position:absolute;bottom:0;left:0;right:0;height:200px;z-index:10;pointer-events:none}
 .joy-zone{position:absolute;left:20px;bottom:20px;width:150px;height:150px;pointer-events:auto;touch-action:none}
-.joy-base{position:absolute;left:0;top:0;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,140,0,0.15),rgba(40,20,70,0.7));border:3px solid rgba(255,140,0,0.5);pointer-events:none}
-.joy-knob{position:absolute;left:50px;top:50px;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ffcc00,#ff6600);box-shadow:0 0 20px rgba(255,140,0,0.8);pointer-events:none}
-.fire-btn{position:absolute;right:20px;bottom:20px;width:130px;height:130px;border-radius:50%;border:4px solid #ff4500;background:radial-gradient(circle at 30% 30%,#ff6633,#8b0000);color:#fff;font-size:32px;font-weight:900;cursor:pointer;font-family:inherit;pointer-events:auto;touch-action:none;box-shadow:0 0 30px rgba(255,80,0,0.7)}
-.fire-btn:active{transform:scale(0.92);background:radial-gradient(circle at 30% 30%,#ffaa00,#cc2200)}
-.stick-btn{position:absolute;right:20px;bottom:160px;width:90px;height:90px;border-radius:50%;border:4px solid #8b5a2b;background:radial-gradient(circle at 30% 30%,#d4a017,#4a2f0a);color:#fff;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;pointer-events:auto;touch-action:none;box-shadow:0 0 20px rgba(139,90,43,0.7)}
-.stick-btn:active{transform:scale(0.92)}
+.joy-base{position:absolute;left:0;top:0;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,140,0,.15),rgba(40,20,70,.7));border:3px solid rgba(255,140,0,.5);pointer-events:none}
+.joy-knob{position:absolute;left:50px;top:50px;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ffcc00,#ff6600);box-shadow:0 0 20px rgba(255,140,0,.8);pointer-events:none}
+.fire-btn{position:absolute;right:20px;bottom:20px;width:130px;height:130px;border-radius:50%;border:4px solid #ff4500;background:radial-gradient(circle at 30% 30%,#ff6633,#8b0000);color:#fff;font-size:32px;font-weight:900;cursor:pointer;font-family:inherit;pointer-events:auto;touch-action:none;box-shadow:0 0 30px rgba(255,80,0,.7)}
+.fire-btn:active{transform:scale(.92)}
+.stick-btn{position:absolute;right:20px;bottom:160px;width:90px;height:90px;border-radius:50%;border:4px solid #8b5a2b;background:radial-gradient(circle at 30% 30%,#d4a017,#4a2f0a);color:#fff;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;pointer-events:auto;touch-action:none}
+.stick-btn:active{transform:scale(.92)}
+.camo-btn{position:absolute;right:120px;bottom:160px;width:90px;height:90px;border-radius:50%;border:4px solid #00ccff;background:radial-gradient(circle at 30% 30%,#00ccff,#003347);color:#fff;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;pointer-events:auto;touch-action:none}
+.camo-btn.active{background:radial-gradient(circle at 30% 30%,#ffcc00,#8b6500);border-color:#ffcc00}
+.dir-btn{position:absolute;width:60px;height:60px;border-radius:12px;border:3px solid #ff8c00;background:linear-gradient(180deg,#5a4db8,#2c2470);color:#fff;font-size:28px;font-weight:900;cursor:pointer;font-family:inherit;touch-action:none;user-select:none}
+.dir-btn:active{transform:scale(.9);background:linear-gradient(180deg,#ffcc00,#ff6600)}
 #menuBtn{position:absolute;top:10px;right:10px;z-index:20;background:linear-gradient(180deg,#5a4db8,#2c2470);border:2px solid #aaddff;border-radius:10px;padding:10px 14px;color:#fff;font-weight:bold;cursor:pointer;font-family:inherit;font-size:16px}
-#menuPanel{display:none;position:absolute;top:60px;right:10px;z-index:30;background:linear-gradient(180deg,rgba(30,10,50,0.95),rgba(15,5,30,0.95));border:2px solid #ff8c00;border-radius:12px;padding:10px;flex-direction:column;gap:6px;min-width:200px}
+#menuPanel{display:none;position:absolute;top:60px;right:10px;z-index:30;background:linear-gradient(180deg,rgba(30,10,50,.95),rgba(15,5,30,.95));border:2px solid #ff8c00;border-radius:12px;padding:10px;flex-direction:column;gap:6px;min-width:200px}
 #menuPanel button{padding:10px 14px;background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;font-family:inherit;font-size:13px}
-#menuPanel button:active{transform:translateY(2px)}
+#forceExitBtn{position:absolute;top:60px;right:80px;z-index:25;background:linear-gradient(180deg,#ff0000,#660000);border:3px solid #ffcc00;border-radius:50%;width:60px;height:60px;color:#fff;font-weight:900;cursor:pointer;font-family:inherit;font-size:14px;box-shadow:0 0 20px rgba(255,0,0,.8)}
+#hitLog{position:absolute;top:100px;left:50%;transform:translateX(-50%);z-index:15;pointer-events:none;text-align:center;width:100%;max-width:300px}
+.hit-log-item{font-size:16px;font-weight:900;text-shadow:2px 2px 4px #000,0 0 10px currentColor;margin:4px 0;transition:opacity .3s}
+#respawnOverlay{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:40;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#respawnOverlay.active{display:flex}
+.bp-level-item{display:flex;align-items:center;gap:8px;background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:10px;padding:8px;margin-bottom:6px;position:relative}
+.bp-level-item.claimed{border-color:#4caf50;opacity:.6}
+.bp-lvl-badge{width:38px;height:38px;border-radius:50%;background:linear-gradient(180deg,#ff6600,#8b3300);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0}
+.bp-lvl-badge.claimed{background:linear-gradient(180deg,#4caf50,#1b5e20)}
+.bp-lvl-badge.final{background:linear-gradient(180deg,#ffcc00,#8b6500);color:#1a0a2e}
+.bp-progress-bar{width:100%;height:14px;background:#1a0a2e;border-radius:7px;overflow:hidden;border:2px solid #5a3a8a;margin:10px 0}
+.bp-progress-fill{height:100%;background:linear-gradient(90deg,#ff6600,#ffcc00);transition:width .5s}
+.country-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.country-card{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:transform .1s}
+.country-card:active{transform:scale(.96)}
+.country-card.selected{border-color:#4caf50;box-shadow:0 0 15px rgba(76,175,80,.5)}
+.country-flag{font-size:32px}
+.country-name{font-weight:bold;font-size:13px;margin-top:6px}
+.shop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.shop-item{background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:10px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.shop-icon{font-size:32px}.shop-name{font-size:12px;font-weight:bold}.shop-price{font-size:13px;font-weight:bold;color:#ffcc00}
+#onlineStatus{position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,.8);border:2px solid #666;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:bold;display:none}
+#onlineStatus.online{border-color:#00ff00;color:#00ff00;display:block}
+#onlineStatus.offline{border-color:#ff6600;color:#ff6600;display:block}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast">Сообщение</div>
+<div id="onlineStatus"></div>
 
 <div class="container">
   <div class="top-bar">
     <div class="resource">🪙 <span class="val" id="gold">1000</span></div>
     <div class="resource">🎖️ <span class="val-bonds" id="bonds">0</span></div>
     <div class="resource">🏅 <span class="val" id="level">1</span></div>
+    <div class="resource">🎫 <span class="val" id="bpLevelTop">1</span></div>
   </div>
-  <div class="logo" id="gameLogo" onclick="logoClick()">ГРОМ ТАНКОВ<small>🚜 ARMOR THUNDER 🚜</small></div>
+  <div class="logo" id="gameLogo" onclick="logoClick()">ГРОМ ТАНКОВ<small>🚜 ARMOR THUNDER v28 🚜</small></div>
 
   <div class="screen active" id="screen-main">
     <div class="menu" id="mainMenu">
       <button class="btn btn-green" onclick="openBattle()">⚔️ В БОЙ</button>
+      <button class="btn btn-gold" onclick="enterTournament()">⚔️ ТУРНИР 5 НА 5</button>
+      <button class="btn btn-bp" onclick="openBattlePass()">🎫 ГРОМПАСС</button>
+      <button class="btn btn-shop" onclick="openShop()">🛒 МАГАЗИН</button>
+      <button class="btn btn-country" onclick="openCountries()">🌍 СТРАНА</button>
+      <button class="btn btn-lb" onclick="openLeaderboard()">🏆 ЛИДЕРБОРД</button>
       <button class="btn btn-blue" onclick="openHangar()">🚜 АНГАР</button>
-      <button class="btn btn-purple" onclick="openTanks()">🚜 ТАНКИ</button>
+      <button class="btn btn-purple" onclick="openTanks()">🔬 ИССЛЕДОВАНИЯ</button>
       <button class="btn btn-blue" onclick="openProfile()">👤 ПРОФИЛЬ</button>
       <button class="btn btn-blue" onclick="openCases()">📦 КЕЙСЫ</button>
       <button class="btn btn-bonds" onclick="openBonds()">🎖️ ОБЛИГАЦИИ</button>
@@ -79,6 +121,11 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
       <button class="btn btn-gold" onclick="checkDailyBonus()">🎁 ЕЖЕДНЕВНЫЙ БОНУС</button>
       <button class="btn btn-stick" onclick="openStick()">🥢 ПАЛОЧКА</button>
       <button class="btn btn-school" onclick="openSchool()">🏫 ШКОЛА</button>
+      <button class="btn btn-camo" onclick="openCamo()">🥷 КАМУФЛЯЖ</button>
+      <button class="btn btn-controls" onclick="openControls()">🎮 УПРАВЛЕНИЕ</button>
+      <button class="btn btn-trophy" onclick="openTrophies()">🏆 ТРОФЕИ</button>
+      <button class="btn btn-purple" onclick="openIslandHistory()" style="background:linear-gradient(180deg,#8b0000,#4a0000);box-shadow:0 4px 0 #2a0000;">🏝️ ИСТОРИЯ: ОСТРОВ</button>
+      <button class="btn btn-controls" onclick="openSettings()">⚙️ НАСТРОЙКИ</button>
       <button class="btn btn-red" onclick="exitGame()">🚪 ВЫХОД</button>
     </div>
   </div>
@@ -88,6 +135,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:12px;padding:30px;text-align:center;margin-bottom:15px;">
       <div style="font-size:60px;">🎰</div>
       <div style="font-size:14px;color:#aaddff;margin-top:10px;">Карта выбирается случайно!</div>
+      <div style="font-size:12px;color:#ffaa00;margin-top:8px;">⏱️ Бой длится до 30 минут</div>
     </div>
     <button class="btn btn-green" style="font-size:20px;padding:20px;" onclick="startRoulette()">🚀 КРУТИТЬ РУЛЕТКУ</button>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
@@ -105,7 +153,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   </div>
 
   <div class="screen" id="screen-tanks">
-    <div class="screen-title">🚜 ТАНКИ</div>
+    <div class="screen-title">🔬 ИССЛЕДОВАНИЯ</div>
     <div id="researchList" style="max-height:60vh;overflow-y:auto;"></div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
@@ -113,10 +161,12 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   <div class="screen" id="screen-profile">
     <div class="screen-title">👤 ПРОФИЛЬ</div>
     <div class="stat-row"><span>🏅 Уровень:</span><span id="p-level">1</span></div>
+    <div class="stat-row"><span>🌍 Страна:</span><span id="p-country">СССР</span></div>
     <div class="stat-row"><span>🪙 Золото:</span><span id="p-gold">1000</span></div>
     <div class="stat-row"><span>🎖️ Облигации:</span><span id="p-bonds">0</span></div>
     <div class="stat-row"><span>⚔️ Побед:</span><span id="p-wins">0</span></div>
     <div class="stat-row"><span>🥢 Палочка:</span><span id="p-stick">Нет</span></div>
+    <div class="stat-row"><span>🥷 Камуфляж:</span><span id="p-camo">Нет</span></div>
     <div class="stat-row"><span>👑 Привилегия:</span><span id="p-rank">Игрок</span></div>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
@@ -152,7 +202,7 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #8b5a2b;border-radius:12px;padding:20px;text-align:center;">
       <div style="font-size:80px;">🥢</div>
       <div style="font-size:16px;font-weight:bold;color:#ffcc00;margin:10px 0;">Оружие ближнего боя!</div>
-      <div style="font-size:13px;color:#aaddff;margin-bottom:15px;">Убивает врагов за 1 удар, если подойти близко</div>
+      <div style="font-size:13px;color:#aaddff;margin-bottom:15px;">Убивает врагов за 1 удар</div>
       <div id="stickStatus" style="font-size:14px;color:#ff8c00;font-weight:bold;margin-bottom:15px;">Статус: не куплена</div>
       <button class="btn btn-stick" onclick="buyStick()">🛒 КУПИТЬ ЗА 5000 🪙</button>
     </div>
@@ -164,11 +214,11 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #00ccff;border-radius:12px;padding:15px;margin-bottom:15px;text-align:center;">
       <div style="font-size:13px;color:#aaddff;margin-bottom:8px;">💰 Заработано в школе:</div>
       <div style="font-size:28px;font-weight:900;color:#ffcc00;" id="schoolEarned">0 🪙</div>
-      <div style="font-size:12px;color:#8866aa;margin-top:5px;">Решено примеров: <span id="schoolSolved">0</span></div>
+      <div style="font-size:12px;color:#8866aa;margin-top:5px;">Решено: <span id="schoolSolved">0</span></div>
     </div>
     <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:3px solid #ff8c00;border-radius:16px;padding:25px;text-align:center;margin-bottom:15px;">
       <div style="font-size:14px;color:#aaddff;margin-bottom:10px;">Реши пример:</div>
-      <div id="schoolQuestion" style="font-size:28px;font-weight:900;color:#fff;margin:15px 0;letter-spacing:1px;word-wrap:break-word;">9 + 9 × 9</div>
+      <div id="schoolQuestion" style="font-size:28px;font-weight:900;color:#fff;margin:15px 0;">9 + 9 × 9</div>
       <div style="font-size:13px;color:#ff6600;font-weight:bold;" id="schoolReward">💰 Награда: 1 000 🪙</div>
     </div>
     <input type="number" id="schoolAnswer" placeholder="Ответ" style="width:100%;padding:16px;font-size:22px;font-weight:bold;text-align:center;border:3px solid #ff8c00;border-radius:12px;background:#0f0518;color:#fff;outline:none;font-family:inherit;margin-bottom:10px;">
@@ -176,31 +226,195 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
     <button class="btn btn-gold" onclick="newSchoolTask()">🔄 НОВЫЙ ПРИМЕР</button>
     <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
   </div>
+
+  <div class="screen" id="screen-camo">
+    <div class="screen-title">🥷 КАМУФЛЯЖ</div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #00ccff;border-radius:12px;padding:20px;text-align:center;">
+      <div style="font-size:80px;">🥷</div>
+      <div style="font-size:16px;font-weight:bold;color:#00ccff;margin:10px 0;">Невидимость 3 сек!</div>
+      <div style="font-size:13px;color:#aaddff;margin-bottom:15px;">Враги не видят тебя</div>
+      <div id="camoStatus" style="font-size:14px;color:#ff8c00;font-weight:bold;margin-bottom:15px;">Статус: не куплен</div>
+      <button class="btn btn-camo" onclick="buyCamo()">🛒 КУПИТЬ ЗА 25 000 🪙</button>
+    </div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-controls">
+    <div class="screen-title">🎮 УПРАВЛЕНИЕ</div>
+    <div style="font-size:13px;color:#aaddff;text-align:center;margin-bottom:15px;">Выбери способ:</div>
+    <div id="controlsList"></div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-trophies">
+    <div class="screen-title">🏆 ТРОФЕИ</div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:3px solid #ffcc00;border-radius:12px;padding:15px;margin-bottom:15px;text-align:center;">
+      <div style="font-size:12px;color:#aaddff;">Следующий трофей через:</div>
+      <div style="font-size:24px;font-weight:900;color:#ffcc00;margin-top:8px;" id="trophyTimer">30 дней</div>
+    </div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #ff6600;border-radius:12px;padding:12px;margin-bottom:15px;text-align:center;">
+      <div style="font-size:13px;color:#ffaa00;font-weight:bold;">🎁 ШАНСЫ:</div>
+      <div style="font-size:11px;color:#aaddff;margin-top:8px;line-height:1.6;">
+        🚜 Танк — 0,0000000001%<br>💰 100 000 🪙 — 5%<br>🎖️ 50 облигаций — 10%<br>🔬 500 опыта — 20%<br>🪙 10 000 🪙 — 30%<br>🪙 5 000 🪙 — 35%
+      </div>
+    </div>
+    <div style="font-size:11px;color:#aaddff;font-weight:bold;margin-bottom:8px;text-align:center;">📜 ИСТОРИЯ:</div>
+    <div id="trophyHistory"></div>
+    <button class="btn btn-gold" onclick="openTrophy()" id="trophyOpenBtn" style="display:none;">🎁 ОТКРЫТЬ</button>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-settings">
+    <div class="screen-title">⚙️ НАСТРОЙКИ</div>
+    <div class="case-item" style="flex-direction:column;align-items:stretch;">
+      <div style="font-weight:bold;margin-bottom:8px;">🌍 Язык</div>
+      <select id="langSelect" onchange="changeLanguage(this.value)" style="padding:10px;border-radius:8px;border:2px solid #ff8c00;background:#0f0518;color:#fff;font-family:inherit;font-size:14px;outline:none;">
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="ar">🇸🇦 العربية</option>
+      </select>
+    </div>
+    <div class="case-item" style="justify-content:space-between;">
+      <div><div style="font-weight:bold;">🚀 Оптимизация</div><div style="font-size:11px;color:#8866aa;">Убирает сетку</div></div>
+      <input type="checkbox" id="lowGraphics" onchange="toggleLowGraphics(this.checked)" style="width:24px;height:24px;accent-color:#ff8c00;cursor:pointer;">
+    </div>
+    <div class="case-item" style="justify-content:space-between;">
+      <div><div style="font-weight:bold;">🌐 Онлайн-режим</div><div style="font-size:11px;color:#8866aa;" id="netStatus">Не подключен</div></div>
+      <button onclick="connectOnline()" style="background:linear-gradient(180deg,#00cc66,#006633);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-weight:bold;font-family:inherit;cursor:pointer;">ПОДКЛЮЧИТЬ</button>
+    </div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-countries">
+    <div class="screen-title">🌍 ВЫБОР СТРАНЫ</div>
+    <div class="country-grid" id="countryGrid"></div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-bp">
+    <div class="screen-title">🎫 ГРОМПАСС · Сезон <span id="bpSeasonNum">1</span></div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #ff8c00;border-radius:12px;padding:15px;margin-bottom:10px;text-align:center;">
+      <div style="font-size:13px;color:#aaddff;">Уровень <b id="bpLevelBig" style="color:#ffcc00;font-size:20px;">1</b> / 60</div>
+      <div class="bp-progress-bar"><div class="bp-progress-fill" id="bpProgressFill" style="width:0%"></div></div>
+      <div style="font-size:12px;color:#ffcc00;" id="bpXpText">0 / 500 XP</div>
+      <div style="font-size:11px;color:#8866aa;margin-top:5px;">⏱️ До нового сезона: <span id="bpTimer">30 дней</span></div>
+    </div>
+    <div id="bpList" style="max-height:50vh;overflow-y:auto;"></div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-shop">
+    <div class="screen-title">🛒 МАГАЗИН</div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #00cc66;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-around;text-align:center;">
+      <div><div style="font-size:11px;color:#aaddff;">Золото</div><div style="font-size:20px;font-weight:900;color:#ffcc00;" id="shopGold">0</div></div>
+      <div><div style="font-size:11px;color:#aaddff;">Облигации</div><div style="font-size:20px;font-weight:900;color:#ffcc00;" id="shopBonds">0</div></div>
+    </div>
+    <div class="shop-grid" id="shopGrid"></div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-leaderboard">
+    <div class="screen-title">🏆 ЛИДЕРБОРД</div>
+    <div style="font-size:12px;color:#aaddff;text-align:center;margin-bottom:10px;" id="lbStatus">Локальный рейтинг</div>
+    <div id="lbList"></div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-island">
+    <div class="screen-title" style="color:#ff3333;">🏝️ ОСТРОВ АСТРОАФЛЕФЛАНА</div>
+    <div style="background:linear-gradient(180deg,#1a0a0a,#0a0510);border:2px solid #8b0000;border-radius:12px;padding:20px;text-align:center;margin-bottom:15px;">
+      <div style="font-size:60px;">💀</div>
+      <div style="font-size:14px;color:#ff6666;font-weight:bold;margin:10px 0;">ОСТРОВ РАЗРУШЕН</div>
+      <div style="font-size:13px;color:#aaddff;line-height:1.6;text-align:left;">
+        Когда-то это был цветущий остров. Но Астроафлефлан вышел из-под контроля и превратил его в руины.
+        <br><br>
+        🌌 <b>Войд Незер Кинг</b> уничтожил его, чтобы остановить безумие. Но на пепелище пришёл тот, кто обещает решение всех проблем...
+      </div>
+    </div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #ff8c00;border-radius:12px;padding:15px;text-align:center;">
+      <div style="font-size:12px;color:#ffaa00;margin-bottom:10px;">📜 ЭХО С РУИН:</div>
+      <button class="btn btn-gold" onclick="playPrinceHymn()">👑 ГИМН ПРИНЦА</button>
+      <div id="princeHymnBox" style="display:none;margin-top:15px;text-align:left;font-size:12px;color:#aaddff;line-height:1.6;white-space:pre-line;background:rgba(0,0,0,0.5);padding:15px;border-radius:10px;border:1px solid #5a3a8a;">
+Бывают дни, когда ты падаешь на дно,
+но принц спасёт, предложу тебе одно, но...
+У него есть решение всех твоих проблем.
+Пойдёшь за ним — они исчезнут насовсем.
+
+Ты ощутишь себя внутри зеркальных стен.
+Он проведёт тебя в королевство.
+
+И мне плевать, что я это придумал.
+Иллюзий катались твои люди.
+И мне плевать, что подумают люди.
+
+Я твой принц, и ты.
+Хочешь прикоснуться — твои принципы?
+А зацепили, что зацепил изнутри,
+я не похож на других — они выбрали мой мир.
+
+Я твой принц, и ты хочешь коснуться —
+взял твою боль, заменил твои чувства.
+
+Выход найдёшь в канале иллюзий,
+иллюзий, иллюзий...
+      </div>
+    </div>
+    <button class="btn btn-blue back-btn" onclick="showScreen('screen-main')">◀ НАЗАД</button>
+  </div>
+
+  <div class="screen" id="screen-tournament-wait">
+    <div class="screen-title">⚔️ ТУРНИР 5 НА 5</div>
+    <div style="background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid #5a3a8a;border-radius:16px;padding:30px;text-align:center;margin-bottom:15px;">
+      <div style="font-size:80px;animation:blink 1.2s infinite;">⏳</div>
+      <div id="tw-title" style="font-size:18px;font-weight:900;color:#ffcc00;margin:15px 0;">Поиск соперника...</div>
+      <div id="tw-status" style="font-size:13px;color:#aaddff;margin-bottom:15px;">Подключение к серверу</div>
+      <div id="tw-count" style="font-size:22px;font-weight:900;color:#00ccff;margin-bottom:15px;">1 / 2</div>
+    </div>
+    <button class="btn btn-red back-btn" onclick="cancelTournament()">✖ ОТМЕНА</button>
+  </div>
 </div>
 
 <div id="battle-screen">
   <canvas id="battle-canvas"></canvas>
   <div class="hud">
     <div class="hud-box">❤️ <span id="player-hp">100</span></div>
+    <div class="hud-box">⏱️ <span id="battle-timer">30:00</span></div>
     <div class="hud-box">👾 <span id="enemies-left">0</span></div>
     <div class="hud-box">🌊 <span id="wave-num">1</span></div>
     <div class="hud-box">🏆 <span id="kills-count">0</span></div>
-    <div class="hud-box">🥢 <span id="stick-hud">Нет</span></div>
+    <div class="hud-box">🤝 <span id="allies-count">0</span></div>
+    <div class="hud-box">💀 <span id="deaths-count">0</span></div>
   </div>
+  <div id="hitLog"></div>
   <button id="menuBtn" onclick="toggleMenu()">☰</button>
+  <button id="forceExitBtn" onclick="forceExit()">EXIT</button>
   <div id="menuPanel">
-    <button onclick="toggleFPS()">👁️ Сменить вид</button>
     <button onclick="toggleStick()">🥢 Взять палочку</button>
+    <button onclick="toggleCamo()">🥷 Камуфляж</button>
     <button onclick="openInventory()">🎒 Инвентарь</button>
-    <button onclick="exitBattle()">✖ Выйти из боя</button>
+    <button onclick="forceExit()">✖ Выйти из боя</button>
   </div>
   <div id="controls">
     <div class="joy-zone" id="joyZone">
       <div class="joy-base"></div>
       <div class="joy-knob" id="joyKnob"></div>
     </div>
+    <div id="btnControls" style="display:none;position:absolute;bottom:20px;left:20px;width:180px;height:180px;">
+      <button class="dir-btn" style="top:0;left:60px;" ontouchstart="setDir('up',true)" ontouchend="setDir('up',false)" ontouchcancel="setDir('up',false)" onmousedown="setDir('up',true)" onmouseup="setDir('up',false)" onmouseleave="setDir('up',false)">⬆️</button>
+      <button class="dir-btn" style="top:60px;left:0;" ontouchstart="setDir('left',true)" ontouchend="setDir('left',false)" ontouchcancel="setDir('left',false)" onmousedown="setDir('left',true)" onmouseup="setDir('left',false)" onmouseleave="setDir('left',false)">⬅️</button>
+      <button class="dir-btn" style="top:60px;left:120px;" ontouchstart="setDir('right',true)" ontouchend="setDir('right',false)" ontouchcancel="setDir('right',false)" onmousedown="setDir('right',true)" onmouseup="setDir('right',false)" onmouseleave="setDir('right',false)">➡️</button>
+      <button class="dir-btn" style="top:120px;left:60px;" ontouchstart="setDir('down',true)" ontouchend="setDir('down',false)" ontouchcancel="setDir('down',false)" onmousedown="setDir('down',true)" onmouseup="setDir('down',false)" onmouseleave="setDir('down',false)">⬇️</button>
+    </div>
+    <button class="camo-btn" id="camoBtn">🥷</button>
     <button class="stick-btn" id="stickBtn">🥢</button>
     <button class="fire-btn" id="fireBtn">🔥</button>
+  </div>
+  <div id="respawnOverlay">
+    <div style="font-size:60px;">💀</div>
+    <div style="font-size:22px;font-weight:900;color:#ff4444;margin:10px 0;">ТАНК УНИЧТОЖЕН</div>
+    <div style="font-size:14px;color:#aaddff;margin-bottom:20px;" id="respawnInfo">Осталось дублёров: 1</div>
+    <button class="btn btn-green" id="respawnBtn" onclick="useRespawn()" style="min-width:220px;">🚑 ВОЗРОДИТЬСЯ</button>
+    <button class="btn btn-red" onclick="forceExit()" style="min-width:220px;margin-top:10px;">✖ ЗАВЕРШИТЬ БОЙ</button>
   </div>
 </div>
 
@@ -209,710 +423,154 @@ body{background:#0a0510;background-image:radial-gradient(circle at 20% 10%,rgba(
   <div style="font-size:18px;font-weight:bold;color:#ffcc00;margin:10px 0;">ИНВЕНТАРЬ</div>
   <div id="inventorySlots" style="margin-bottom:15px;"></div>
   <button onclick="closeInventory()" style="background:linear-gradient(180deg,#666,#333);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-weight:bold;font-family:inherit;cursor:pointer;">ЗАКРЫТЬ</button>
-</div>
+</div><script>
+let D; try{D=JSON.parse(localStorage.getItem('grom_tankov_save'))||{}}catch(e){D={}}
+const DEFAULTS={gold:1000,bonds:0,level:1,wins:0,kills:0,battles:0,researchXP:0,researched:['standard'],unlockedSkins:['standard'],currentSkin:'standard',nickname:'',lastBonus:0,streak:0,usedPromos:[],hasStick:false,hasCamo:false,schoolEarned:0,schoolSolved:0,rank:'👤 Игрок',controlType:'joystick',trophyHistory:[],lastTrophyDate:'',trophyReady:false,country:'ussr',respawns:1,bpSeason:1,bpXp:0,bpLevel:1,bpClaimed:[],bpSeasonStart:Date.now(),settings:{lang:'ru',lowGraphics:false},leaderboard:[]}
+for(const k in DEFAULTS)if(D[k]===undefined)D[k]=DEFAULTS[k]
+const ADMIN_NICKS=['мухаммад','muhammad','pixelfox56','majidov'],BOSS_NICKS=['абубакр','abubakr','abubakar','abubakr2377'],MOD_NICKS=['олег','oleg','зенни','zenny']
+function checkRank(n){n=(n||'').toLowerCase();if(ADMIN_NICKS.some(x=>n.includes(x)))return'👑 Админ';if(BOSS_NICKS.some(x=>n.includes(x)))return'😈 Астроафлефлан';if(MOD_NICKS.some(x=>n.includes(x)))return'🛡️ Модератор';return'👤 Игрок'}
+function isAdmin(){return D.rank==='👑 Админ'}
+const params=new URLSearchParams(location.search),armorId=params.get('armor')||localStorage.getItem('armor_current')
+if(armorId){try{const a=JSON.parse(localStorage.getItem('armor_accounts'))||{};if(a[armorId]?.nick)D.nickname=a[armorId].nick}catch(e){}}
+if(D.nickname)D.rank=checkRank(D.nickname)
+function saveGame(){try{localStorage.setItem('grom_tankov_save',JSON.stringify(D))}catch(e){}}
+function updateUI(){const s=(id,v)=>{const e=document.getElementById(id);if(e)e.innerText=v};s('gold',D.gold.toLocaleString());s('bonds',D.bonds);s('level',D.level);s('bpLevelTop',D.bpLevel)}
+function showToast(m){const t=document.getElementById('toast');if(!t)return;t.innerText=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000)}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const e=document.getElementById(id);if(e)e.classList.add('active');window.scrollTo(0,0)}
+let audioCtx=null
+function initAudio(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}}
+function playSound(f,d,t,v){if(!audioCtx)return;try{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=t||'square';o.frequency.setValueAtTime(f,audioCtx.currentTime);g.gain.setValueAtTime(v||.1,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d)}catch(e){}}
+let logoClicks=0
+function logoClick(){logoClicks++;if(logoClicks===10){D.gold+=100000;saveGame();updateUI();showToast('🥚 ПАСХАЛКА! +100 000 🪙');logoClicks=0}}
+const COUNTRIES={ussr:{flag:'🇷🇺',name:'СССР',color:'#4a7a3a',tanks:['Т-34','КВ-1','ИС-2 «Месть»','Т-54','ИС-7']},germany:{flag:'🇩🇪',name:'Германия',color:'#666666',tanks:['Pz.II','Pz.IV','Tiger I','Panther','Maus']},usa:{flag:'🇺🇸',name:'Америка',color:'#3a6a4a',tanks:['M2 Light','M4 Sherman','M26 Pershing','M46 Patton','T95']},japan:{flag:'🇯🇵',name:'Япония',color:'#9a8a3a',tanks:['Ha-Go','Chi-Ha','Chi-Nu','Ho-Ri','Type 5']},china:{flag:'🇨🇳',name:'Китай',color:'#9a3a3a',tanks:['Type 58','Type 59','Type 62','Type 69','Type 99']},saveliy:{flag:'🟣',name:'Северный Савелий',color:'#6a3a8a',tanks:['Сав-1','Сав-3','Сав-7','Сав-12','Сав-Мега']}}
+function openCountries(){renderCountries();showScreen('screen-countries')}
+function renderCountries(){const g=document.getElementById('countryGrid');if(!g)return;g.innerHTML='';for(const id in COUNTRIES){const c=COUNTRIES[id];const d=document.createElement('div');d.className='country-card'+(D.country===id?' selected':'');d.innerHTML=`<div class="country-flag">${c.flag}</div><div class="country-name">${c.name}</div>`;d.onclick=()=>{D.country=id;saveGame();renderCountries();showToast(c.flag+' '+c.name+'!')};g.appendChild(d)}}
+const SKINS=[{id:'standard',name:'Стандарт',price:0,color:'#4caf50'},{id:'red',name:'🔴 Красный',price:800,color:'#c62828'},{id:'blue',name:'🔵 Синий',price:800,color:'#2c5faa'},{id:'gold',name:'🟡 Золотой',price:5000,color:'#d4a017'},{id:'silver',name:'⚪ Серебряный',price:3500,color:'#dddddd'},{id:'black',name:'⚫ Чёрный',price:10000,color:'#1a1a1a'},{id:'is2',name:'🔴 ИС-2 «Месть»',price:0,color:'#8b1010'},{id:'trophy_red',name:'🔴 Трофейный',price:0,color:'#c62828'},{id:'trophy_blue',name:'🔵 Трофейный',price:0,color:'#2c5faa'},{id:'trophy_gold',name:'🟡 Трофейный',price:0,color:'#d4a017'},{id:'trophy_black',name:'⚫ Трофейный',price:0,color:'#1a1a1a'}]
+const CASES=[{id:'common',name:'Обычный',price:1000,min:600,max:1100},{id:'rare',name:'Редкий',price:10000,min:6000,max:11000},{id:'epic',name:'Эпический',price:200000,min:120000,max:220000},{id:'legend',name:'Легендарный',price:1000000,min:600000,max:1100000},{id:'ultra',name:'👑 Ультрический',price:100000000,min:60000000,max:110000000}]
+function openCases(){renderCases();showScreen('screen-cases')}
+function renderCases(){const l=document.getElementById('casesList');if(!l)return;l.innerHTML='';CASES.forEach(c=>{const d=document.createElement('div');d.className='case-item';d.innerHTML='<div style="flex:1"><div style="font-weight:bold">📦 '+c.name+'</div><div style="font-size:11px;color:#8866aa">Шанс ×2: 15%</div></div><div style="text-align:right"><div style="font-weight:bold;color:#ffd700;font-size:12px">'+c.price.toLocaleString()+' 🪙</div><button class="buy-btn" onclick="buyCase(\''+c.id+'\')">Открыть</button></div>';l.appendChild(d)})}
+function buyCase(id){const c=CASES.find(x=>x.id===id);if(!c)return;if(D.gold<c.price){showToast('❌ Мало золота!');return}D.gold-=c.price;const dbl=Math.random()<0.15;let b=c.min+Math.floor(Math.random()*(c.max-c.min));if(dbl)b*=2;D.gold+=b;D.bonds+=Math.floor(b/5000);addBpXp(30);saveGame();updateUI();renderCases();showToast((dbl?'🎁×2! ':'📦 ')+'+'+b.toLocaleString()+' 🪙')}
+const BONDS_SHOP=[{id:'gold1',name:'🪙 10 000 золота',price:50,reward:'gold',amount:10000},{id:'gold2',name:'🪙 100 000 золота',price:400,reward:'gold',amount:100000},{id:'xp1',name:'🔬 500 опыта',price:30,reward:'xp',amount:500}]
+function openBonds(){renderBondsShop();showScreen('screen-bonds')}
+function renderBondsShop(){const s=(id,v)=>{const e=document.getElementById(id);if(e)e.innerText=v};s('bondsBig',D.bonds);const l=document.getElementById('bondsShop');if(!l)return;l.innerHTML='';BONDS_SHOP.forEach(it=>{const d=document.createElement('div');d.className='case-item';d.innerHTML='<div style="flex:1"><b>'+it.name+'</b></div><div style="text-align:right"><div style="font-weight:bold;color:#ffcc00">🎖️ '+it.price+'</div><button class="buy-btn" onclick="buyBondItem(\''+it.id+'\')">Купить</button></div>';l.appendChild(d)})}
+function buyBondItem(id){const it=BONDS_SHOP.find(x=>x.id===id);if(!it)return;if(D.bonds<it.price){showToast('❌ Мало!');return}D.bonds-=it.price;if(it.reward==='gold')D.gold+=it.amount;if(it.reward==='xp')D.researchXP+=it.amount;saveGame();updateUI();renderBondsShop();showToast('🎉 Куплено!')}
+const PROMOCODES={'START2026':{gold:5000},'GROM':{gold:3000},'TANK':{gold:5000},'МУХАММАД':{gold:100000},'АРМАТА':{gold:50000},'КОСМО':{gold:75000},'МОРКОВКА':{gold:1000000000},'ПАЛОЧКА':{gold:0,stick:true},'ШКОЛА2027':{gold:2027,exp:2027},'67':{gold:67000},'67ШТУК':{gold:670000},'ФРОНТИР':{gold:100000,bonds:100,xp:500}}
+function openPromo(){renderUsedPromos();showScreen('screen-promo')}
+function renderUsedPromos(){const e=document.getElementById('usedPromos');if(!e)return;e.innerHTML=D.usedPromos.length?'<b>✅ '+D.usedPromos.join(' · ')+'</b>':'<b style="color:#8866aa">✅ Пока ничего</b>'}
+function applyPromo(){const inp=document.getElementById('promoInput');const code=inp.value.trim().toUpperCase();if(!PROMOCODES[code]){showToast('❌ Не найден!');return}if(D.usedPromos.includes(code)){showToast('⚠️ Уже!');return}const r=PROMOCODES[code];if(r.gold)D.gold+=r.gold;if(r.bonds)D.bonds+=r.bonds;if(r.stick)D.hasStick=true;if(r.exp)D.researchXP+=r.exp;D.usedPromos.push(code);saveGame();updateUI();inp.value='';renderUsedPromos();let m='🎁 '+code+': ';if(r.gold)m+='+'+r.gold.toLocaleString()+' 🪙 ';if(r.bonds)m+='+'+r.bonds+' 🎖️ ';if(r.exp)m+='+'+r.exp+' 🔬 ';if(r.stick)m+='ПАЛОЧКА!';showToast(m)}
+function checkDailyBonus(){const now=Date.now(),day=86400000,last=D.lastBonus||0;if(now-last<day){showToast('⏰ Через '+Math.floor((day-(now-last))/3600000)+' ч.');return}D.streak=(D.streak||0)+1;let b=1000*D.streak;if(b>50000)b=50000;D.gold+=b;D.lastBonus=now;saveGame();updateUI();showToast('🎁 День '+D.streak+': +'+b.toLocaleString()+' 🪙')}
+function openProfile(){const s=(id,v)=>{const e=document.getElementById(id);if(e)e.innerText=v};s('p-level',D.level);s('p-country',COUNTRIES[D.country].flag+' '+COUNTRIES[D.country].name);s('p-gold',D.gold.toLocaleString());s('p-bonds',D.bonds);s('p-wins',D.wins);s('p-stick',D.hasStick?'✅ Есть':'❌ Нет');s('p-camo',D.hasCamo?'✅ Есть':'❌ Нет');s('p-rank',D.rank);showScreen('screen-profile')}
+function openStick(){const e=document.getElementById('stickStatus');if(e)e.innerText=D.hasStick?'✅ Куплена!':'Статус: не куплена';showScreen('screen-stick')}
+function buyStick(){if(D.hasStick){showToast('✅ Уже!');return}if(D.gold<5000){showToast('❌ Мало!');return}D.gold-=5000;D.hasStick=true;saveGame();updateUI();openStick();showToast('🥢 Куплена!')}
+function openCamo(){const e=document.getElementById('camoStatus');if(e)e.innerText=D.hasCamo?'✅ Куплен!':'Статус: не куплен';showScreen('screen-camo')}
+function buyCamo(){if(D.hasCamo){showToast('✅ Уже!');return}if(D.gold<25000){showToast('❌ Нужно 25 000 🪙');return}D.gold-=25000;D.hasCamo=true;saveGame();updateUI();openCamo();showToast('🥷 Куплен!')}
+const CONTROL_TYPES=[{id:'joystick',icon:'🕹️',name:'Джойстик',desc:'Стик слева'},{id:'buttons',icon:'⬅️',name:'Кнопки',desc:'4 кнопки'},{id:'wasd',icon:'⌨️',name:'WASD (ПК)',desc:'Клавиатура'}]
+function openControls(){renderControlsList();showScreen('screen-controls')}
+function renderControlsList(){const l=document.getElementById('controlsList');if(!l)return;l.innerHTML='';CONTROL_TYPES.forEach(c=>{const d=document.createElement('div');d.className='case-item';const act=D.controlType===c.id;if(act)d.style.borderColor='#4caf50';d.innerHTML='<div style="font-size:32px">'+c.icon+'</div><div style="flex:1"><div style="font-weight:bold">'+c.name+'</div><div style="font-size:11px;color:#8866aa">'+c.desc+'</div></div><div>'+(act?'<span style="color:#4caf50;font-weight:bold">✅</span>':'')+'</div>';d.onclick=()=>{D.controlType=c.id;saveGame();renderControlsList();showToast('🎮 '+c.name)};l.appendChild(d)})}
+function applyControlType(){const j=document.getElementById('joyZone'),b=document.getElementById('btnControls');if(!j)return;if(D.controlType==='joystick'){j.style.display='block';if(b)b.style.display='none'}else if(D.controlType==='buttons'){j.style.display='none';if(b)b.style.display='block'}else{j.style.display='none';if(b)b.style.display='none'}}
+const dirKeys={up:false,down:false,left:false,right:false}
+function setDir(d,v){dirKeys[d]=v}
+const TROPHY_TANKS=[{id:'trophy_red',name:'🔴 Троф',color:'#c62828'},{id:'trophy_blue',name:'🔵 Троф',color:'#2c5faa'},{id:'trophy_gold',name:'🟡 Троф',color:'#d4a017'},{id:'trophy_black',name:'⚫ Троф',color:'#1a1a1a'}]
+function getMonthString(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)}
+function openTrophies(){if(D.lastTrophyDate!==getMonthString())D.trophyReady=true;renderTrophyHistory();const b=document.getElementById('trophyOpenBtn');if(b)b.style.display=D.trophyReady?'block':'none';updateTrophyTimer();showScreen('screen-trophies')}
+function updateTrophyTimer(){const e=document.getElementById('trophyTimer');if(!e)return;if(D.trophyReady){e.innerText='🎁 ГОТОВ!';e.style.color='#4caf50';return}const n=new Date(),nx=new Date(n.getFullYear(),n.getMonth()+1,1);e.innerText=Math.ceil((nx-n)/86400000)+' дней';e.style.color='#ffcc00'}
+function renderTrophyHistory(){const l=document.getElementById('trophyHistory');if(!l)return;l.innerHTML='';if(!D.trophyHistory.length){l.innerHTML='<div style="text-align:center;color:#8866aa;padding:15px;font-size:12px">Пока трофеев нет</div>';return}D.trophyHistory.slice().reverse().forEach(t=>{const d=document.createElement('div');d.className='case-item';d.innerHTML='<div style="font-size:24px">'+t.icon+'</div><div style="flex:1"><div style="font-weight:bold;font-size:12px">'+t.text+'</div><div style="font-size:10px;color:#8866aa">'+t.date+'</div></div>';l.appendChild(d)})}
+function openTrophy(){if(!D.trophyReady){showToast('⏰ Не готов!');return}const roll=Math.random()*100;let r=null;if(roll<0.0000000001){const t=TROPHY_TANKS[Math.floor(Math.random()*TROPHY_TANKS.length)];D.unlockedSkins.push(t.id);if(!SKINS.find(s=>s.id===t.id))SKINS.push({id:t.id,name:t.name,price:0,color:t.color});r={icon:'🚜',text:'🎉 ТАНК! '+t.name+'!'};setTimeout(()=>alert('🤯 ТАНК!\n'+t.name),500)}else if(roll<5){D.gold+=100000;r={icon:'💰',text:'+100 000 🪙'}}else if(roll<15){D.bonds+=50;r={icon:'🎖️',text:'+50 облигаций'}}else if(roll<35){D.researchXP+=500;r={icon:'🔬',text:'+500 🔬'}}else if(roll<65){D.gold+=10000;r={icon:'🪙',text:'+10 000 🪙'}}else{D.gold+=5000;r={icon:'🪙',text:'+5 000 🪙'}}const n=new Date();D.trophyHistory.push({icon:r.icon,text:r.text,date:n.getDate()+'.'+(n.getMonth()+1)+'.'+n.getFullYear()});D.lastTrophyDate=getMonthString();D.trophyReady=false;saveGame();updateUI();showToast('🎉 '+r.text);playSound(1500,.5,'sine',.15);setTimeout(openTrophies,800)}
+let currentTask=null
+const SCHOOL_TASKS=[{q:'5 + 5',a:10,r:1000},{q:'12 × 3',a:36,r:1000},{q:'20 - 7',a:13,r:1000},{q:'4 × 4 + 4',a:20,r:1500},{q:'9 + 9 × 9',a:90,r:5000},{q:'9 + (9 / 9) + (9 × 9) - 9',a:82,r:5000},{q:'100 - (4² + 6) × 2 + 30 / 5',a:62,r:6000},{q:'2¹⁰ + 3⁵ - 7² + 12',a:1196,r:50000},{q:'15 × 15 + 25 × 25 - 10 × 10',a:750,r:30000},{q:'999 999 + 1',a:1000000,r:1000000},{q:'500 000 × 2',a:1000000,r:1000000},{q:'10 000 × 100',a:1000000,r:1000000},{q:'2 000 000 / 2',a:1000000,r:1000000},{q:'1000 × 1000',a:1000000,r:1000000}]
+function openSchool(){const e=document.getElementById('schoolEarned'),s=document.getElementById('schoolSolved');if(e)e.innerText=(D.schoolEarned||0).toLocaleString()+' 🪙';if(s)s.innerText=D.schoolSolved||0;newSchoolTask();showScreen('screen-school')}
+function newSchoolTask(){const t=SCHOOL_TASKS[Math.floor(Math.random()*SCHOOL_TASKS.length)];currentTask=t;const q=document.getElementById('schoolQuestion'),r=document.getElementById('schoolReward');if(q)q.innerText=t.q;if(r)r.innerText='💰 Награда: '+t.r.toLocaleString()+' 🪙'+(t.r>=1000000?' 🔥 МИЛЛИОН!':'');const i=document.getElementById('schoolAnswer');if(i)i.value=''}
+function checkSchoolAnswer(){if(!currentTask){newSchoolTask();return}const a=parseFloat(document.getElementById('schoolAnswer').value);if(isNaN(a)){showToast('❌ Введи число!');return}if(Math.abs(a-currentTask.a)<0.001){D.gold+=currentTask.r;D.schoolEarned=(D.schoolEarned||0)+currentTask.r;D.schoolSolved=(D.schoolSolved||0)+1;addBpXp(50);saveGame();updateUI();showToast('🎉 +'+currentTask.r.toLocaleString()+' 🪙');if(currentTask.r>=1000000)setTimeout(()=>alert('🏆 МИЛЛИОН!'),100);const e=document.getElementById('schoolEarned'),s=document.getElementById('schoolSolved');if(e)e.innerText=D.schoolEarned.toLocaleString()+' 🪙';if(s)s.innerText=D.schoolSolved;setTimeout(newSchoolTask,800)}else showToast('❌ Неверно! Ответ: '+currentTask.a)}let hCanvas,hCtx,hAngle=0,hIdx=0;
+function openHangar(){showScreen('screen-hangar');setTimeout(initHangar,100)}
+function closeHangar(){showScreen('screen-main')}
+function initHangar(){hCanvas=document.getElementById('hangar-canvas');if(!hCanvas)return;hCanvas.width=hCanvas.clientWidth;hCanvas.height=hCanvas.clientHeight;hCtx=hCanvas.getContext('2d');hIdx=D.unlockedSkins.indexOf(D.currentSkin);if(hIdx<0)hIdx=0;updateHangarName();animateHangar()}
+function updateHangarName(){const s=SKINS.find(x=>x.id===D.unlockedSkins[hIdx]);const e=document.getElementById('currentTankName');if(e)e.innerText=s?s.name:'Стандарт'}
+function animateHangar(){if(!hCtx)return;requestAnimationFrame(animateHangar);hAngle+=0.01;const W=hCanvas.width,H=hCanvas.height;hCtx.fillStyle='#0a0510';hCtx.fillRect(0,0,W,H);hCtx.fillStyle='#1a0a2e';hCtx.beginPath();hCtx.ellipse(W/2,H*0.8,W*0.4,H*0.1,0,0,Math.PI*2);hCtx.fill();const s=SKINS.find(x=>x.id===D.unlockedSkins[hIdx])||SKINS[0];drawHangarTank(W/2,H*0.6,s.color)}
+function drawHangarTank(cx,cy,color){const ctx=hCtx;ctx.save();ctx.translate(cx,cy);const sc=Math.min(hCanvas.width,hCanvas.height)/200;ctx.scale(sc,sc);ctx.fillStyle='rgba(0,0,0,0.4)';ctx.beginPath();ctx.ellipse(0,30,50,14,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#0a0a0a';ctx.fillRect(-48,-22,96,12);ctx.fillRect(-48,12,96,12);for(let i=-48;i<48;i+=8){ctx.fillStyle='#222';ctx.fillRect(i,-22,4,12);ctx.fillRect(i,12,4,12)}ctx.fillStyle=color;ctx.fillRect(-42,-14,84,28);ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(-42,-14,84,6);ctx.beginPath();ctx.arc(0,0,24,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();ctx.fillStyle='rgba(0,0,0,0.2)';ctx.beginPath();ctx.arc(0,0,24,Math.PI,Math.PI*2);ctx.fill();ctx.save();ctx.rotate(Math.sin(hAngle)*0.3);ctx.fillStyle='#111';ctx.fillRect(15,-4,55,8);ctx.fillStyle='#333';ctx.fillRect(65,-5,6,10);ctx.restore();ctx.restore()}
+function changeTank(dir){const len=D.unlockedSkins.length;hIdx=(hIdx+dir+len)%len;D.currentSkin=D.unlockedSkins[hIdx];saveGame();updateHangarName();const s=SKINS.find(x=>x.id===D.currentSkin);showToast('🚜 '+(s?s.name:''))}
 
-<script>
-// 🚜 ARMOR THUNDER · v26.0 · Автор: pixelfox56
-let playerData;
-try { playerData = JSON.parse(localStorage.getItem('grom_tankov_save')) || {}; } catch(e) { playerData = {}; }
-if(!playerData.gold) playerData.gold = 1000;
-if(!playerData.bonds) playerData.bonds = 0;
-if(!playerData.level) playerData.level = 1;
-if(!playerData.wins) playerData.wins = 0;
-if(!playerData.unlockedSkins) playerData.unlockedSkins = ['standard'];
-if(!playerData.currentSkin) playerData.currentSkin = 'standard';
-if(!playerData.nickname) playerData.nickname = '';
-if(!playerData.researchXP) playerData.researchXP = 0;
-if(!playerData.researched) playerData.researched = ['standard'];
-if(!playerData.lastBonus) playerData.lastBonus = 0;
-if(!playerData.streak) playerData.streak = 0;
-if(!playerData.kills) playerData.kills = 0;
-if(!playerData.battles) playerData.battles = 0;
-if(!playerData.usedPromos) playerData.usedPromos = [];
-if(!playerData.hasStick) playerData.hasStick = false;
-if(!playerData.schoolEarned) playerData.schoolEarned = 0;
-if(!playerData.schoolSolved) playerData.schoolSolved = 0;
-if(!playerData.rank) playerData.rank = '👤 Игрок';
+const RESEARCH_LIST=[{id:'sn_1',name:'СН-1',cost:50,color:'#aaddff'},{id:'sn_5',name:'СН-5',cost:150,color:'#88ccff'},{id:'sn_12',name:'СН-12',cost:400,color:'#66bbff'},{id:'is2',name:'ИС-2 «Месть»',cost:1200,color:'#8b1010'},{id:'sn_40',name:'СН-40',cost:1800,color:'#2299ff'},{id:'sn_90',name:'СН-90',cost:5000,color:'#0077ee'}]
+function openTanks(){renderResearch();showScreen('screen-tanks')}
+function renderResearch(){const l=document.getElementById('researchList');if(!l)return;l.innerHTML='';RESEARCH_LIST.forEach((t,i)=>{const done=D.researched.includes(t.id);const prev=i===0||D.researched.includes(RESEARCH_LIST[i-1].id);const can=!done&&prev&&D.researchXP>=t.cost;const d=document.createElement('div');d.style.cssText='background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid '+(done?'#00ccff':'#5a3a8a')+';border-radius:10px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px;'+(!prev?'opacity:0.5':'');let btn=done?'<span style="color:#00ccff;font-weight:bold">✅</span>':(!prev?'<span style="color:#666;font-size:20px">🔒</span>':(can?'<button class="buy-btn" onclick="doResearch(\''+t.id+'\','+t.cost+')">🔬</button>':'<span style="color:#ffaa00;font-size:11px;font-weight:bold">'+t.cost+'</span>'));d.innerHTML='<div style="width:44px;height:44px;border-radius:8px;background:'+t.color+';display:flex;align-items:center;justify-content:center;font-size:22px">🚜</div><div style="flex:1"><div style="font-weight:bold;font-size:14px">'+t.name+'</div><div style="font-size:11px;color:#ffcc00">🔬 '+t.cost.toLocaleString()+'</div></div><div>'+btn+'</div>';l.appendChild(d)})}
+function doResearch(id,cost){if(D.researchXP<cost){showToast('❌ Мало опыта!');return}D.researchXP-=cost;D.researched.push(id);const t=RESEARCH_LIST.find(x=>x.id===id);if(t&&!SKINS.find(s=>s.id===id))SKINS.push({id,name:t.name,price:0,color:t.color});if(!D.unlockedSkins.includes(id))D.unlockedSkins.push(id);saveGame();updateUI();renderResearch();showToast('🎉 '+t.name+'!')}
 
-const ADMIN_NICKS = ['мухаммад', 'muhammad', 'pixelfox56', 'majidov'];
-const BOSS_NICKS = ['абубакр', 'abubakr', 'abubakar', '꧁༒♛abubakr2377♛༒꧂'];
-const MOD_NICKS = ['олег', 'oleg', 'зенни', 'zenny'];
-function checkRank(nick){
-  const n = (nick||'').toLowerCase();
-  if(ADMIN_NICKS.some(x => n.includes(x))) return '👑 Админ';
-  if(BOSS_NICKS.some(x => n.includes(x))) return '😈 Астроафлефлан';
-  if(MOD_NICKS.some(x => n.includes(x))) return '🛡️ Модератор';
-  return '👤 Игрок';
-}
-function isAdmin(){ return playerData.rank === '👑 Админ'; }
-function isBoss(){ return playerData.rank === '😈 Астроафлефлан'; }
+const BP_MAX_LEVEL=60,BP_XP_PER_LEVEL=500,BP_SEASON_LENGTH=30*86400000
+const BP_REWARDS=(()=>{const a=[];for(let i=1;i<=60;i++){let r;if(i===60)r={type:'ultimate',text:'👑 УЛЬТИМАТИВНЫЙ',icon:'👑'};else if(i%10===0)r={type:'bonds',amount:50,text:'+50 🎖️',icon:'🎖️'};else if(i%5===0)r={type:'xp',amount:200,text:'+200 🔬',icon:'🔬'};else if(i%3===0)r={type:'gold',amount:5000,text:'+5 000 🪙',icon:'🪙'};else r={type:'gold',amount:2000,text:'+2 000 🪙',icon:'🪙'};a.push(r)}return a})()
+function checkSeasonReset(){if(Date.now()-D.bpSeasonStart>BP_SEASON_LENGTH){D.bpSeason++;D.bpLevel=1;D.bpXp=0;D.bpClaimed=[];D.bpSeasonStart=Date.now();saveGame();setTimeout(()=>alert('🎫 НОВЫЙ СЕЗОН!\n№'+D.bpSeason),500)}}
+function addBpXp(amount){D.bpXp+=amount;while(D.bpXp>=BP_XP_PER_LEVEL&&D.bpLevel<BP_MAX_LEVEL){D.bpXp-=BP_XP_PER_LEVEL;D.bpLevel++;showToast('🎫 Уровень '+D.bpLevel+'!')}if(D.bpLevel>=BP_MAX_LEVEL){D.bpLevel=BP_MAX_LEVEL;D.bpXp=0}saveGame();updateUI()}
+function openBattlePass(){checkSeasonReset();const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerText=v};set('bpSeasonNum',D.bpSeason);set('bpLevelBig',D.bpLevel);const pct=D.bpLevel>=BP_MAX_LEVEL?100:Math.floor(D.bpXp/BP_XP_PER_LEVEL*100);const pf=document.getElementById('bpProgressFill');if(pf)pf.style.width=pct+'%';set('bpXpText',D.bpLevel>=BP_MAX_LEVEL?'МАКС':(D.bpXp+' / '+BP_XP_PER_LEVEL+' XP'));const left=BP_SEASON_LENGTH-(Date.now()-D.bpSeasonStart);set('bpTimer',Math.max(0,Math.ceil(left/86400000))+' дней');renderBpList();showScreen('screen-bp')}
+function renderBpList(){const l=document.getElementById('bpList');if(!l)return;l.innerHTML='';BP_REWARDS.forEach((r,i)=>{const lvl=i+1;const cl=D.bpClaimed.includes(lvl);const un=D.bpLevel>=lvl;const d=document.createElement('div');d.className='bp-level-item'+(cl?' claimed':'');const b='bp-lvl-badge'+(cl?' claimed':'')+(lvl===60?' final':'');let btn='';if(cl)btn='<span style="color:#4caf50;font-weight:bold;font-size:12px">✅</span>';else if(un)btn='<button class="buy-btn" onclick="claimBp('+lvl+')" style="background:linear-gradient(180deg,#ff6600,#8b3300)">ЗАБРАТЬ</button>';else btn='<span style="color:#666;font-size:11px">🔒</span>';d.innerHTML=`<div class="${b}">${lvl}</div><div style="flex:1"><div style="font-size:24px">${r.icon}</div><div style="font-size:11px;color:#aaddff">${r.text}</div></div><div>${btn}</div>`;l.appendChild(d)})}
+function claimBp(lvl){if(D.bpLevel<lvl){showToast('❌ Не достигнут!');return}if(D.bpClaimed.includes(lvl)){showToast('⚠️ Уже!');return}const r=BP_REWARDS[lvl-1];if(r.type==='ultimate'){openUltimateChoice();return}if(r.type==='gold')D.gold+=r.amount;if(r.type==='bonds')D.bonds+=r.amount;if(r.type==='xp')D.researchXP+=r.amount;D.bpClaimed.push(lvl);saveGame();updateUI();renderBpList();showToast('🎁 '+r.text)}
+function openUltimateChoice(){const ov=document.createElement('div');ov.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;';ov.id='ultimateOv';ov.innerHTML=`<div style="font-size:60px">👑</div><div style="font-size:20px;font-weight:900;color:#ffcc00;margin:20px 0;text-align:center">УЛЬТИМАТИВНАЯ НАГРАДА<br>60 УРОВНЯ</div><div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px"><button onclick="pickUltimate('gold')" style="padding:16px;background:linear-gradient(180deg,#ffcc00,#8b6500);color:#1a0a2e;border:none;border-radius:12px;font-weight:900;font-size:16px;font-family:inherit;cursor:pointer">💰 100 000 ЗОЛОТА</button><button onclick="pickUltimate('stick')" style="padding:16px;background:linear-gradient(180deg,#d4a017,#4a2f0a);color:#fff;border:none;border-radius:12px;font-weight:900;font-size:16px;font-family:inherit;cursor:pointer">🥢 СЕКРЕТНАЯ ПАЛОЧКА</button><button onclick="pickUltimate('tank')" style="padding:16px;background:linear-gradient(180deg,#00ccff,#003347);color:#fff;border:none;border-radius:12px;font-weight:900;font-size:16px;font-family:inherit;cursor:pointer">🚜 ТАНК «ИС-2 Месть»</button><button onclick="document.getElementById('ultimateOv').remove()" style="padding:10px;background:#333;color:#fff;border:none;border-radius:8px;font-family:inherit;cursor:pointer">Позже</button></div>`;document.body.appendChild(ov)}
+function pickUltimate(type){if(type==='gold'){D.gold+=100000;showToast('💰 +100 000 🪙')}if(type==='stick'){D.hasStick=true;showToast('🥢 Палочка!')}if(type==='tank'){if(!D.unlockedSkins.includes('is2'))D.unlockedSkins.push('is2');showToast('🚜 ИС-2!')}if(!D.bpClaimed.includes(60))D.bpClaimed.push(60);saveGame();updateUI();const ov=document.getElementById('ultimateOv');if(ov)ov.remove();renderBpList()}
 
-const params = new URLSearchParams(window.location.search);
-const armorId = params.get('armor') || localStorage.getItem('armor_current');
-if (armorId) {
-  try {
-    const acc = JSON.parse(localStorage.getItem('armor_accounts')) || {};
-    if (acc[armorId] && acc[armorId].nick) playerData.nickname = acc[armorId].nick;
-  } catch(e) {}
-}
-if(playerData.nickname) playerData.rank = checkRank(playerData.nickname);
+const SHOP_ITEMS=[{id:'g1',icon:'🪙',name:'1 000 золота',price:50,cur:'bonds',give:{gold:1000}},{id:'g2',icon:'🪙',name:'10 000 золота',price:400,cur:'bonds',give:{gold:10000}},{id:'x1',icon:'🔬',name:'500 опыта',price:2000,cur:'gold',give:{xp:500}},{id:'x2',icon:'🔬',name:'5 000 опыта',price:15000,cur:'gold',give:{xp:5000}},{id:'b1',icon:'🎖️',name:'10 облигаций',price:5000,cur:'gold',give:{bonds:10}},{id:'skin_red',icon:'🔴',name:'Красный скин',price:800,cur:'gold',give:{skin:'red'}},{id:'skin_blue',icon:'🔵',name:'Синий скин',price:800,cur:'gold',give:{skin:'blue'}},{id:'skin_gold',icon:'🟡',name:'Золотой скин',price:5000,cur:'gold',give:{skin:'gold'}},{id:'boost_x2',icon:'⚡',name:'×2 Опыт (5 боёв)',price:3000,cur:'gold',give:{boost:5}}]
+function openShop(){const sg=document.getElementById('shopGold'),sb=document.getElementById('shopBonds');if(sg)sg.innerText=D.gold.toLocaleString();if(sb)sb.innerText=D.bonds;const g=document.getElementById('shopGrid');if(!g)return;g.innerHTML='';SHOP_ITEMS.forEach(it=>{const p=it.cur==='gold'?it.price.toLocaleString()+' 🪙':it.price+' 🎖️';const d=document.createElement('div');d.className='shop-item';d.innerHTML=`<div class="shop-icon">${it.icon}</div><div class="shop-name">${it.name}</div><div class="shop-price">${p}</div><button class="buy-btn" onclick="buyShop('${it.id}')">КУПИТЬ</button>`;g.appendChild(d)});showScreen('screen-shop')}
+function buyShop(id){const it=SHOP_ITEMS.find(x=>x.id===id);if(!it)return;const have=it.cur==='gold'?D.gold:D.bonds;if(have<it.price){showToast('❌ Не хватает!');return}if(it.cur==='gold')D.gold-=it.price;else D.bonds-=it.price;const g=it.give;if(g.gold)D.gold+=g.gold;if(g.bonds)D.bonds+=g.bonds;if(g.xp)D.researchXP+=g.xp;if(g.skin&&!D.unlockedSkins.includes(g.skin))D.unlockedSkins.push(g.skin);if(g.boost)D.xpBoost=(D.xpBoost||0)+g.boost;saveGame();updateUI();openShop();showToast('✅ Куплено!')}
 
-function saveGame(){ try{ localStorage.setItem('grom_tankov_save', JSON.stringify(playerData)); }catch(e){} }
-function updateUI(){
-  const g = document.getElementById('gold'); if(g) g.innerText = playerData.gold.toLocaleString();
-  const b = document.getElementById('bonds'); if(b) b.innerText = playerData.bonds;
-  const l = document.getElementById('level'); if(l) l.innerText = playerData.level;
-}
-function showToast(msg){
-  const t = document.getElementById('toast'); if(!t) return;
-  t.innerText = msg; t.classList.add('show');
-  clearTimeout(t._timer); t._timer = setTimeout(()=>t.classList.remove('show'), 3000);
-}
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const el = document.getElementById(id); if(el) el.classList.add('active');
-  window.scrollTo(0,0);
-}
-let audioCtx = null;
-function initAudio(){ if(!audioCtx){ try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } }
-function playSound(freq,dur,type,vol){
-  if(!audioCtx) return;
-  try{
-    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-    o.type = type||'square'; o.frequency.setValueAtTime(freq, audioCtx.currentTime);
-    g.gain.setValueAtTime(vol||0.1, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+dur);
-    o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+dur);
-  }catch(e){}
-}
-let logoClicks = 0;
-function logoClick(){
-  logoClicks++;
-  if(logoClicks === 10){ playerData.gold += 100000; saveGame(); updateUI(); showToast('🥚 ПАСХАЛКА! +100 000 🪙'); logoClicks = 0; }
-}
-const SKINS = [
-  { id:'standard', name:'Стандарт', price:0, color:'#4caf50' },
-  { id:'red', name:'🔴 Красный', price:800, color:'#c62828' },
-  { id:'blue', name:'🔵 Синий', price:800, color:'#2c5faa' },
-  { id:'gold', name:'🟡 Золотой', price:5000, color:'#d4a017' },
-  { id:'silver', name:'⚪ Серебряный', price:3500, color:'#dddddd' },
-  { id:'black', name:'⚫ Чёрный', price:10000, color:'#1a1a1a' }
-];
-const CASES = [
-  {id:'common',name:'Обычный',price:1000,min:600,max:1100},
-  {id:'rare',name:'Редкий',price:10000,min:6000,max:11000},
-  {id:'epic',name:'Эпический',price:200000,min:120000,max:220000},
-  {id:'legend',name:'Легендарный',price:1000000,min:600000,max:1100000},
-  {id:'ultra',name:'👑 Ультрический',price:100000000,min:60000000,max:110000000}
-];
-function openCases(){ renderCases(); showScreen('screen-cases'); }
-function renderCases(){
-  const list = document.getElementById('casesList'); if(!list) return;
-  list.innerHTML = '';
-  CASES.forEach(c=>{
-    const div = document.createElement('div'); div.className = 'case-item';
-    div.innerHTML = '<div style="flex:1;"><div style="font-weight:bold;">📦 '+c.name+'</div><div style="font-size:11px;color:#8866aa;">Шанс ×2: 15%</div></div><div style="text-align:right;"><div style="font-weight:bold;color:#ffd700;font-size:12px;">'+c.price.toLocaleString()+' 🪙</div><button class="buy-btn" onclick="buyCase(\''+c.id+'\')">Открыть</button></div>';
-    list.appendChild(div);
-  });
-}
-function buyCase(id){
-  const c = CASES.find(x=>x.id===id); if(!c) return;
-  if(playerData.gold < c.price){ showToast('❌ Мало золота!'); return; }
-  playerData.gold -= c.price;
-  const dbl = Math.random()<0.15;
-  let bonus = c.min + Math.floor(Math.random()*(c.max-c.min));
-  if(dbl) bonus *= 2;
-  playerData.gold += bonus;
-  playerData.bonds += Math.floor(bonus/5000);
-  saveGame(); updateUI(); renderCases();
-  showToast((dbl?'🎁×2! ':'📦 ')+'+'+bonus.toLocaleString()+' 🪙');
-}
-const BONDS_SHOP = [
-  {id:'gold1',name:'🪙 10 000 золота',price:50,reward:'gold',amount:10000},
-  {id:'gold2',name:'🪙 100 000 золота',price:400,reward:'gold',amount:100000}
-];
-function openBonds(){ renderBondsShop(); showScreen('screen-bonds'); }
-function renderBondsShop(){
-  const el = document.getElementById('bondsBig'); if(el) el.innerText = playerData.bonds;
-  const list = document.getElementById('bondsShop'); if(!list) return;
-  list.innerHTML = '';
-  BONDS_SHOP.forEach(it=>{
-    const div = document.createElement('div'); div.className = 'case-item';
-    div.innerHTML = '<div style="flex:1;"><b>'+it.name+'</b></div><div style="text-align:right;"><div style="font-weight:bold;color:#ffcc00;">🎖️ '+it.price+'</div><button class="buy-btn" onclick="buyBondItem(\''+it.id+'\')">Купить</button></div>';
-    list.appendChild(div);
-  });
-}
-function buyBondItem(id){
-  const it = BONDS_SHOP.find(x=>x.id===id); if(!it) return;
-  if(playerData.bonds < it.price){ showToast('❌ Мало облигаций!'); return; }
-  playerData.bonds -= it.price;
-  if(it.reward==='gold') playerData.gold += it.amount;
-  saveGame(); updateUI(); renderBondsShop();
-  showToast('🎉 Куплено!');
-}
-const PROMOCODES = {
-  'START2026':{gold:5000},'GROM':{gold:3000},'TANK':{gold:5000},
-  'МУХАММАД':{gold:100000},'АРМАТА':{gold:50000},'КОСМО':{gold:75000},
-  'МОРКОВКА':{gold:1000000000},'ПАЛОЧКА':{gold:0,stick:true},
-  'ШКОЛА2027':{gold:2027,exp:2027},'67':{gold:67000},'67ШТУК':{gold:670000}
-};
-function openPromo(){ renderUsedPromos(); showScreen('screen-promo'); }
-function renderUsedPromos(){
-  const el = document.getElementById('usedPromos'); if(!el) return;
-  el.innerHTML = playerData.usedPromos.length ? '<b>✅ '+playerData.usedPromos.join(' · ')+'</b>' : '<b style="color:#8866aa;">✅ Пока ничего</b>';
-}
-function applyPromo(){
-  const input = document.getElementById('promoInput');
-  const code = input.value.trim().toUpperCase();
-  if(!PROMOCODES[code]){ showToast('❌ Не найден!'); return; }
-  if(playerData.usedPromos.includes(code)){ showToast('⚠️ Уже использован!'); return; }
-  const r = PROMOCODES[code];
-  if(r.gold) playerData.gold += r.gold;
-  if(r.stick) playerData.hasStick = true;
-  if(r.exp) playerData.researchXP += r.exp;
-  playerData.usedPromos.push(code);
-  saveGame(); updateUI(); input.value = ''; renderUsedPromos();
-  let msg = '🎁 ' + code + ': ';
-  if(r.gold) msg += '+' + r.gold.toLocaleString() + ' 🪙 ';
-  if(r.exp) msg += '+' + r.exp + ' 🔬 ';
-  if(r.stick) msg += 'ПАЛОЧКА!';
-  showToast(msg);
-}
-function checkDailyBonus(){
-  const now = Date.now();
-  const oneDay = 24*60*60*1000;
-  const last = playerData.lastBonus || 0;
-  if(now - last < oneDay){
-    const hours = Math.floor((oneDay - (now-last)) / (60*60*1000));
-    showToast('⏰ Бонус через ' + hours + ' ч.'); return;
-  }
-  playerData.streak = (playerData.streak||0)+1;
-  let bonus = 1000 * playerData.streak;
-  if(bonus > 50000) bonus = 50000;
-  playerData.gold += bonus;
-  playerData.lastBonus = now;
-  saveGame(); updateUI();
-  showToast('🎁 День ' + playerData.streak + ': +' + bonus.toLocaleString() + ' 🪙');
-}
-function openProfile(){
-  const set = (id,v)=>{ const e = document.getElementById(id); if(e) e.innerText = v; };
-  set('p-level', playerData.level);
-  set('p-gold', playerData.gold.toLocaleString());
-  set('p-bonds', playerData.bonds);
-  set('p-wins', playerData.wins);
-  set('p-stick', playerData.hasStick ? '✅ Есть' : '❌ Нет');
-  set('p-rank', playerData.rank);
-  showScreen('screen-profile');
-}
-function openStick(){
-  const st = document.getElementById('stickStatus');
-  if(st) st.innerText = playerData.hasStick ? '✅ Куплена!' : 'Статус: не куплена';
-  showScreen('screen-stick');
-}
-function buyStick(){
-  if(playerData.hasStick){ showToast('✅ Уже есть!'); return; }
-  if(playerData.gold < 5000){ showToast('❌ Мало золота!'); return; }
-  playerData.gold -= 5000;
-  playerData.hasStick = true;
-  saveGame(); updateUI(); openStick();
-  showToast('🥢 Палочка куплена!');
-}
-const RESEARCH_LIST = [
-  {id:'sn_1',name:'СН-1',cost:50,color:'#aaddff'},
-  {id:'sn_5',name:'СН-5',cost:150,color:'#88ccff'},
-  {id:'sn_12',name:'СН-12',cost:400,color:'#66bbff'},
-  {id:'sn_40',name:'СН-40',cost:1800,color:'#2299ff'},
-  {id:'sn_90',name:'СН-90',cost:5000,color:'#0077ee'}
-];
-function openTanks(){ renderResearch(); showScreen('screen-tanks'); }
-function renderResearch(){
-  const list = document.getElementById('researchList'); if(!list) return;
-  list.innerHTML = '';
-  RESEARCH_LIST.forEach((t,i)=>{
-    const done = playerData.researched.includes(t.id);
-    const prev = i===0 || playerData.researched.includes(RESEARCH_LIST[i-1].id);
-    const can = !done && prev && playerData.researchXP >= t.cost;
-    const div = document.createElement('div');
-    div.style.cssText = 'background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:2px solid '+(done?'#00ccff':'#5a3a8a')+';border-radius:10px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px;' + (!prev?'opacity:0.5':'');
-    let btn = done ? '<span style="color:#00ccff;font-weight:bold;">✅</span>' : (!prev ? '<span style="color:#666;font-size:20px;">🔒</span>' : (can ? '<button class="buy-btn" onclick="doResearch(\''+t.id+'\','+t.cost+')">🔬</button>' : '<span style="color:#ffaa00;font-size:11px;font-weight:bold;">'+t.cost+'</span>'));
-    div.innerHTML = '<div style="width:44px;height:44px;border-radius:8px;background:'+t.color+';display:flex;align-items:center;justify-content:center;font-size:22px;">🚜</div><div style="flex:1;"><div style="font-weight:bold;font-size:14px;">'+t.name+'</div><div style="font-size:11px;color:#ffcc00;">🔬 '+t.cost.toLocaleString()+'</div></div><div>'+btn+'</div>';
-    list.appendChild(div);
-  });
-}
-function doResearch(id,cost){
-  if(playerData.researchXP < cost){ showToast('❌ Мало опыта!'); return; }
-  playerData.researchXP -= cost;
-  playerData.researched.push(id);
-  const tank = RESEARCH_LIST.find(t=>t.id===id);
-  if(tank && !SKINS.find(s=>s.id===id)) SKINS.push({id, name:tank.name, price:0, color:tank.color});
-  if(!playerData.unlockedSkins.includes(id)) playerData.unlockedSkins.push(id);
-  saveGame(); updateUI(); renderResearch();
-  showToast('🎉 Исследован: ' + tank.name + '!');
-}
-let hangarCanvas, hangarCtx, hangarAngle = 0, hangarTankIdx = 0;
-function openHangar(){ showScreen('screen-hangar'); setTimeout(initHangar, 100); }
-function closeHangar(){ showScreen('screen-main'); }
-function initHangar(){
-  hangarCanvas = document.getElementById('hangar-canvas');
-  if(!hangarCanvas) return;
-  hangarCanvas.width = hangarCanvas.clientWidth;
-  hangarCanvas.height = hangarCanvas.clientHeight;
-  hangarCtx = hangarCanvas.getContext('2d');
-  hangarTankIdx = playerData.unlockedSkins.indexOf(playerData.currentSkin);
-  if(hangarTankIdx < 0) hangarTankIdx = 0;
-  updateHangarName();
-  animateHangar();
-}
-function updateHangarName(){
-  const s = SKINS.find(x=>x.id===playerData.unlockedSkins[hangarTankIdx]);
-  const el = document.getElementById('currentTankName');
-  if(el) el.innerText = s ? s.name : 'Стандарт';
-}
-function animateHangar(){
-  if(!hangarCtx) return;
-  requestAnimationFrame(animateHangar);
-  hangarAngle += 0.01;
-  const W = hangarCanvas.width, H = hangarCanvas.height;
-  hangarCtx.fillStyle = '#0a0510';
-  hangarCtx.fillRect(0,0,W,H);
-  hangarCtx.fillStyle = '#1a0a2e';
-  hangarCtx.beginPath();
-  hangarCtx.ellipse(W/2, H*0.8, W*0.4, H*0.1, 0, 0, Math.PI*2);
-  hangarCtx.fill();
-  const s = SKINS.find(x=>x.id===playerData.unlockedSkins[hangarTankIdx]) || SKINS[0];
-  drawHangarTank(W/2, H*0.6, s.color, hangarAngle);
-}
-function drawHangarTank(cx, cy, color, angle){
-  const ctx = hangarCtx;
-  ctx.save();
-  ctx.translate(cx, cy);
-  const scale = Math.min(hangarCanvas.width, hangarCanvas.height) / 200;
-  ctx.scale(scale, scale);
-  ctx.fillStyle = 'rgba(0,0,0,0.4)';
-  ctx.beginPath();
-  ctx.ellipse(0, 30, 45, 12, 0, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = '#111';
-  ctx.fillRect(-40, -20, 80, 10);
-  ctx.fillRect(-40, 10, 80, 10);
-  ctx.fillStyle = color;
-  ctx.fillRect(-35, -15, 70, 30);
-  ctx.beginPath();
-  ctx.arc(0, 0, 22, 0, Math.PI*2);
-  ctx.fill();
-  ctx.save();
-  ctx.rotate(Math.sin(angle) * 0.3);
-  ctx.fillStyle = '#222';
-  ctx.fillRect(15, -4, 40, 8);
-  ctx.restore();
-  ctx.restore();
-}
-function changeTank(dir){
-  const len = playerData.unlockedSkins.length;
-  hangarTankIdx = (hangarTankIdx + dir + len) % len;
-  playerData.currentSkin = playerData.unlockedSkins[hangarTankIdx];
-  saveGame();
-  updateHangarName();
-  const s = SKINS.find(x=>x.id===playerData.currentSkin);
-  showToast('🚜 ' + (s?s.name:''));
-}
-let currentSchoolTask = null;
-const SCHOOL_TASKS = [
-  { q: '5 + 5', a: 10, r: 1000 },
-  { q: '12 × 3', a: 36, r: 1000 },
-  { q: '20 - 7', a: 13, r: 1000 },
-  { q: '4 × 4 + 4', a: 20, r: 1500 },
-  { q: '9 + 9 × 9', a: 90, r: 5000 },
-  { q: '9 + (9 / 9) + (9 × 9) - 9', a: 82, r: 5000 },
-  { q: '100 - (4² + 6) × 2 + 30 / 5', a: 62, r: 6000 },
-  { q: '2¹⁰ + 3⁵ - 7² + 12', a: 1196, r: 50000 },
-  { q: '15 × 15 + 25 × 25 - 10 × 10', a: 750, r: 30000 },
-  { q: '999 999 + 1', a: 1000000, r: 1000000 },
-  { q: '500 000 × 2', a: 1000000, r: 1000000 },
-  { q: '10 000 × 100', a: 1000000, r: 1000000 },
-  { q: '2 000 000 / 2', a: 1000000, r: 1000000 },
-  { q: '1000 × 1000', a: 1000000, r: 1000000 }
-];
-function openSchool(){
-  const e = document.getElementById('schoolEarned');
-  const s = document.getElementById('schoolSolved');
-  if(e) e.innerText = (playerData.schoolEarned||0).toLocaleString() + ' 🪙';
-  if(s) s.innerText = playerData.schoolSolved || 0;
-  newSchoolTask();
-  showScreen('screen-school');
-}
-function newSchoolTask(){
-  const task = SCHOOL_TASKS[Math.floor(Math.random() * SCHOOL_TASKS.length)];
-  currentSchoolTask = task;
-  const qEl = document.getElementById('schoolQuestion');
-  const rEl = document.getElementById('schoolReward');
-  if(qEl) qEl.innerText = task.q;
-  if(rEl) rEl.innerText = '💰 Награда: ' + task.r.toLocaleString() + ' 🪙' + (task.r >= 1000000 ? ' 🔥 МИЛЛИОН!' : '');
-  const input = document.getElementById('schoolAnswer');
-  if(input) input.value = '';
-}
-function checkSchoolAnswer(){
-  if(!currentSchoolTask){ newSchoolTask(); return; }
-  const input = document.getElementById('schoolAnswer');
-  const answer = parseFloat(input.value);
-  if(isNaN(answer)){ showToast('❌ Введи число!'); return; }
-  if(Math.abs(answer - currentSchoolTask.a) < 0.001){
-    playerData.gold += currentSchoolTask.r;
-    playerData.schoolEarned = (playerData.schoolEarned || 0) + currentSchoolTask.r;
-    playerData.schoolSolved = (playerData.schoolSolved || 0) + 1;
-    saveGame(); updateUI();
-    showToast('🎉 Правильно! +' + currentSchoolTask.r.toLocaleString() + ' 🪙');
-    if(currentSchoolTask.r >= 1000000){ setTimeout(()=>alert('🏆 МИЛЛИОН! Молодец!'), 100); }
-    const e = document.getElementById('schoolEarned');
-    const s = document.getElementById('schoolSolved');
-    if(e) e.innerText = playerData.schoolEarned.toLocaleString() + ' 🪙';
-    if(s) s.innerText = playerData.schoolSolved;
-    setTimeout(newSchoolTask, 800);
-  } else {
-    showToast('❌ Неверно! Правильный ответ: ' + currentSchoolTask.a);
-  }
-}
-const battle = {
-  canvas:null, ctx:null,
-  player:null, playerHp:100,
-  enemies:[], bullets:[], enemyBullets:[],
-  wave:1, kills:0,
-  running:false, lastTime:0, cooldown:0,
-  W:0, H:0,
-  onStick:false
-};
-function openBattle(){ showScreen('screen-battle'); }
-function startRoulette(){
-  const ov = document.createElement('div');
-  ov.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;';
-  ov.innerHTML = '<div style="font-size:60px;">🎰</div><div style="font-size:24px;font-weight:900;color:#ffcc00;margin:20px 0;">ВЫБОР КАРТЫ...</div><div id="rouletteText" style="font-size:28px;font-weight:900;color:#fff;padding:20px 40px;background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:3px solid #ff8c00;border-radius:16px;text-align:center;">🏜️ ПУСТЫНЯ</div>';
-  document.body.appendChild(ov);
-  const maps = ['🏜️ ПУСТЫНЯ','🌲 ЛЕС','🏙️ ГОРОД','🌑 ЗАТМЕНИЕ','☢️ САЭС'];
-  let count = 0;
-  const interval = setInterval(()=>{
-    document.getElementById('rouletteText').innerText = maps[Math.floor(Math.random()*maps.length)];
-    count++;
-    if(count >= 20){
-      clearInterval(interval);
-      const finalMap = maps[Math.floor(Math.random()*maps.length)];
-      document.getElementById('rouletteText').innerText = '🎯 ' + finalMap;
-      document.getElementById('rouletteText').style.background = 'linear-gradient(180deg,#ffcc00,#8b6500)';
-      document.getElementById('rouletteText').style.color = '#1a0a2e';
-      setTimeout(()=>{ ov.remove(); startBattle(); }, 1500);
-    }
-  }, 80);
-}
-function startBattle(){
-  initAudio();
-  battle.wave = 1; battle.kills = 0; battle.playerHp = 100;
-  battle.enemies = []; battle.bullets = []; battle.enemyBullets = [];
-  battle.cooldown = 0;
-  battle.running = true; battle.onStick = false;
-  document.getElementById('battle-screen').classList.add('active');
-  document.getElementById('player-hp').innerText = 100;
-  document.getElementById('wave-num').innerText = 1;
-  document.getElementById('kills-count').innerText = 0;
-  const sh = document.getElementById('stick-hud');
-  if(sh) sh.innerText = playerData.hasStick ? 'Есть' : 'Нет';
-  setTimeout(initBattleCanvas, 50);
-  initBattleControls();
-}
-function initBattleCanvas(){
-  const canvas = document.getElementById('battle-canvas');
-  battle.canvas = canvas; battle.ctx = canvas.getContext('2d');
-  battle.W = canvas.width = window.innerWidth;
-  battle.H = canvas.height = window.innerHeight;
-  const skin = SKINS.find(s=>s.id===playerData.currentSkin) || SKINS[0];
-  battle.player = { x: battle.W/2, y: battle.H/2, angle: 0, color: skin.color, speed: 4 };
-  spawnWave();
-  battle.lastTime = performance.now();
-  requestAnimationFrame(battleLoop);
-  window.addEventListener('resize', ()=>{
-    battle.W = canvas.width = window.innerWidth;
-    battle.H = canvas.height = window.innerHeight;
-  });
-}
-function spawnWave(){
-  if(battle.wave % 5 === 0){
-    battle.enemies.push({
-      x: battle.W/2, y: 100, angle: 0,
-      hp: 5000, maxHp: 5000,
-      speed: 0.5, shootCooldown: 0.8,
-      color: '#8b0000', isBoss: true,
-      name: 'Астроафлефлан'
-    });
-    showToast('😈 БОСС: Астроафлефлан!');
-    document.getElementById('enemies-left').innerText = 1;
-    return;
-  }
-  const count = Math.min(2 + battle.wave, 8);
-  for(let i=0;i<count;i++){
-    const a = (Math.PI*2/count)*i;
-    const d = 250 + Math.random()*150;
-    battle.enemies.push({
-      x: battle.W/2 + Math.cos(a)*d,
-      y: battle.H/2 + Math.sin(a)*d,
-      angle: 0, hp: 40 + battle.wave*15, maxHp: 40 + battle.wave*15,
-      speed: 1 + battle.wave*0.1,
-      shootCooldown: 2, color: '#c62828'
-    });
-  }
-  document.getElementById('enemies-left').innerText = battle.enemies.length;
-}
-let joystick = { active:false, dx:0, dy:0, startX:0, startY:0 };
-const JOY_MAX = 60;
-function initBattleControls(){
-  const zone = document.getElementById('joyZone');
-  const knob = document.getElementById('joyKnob');
-  const fireBtn = document.getElementById('fireBtn');
-  const stickBtn = document.getElementById('stickBtn');
-  if(!zone || !knob || !fireBtn) return;
-  function getPos(e){ const t = e.touches?e.touches[0]:e; return { x:t.clientX, y:t.clientY }; }
-  function startJoy(e){
-    e.preventDefault();
-    const rect = zone.getBoundingClientRect();
-    joystick.active = true;
-    joystick.startX = rect.left + rect.width/2;
-    joystick.startY = rect.top + rect.height/2;
-  }
-  function moveJoy(e){
-    if(!joystick.active) return;
-    e.preventDefault();
-    const p = getPos(e);
-    let dx = p.x - joystick.startX;
-    let dy = p.y - joystick.startY;
-    const d = Math.hypot(dx, dy);
-    if(d > JOY_MAX){ dx = dx/d*JOY_MAX; dy = dy/d*JOY_MAX; }
-    joystick.dx = dx/JOY_MAX; joystick.dy = dy/JOY_MAX;
-    knob.style.transform = 'translate('+dx+'px,'+dy+'px)';
-  }
-  function endJoy(){
-    joystick.active = false; joystick.dx = 0; joystick.dy = 0;
-    knob.style.transform = 'translate(0,0)';
-  }
-  zone.addEventListener('touchstart', startJoy, {passive:false});
-  zone.addEventListener('touchmove', moveJoy, {passive:false});
-  zone.addEventListener('touchend', endJoy);
-  zone.addEventListener('mousedown', startJoy);
-  window.addEventListener('mousemove', moveJoy);
-  window.addEventListener('mouseup', endJoy);
-  let fireInt = null;
-  function startFire(e){ e.preventDefault(); fireBullet(); if(fireInt) clearInterval(fireInt); fireInt = setInterval(fireBullet, 200); }
-  function stopFire(){ if(fireInt){ clearInterval(fireInt); fireInt = null; } }
-  fireBtn.addEventListener('touchstart', startFire, {passive:false});
-  fireBtn.addEventListener('touchend', stopFire);
-  fireBtn.addEventListener('mousedown', startFire);
-  fireBtn.addEventListener('mouseup', stopFire);
-  fireBtn.addEventListener('mouseleave', stopFire);
-  if(stickBtn) stickBtn.addEventListener('click', toggleStick);
-}
-function fireBullet(){
-  if(!battle.running || !battle.player) return;
-  if(battle.cooldown > 0) return;
-  battle.cooldown = 0.25;
-  battle.bullets.push({
-    x: battle.player.x + Math.cos(battle.player.angle)*25,
-    y: battle.player.y + Math.sin(battle.player.angle)*25,
-    vx: Math.cos(battle.player.angle)*14,
-    vy: Math.sin(battle.player.angle)*14,
-    damage: 15
-  });
-  playSound(800, 0.1, 'square', 0.05);
-}
-function toggleStick(){
-  if(!playerData.hasStick){ showToast('❌ Купи палочку в меню!'); return; }
-  battle.onStick = !battle.onStick;
-  const sh = document.getElementById('stick-hud');
-  if(sh) sh.innerText = battle.onStick ? 'В руках' : (playerData.hasStick?'Есть':'Нет');
-  showToast(battle.onStick ? '🥢 Палочка в руках!' : '🔫 Палочка убрана');
-}
-function battleLoop(now){
-  if(!battle.running) return;
-  requestAnimationFrame(battleLoop);
-  const dt = Math.min((now - battle.lastTime)/1000, 0.1);
-  battle.lastTime = now;
-  battle.cooldown = Math.max(0, battle.cooldown - dt);
-  if(joystick.active && (Math.abs(joystick.dx) > 0.15 || Math.abs(joystick.dy) > 0.15)){
-    battle.player.angle = Math.atan2(joystick.dy, joystick.dx);
-    battle.player.x += joystick.dx * battle.player.speed;
-    battle.player.y += joystick.dy * battle.player.speed;
-    battle.player.x = Math.max(20, Math.min(battle.W-20, battle.player.x));
-    battle.player.y = Math.max(20, Math.min(battle.H-20, battle.player.y));
-  }
-  battle.enemies.forEach(e=>{
-    const dx = battle.player.x - e.x;
-    const dy = battle.player.y - e.y;
-    const dist = Math.hypot(dx, dy);
-    e.angle = Math.atan2(dy, dx);
-    if(dist > 150 && !battle.onStick){
-      e.x += (dx/dist) * e.speed;
-      e.y += (dy/dist) * e.speed;
-    }
-    e.shootCooldown -= dt;
-    if(e.shootCooldown <= 0 && dist < 350){
-      e.shootCooldown = 1.5;
-      battle.enemyBullets.push({
-        x: e.x, y: e.y,
-        vx: Math.cos(e.angle)*5, vy: Math.sin(e.angle)*5,
-        damage: 8
-      });
-    }
-    if(battle.onStick && dist < 40){ e.hp -= 999; }
-    if(dist < 25){ battle.playerHp -= 20; }
-  });
-  for(let i=battle.enemies.length-1;i>=0;i--){
-    if(battle.enemies[i].hp <= 0){
-      const wasBoss = battle.enemies[i].isBoss;
-      battle.enemies.splice(i,1);
-      battle.kills++;
-      document.getElementById('kills-count').innerText = battle.kills;
-      document.getElementById('enemies-left').innerText = battle.enemies.length;
-      playSound(200, 0.2, 'sawtooth', 0.1);
-      if(wasBoss){
-        playerData.gold += 100000;
-        saveGame(); updateUI();
-        showToast('🏆 БОСС АСТРОАФЛЕФЛАН УНИЧТОЖЕН! +100 000 🪙');
-      }
-    }
-  }
-  for(let i=battle.bullets.length-1;i>=0;i--){
-    const b = battle.bullets[i];
-    b.x += b.vx; b.y += b.vy;
-    if(b.x < 0 || b.x > battle.W || b.y < 0 || b.y > battle.H){ battle.bullets.splice(i,1); continue; }
-    for(let j=battle.enemies.length-1;j>=0;j--){
-      const e = battle.enemies[j];
-      if(Math.hypot(b.x - e.x, b.y - e.y) < 20){
-        e.hp -= b.damage;
-        battle.bullets.splice(i,1);
-        break;
-      }
-    }
-  }
-  for(let i=battle.enemyBullets.length-1;i>=0;i--){
-    const b = battle.enemyBullets[i];
-    b.x += b.vx; b.y += b.vy;
-    if(b.x < 0 || b.x > battle.W || b.y < 0 || b.y > battle.H){ battle.enemyBullets.splice(i,1); continue; }
-    if(Math.hypot(b.x - battle.player.x, b.y - battle.player.y) < 20){
-      battle.playerHp -= b.damage;
-      battle.enemyBullets.splice(i,1);
-    }
-  }
-  document.getElementById('player-hp').innerText = Math.max(0, Math.floor(battle.playerHp));
-  if(battle.playerHp <= 0){ endBattle(); return; }
-  if(battle.enemies.length === 0){
-    battle.wave++;
-    document.getElementById('wave-num').innerText = battle.wave;
-    playerData.gold += battle.wave * 200;
-    playerData.researchXP = (playerData.researchXP||0) + 50;
-    saveGame(); updateUI();
-    showToast('🌊 Волна ' + battle.wave + '! +' + (battle.wave*200) + ' 🪙');
-    spawnWave();
-  }
-  const ctx = battle.ctx;
-  ctx.fillStyle = '#1a2a10';
-  ctx.fillRect(0, 0, battle.W, battle.H);
-  ctx.strokeStyle = 'rgba(100,200,100,0.1)';
-  for(let x=0;x<battle.W;x+=50){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,battle.H); ctx.stroke(); }
-  for(let y=0;y<battle.H;y+=50){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(battle.W,y); ctx.stroke(); }
-  ctx.fillStyle = '#ffff66';
-  battle.bullets.forEach(b=>{ ctx.beginPath(); ctx.arc(b.x,b.y,5,0,Math.PI*2); ctx.fill(); });
-  ctx.fillStyle = '#ff6666';
-  battle.enemyBullets.forEach(b=>{ ctx.beginPath(); ctx.arc(b.x,b.y,5,0,Math.PI*2); ctx.fill(); });
-  battle.enemies.forEach(e=>{
-    if(e.isBoss){
-      ctx.save();
-      ctx.translate(e.x, e.y);
-      ctx.fillStyle = 'rgba(0,0,0,0.5)';
-      ctx.beginPath();
-      ctx.ellipse(0, 15, 50, 20, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = '#000';
-      ctx.fillRect(-45, -25, 90, 12);
-      ctx.fillRect(-45, 13, 90, 12);
-      ctx.fillStyle = e.color;
-      ctx.fillRect(-40, -20, 80, 40);
-      ctx.beginPath();
-      ctx.arc(0, 0, 25, 0, Math.PI*2);
-      ctx.fillStyle = '#5c0000';
-      ctx.fill();
-      ctx.fillStyle = '#111';
-      ctx.fillRect(20, -6, 45, 12);
-      ctx.fillStyle = '#ffcc00';
-      ctx.font = 'bold 16px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('👑', 0, 6);
-      ctx.restore();
-      ctx.fillStyle = '#ff0000';
-      ctx.font = 'bold 14px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('👾 АСТРОАФЛЕФЛАН', e.x, e.y - 45);
-      ctx.fillStyle = '#333';
-      ctx.fillRect(e.x-60, e.y-40, 120, 8);
-      ctx.fillStyle = '#ff0000';
-      ctx.fillRect(e.x-60, e.y-40, 120*(e.hp/e.maxHp), 8);
-    } else {
-      drawBattleTank(ctx, e.x, e.y, e.angle, '#c62828');
-      ctx.fillStyle = '#333'; ctx.fillRect(e.x-20, e.y-30, 40, 4);
-      ctx.fillStyle = '#0f0'; ctx.fillRect(e.x-20, e.y-30, 40*(e.hp/e.maxHp), 4);
-    }
-  });
-  drawBattleTank(ctx, battle.player.x, battle.player.y, battle.player.angle, battle.player.color);
-  if(battle.onStick){
-    ctx.strokeStyle = '#d4a017';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.arc(battle.player.x, battle.player.y, 40, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.lineWidth = 1;
-  }
-}
-function drawBattleTank(ctx, x, y, angle, color){
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-  ctx.fillStyle = '#111';
-  ctx.fillRect(-18, -14, 36, 6);
-  ctx.fillRect(-18, 8, 36, 6);
-  ctx.fillStyle = color;
-  ctx.fillRect(-15, -10, 30, 20);
-  ctx.beginPath(); ctx.arc(0, 0, 10, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = '#222';
-  ctx.fillRect(8, -3, 22, 6);
-  ctx.restore();
-}
-function endBattle(){
-  battle.running = false;
-  playerData.battles++;
-  playerData.kills += battle.kills;
-  playerData.wins += battle.kills;
-  playerData.gold += battle.kills * 50;
-  saveGame(); updateUI();
-  showToast('💀 Бой окончен! Убито: ' + battle.kills);
-  setTimeout(()=>exitBattle(), 2000);
-}
-function exitBattle(){
-  battle.running = false;
-  document.getElementById('battle-screen').classList.remove('active');
-  battle.enemies = []; battle.bullets = []; battle.enemyBullets = [];
-  showScreen('screen-main');
-}
-function toggleFPS(){ showToast('👁️ Вид переключён'); }
-function openInventory(){ const p = document.getElementById('inventoryPanel'); if(p) p.style.display = 'block'; }
-function closeInventory(){ const p = document.getElementById('inventoryPanel'); if(p) p.style.display = 'none'; }
-function toggleMenu(){ const p = document.getElementById('menuPanel'); if(p) p.style.display = p.style.display === 'flex' ? 'none' : 'flex'; }
-function exitGame(){
-  if(confirm('Выйти?')){
-    document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;color:#ff8c00;font-size:24px;text-align:center;padding:20px;background:#0a0510;font-family:inherit;">'
-      + '<div style="font-size:60px;">🚜</div>'
-      + '<div>До встречи, ' + (playerData.nickname||'игрок') + '!</div>'
-      + '<div style="font-size:14px;color:#8866aa;margin-top:20px;">© 2026 Armor Thunder</div>'
-      + '<div style="font-size:16px;color:#ffcc00;margin-top:5px;">Автор: pixelfox56</div>'
-      + '</div>';
-  }
-}
-console.log('🚜 Armor Thunder v26.0 · Автор: pixelfox56');
-updateUI(); saveGame();
-if(playerData.nickname) showToast('👋 Привет, ' + playerData.nickname + '!');
+const SERVER_URL='wss://frontier-site-2.onrender.com/'
+let onlineWS=null,onlinePlayers={}
+function openLeaderboard(){const st=document.getElementById('lbStatus');const l=document.getElementById('lbList');if(!l)return;l.innerHTML='';let list=D.leaderboard.slice();const mine={name:D.nickname||'Ты',score:D.wins,kills:D.kills};const ex=list.find(x=>x.name===mine.name);if(ex){ex.score=mine.score;ex.kills=mine.kills}else list.push(mine);list.sort((a,b)=>b.score-a.score);list=list.slice(0,20);if(onlineWS&&onlineWS.readyState===1){if(st)st.innerText='🌐 Онлайн (запрос...)';try{onlineWS.send(JSON.stringify({type:'leaderboard'}))}catch(e){}}else if(st)st.innerText='📴 Локальный рейтинг';list.forEach((p,i)=>{const m=i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);const d=document.createElement('div');d.className='case-item';d.innerHTML=`<div style="font-size:22px">${m}</div><div style="flex:1"><div style="font-weight:bold;font-size:13px">${p.name}</div><div style="font-size:11px;color:#8866aa">Побед: ${p.score||0} · Убийств: ${p.kills||0}</div></div>`;l.appendChild(d)});showScreen('screen-leaderboard')}
+function openSettings(){const ls=document.getElementById('langSelect');if(ls)ls.value=D.settings.lang||'ru';const lg=document.getElementById('lowGraphics');if(lg)lg.checked=D.settings.lowGraphics||false;showScreen('screen-settings')}
+function changeLanguage(l){D.settings.lang=l;saveGame();showToast('🌍 '+l.toUpperCase())}
+function toggleLowGraphics(v){D.settings.lowGraphics=v;saveGame();showToast(v?'🚀 Оптимизация ВКЛ':'🎨 Графика ВКЛ')}
+function openIslandHistory(){const b=document.getElementById('princeHymnBox');if(b)b.style.display='none';showScreen('screen-island')}
+function playPrinceHymn(){const b=document.getElementById('princeHymnBox');if(b){b.style.display='block';setTimeout(()=>b.scrollIntoView({behavior:'smooth'}),100)}if(audioCtx){playSound(100,1.5,'sawtooth',0.1);setTimeout(()=>playSound(150,1,'sine',0.1),500)}}
+function connectOnline(){if(onlineWS&&(onlineWS.readyState===0||onlineWS.readyState===1)){showToast('🌐 Уже подключен');return}const el=document.getElementById('onlineStatus'),ns=document.getElementById('netStatus');showToast('🌐 Подключение...');try{onlineWS=new WebSocket(SERVER_URL)}catch(e){showToast('❌ Ошибка');setOffline();return}const timeout=setTimeout(()=>{if(onlineWS&&onlineWS.readyState!==1){try{onlineWS.close()}catch(e){}setOffline()}},6000);onlineWS.onopen=()=>{clearTimeout(timeout);if(el){el.innerText='🌐 ОНЛАЙН';el.className='online'}if(ns)ns.innerText='✅ Подключен';showToast('✅ Онлайн!');try{onlineWS.send(JSON.stringify({type:'join',name:D.nickname||'Игрок',wins:D.wins,kills:D.kills,country:D.country}))}catch(e){}};onlineWS.onmessage=(ev)=>{try{const m=JSON.parse(ev.data);if(m.type==='players')onlinePlayers=m.players||{};if(m.type==='leaderboard'&&Array.isArray(m.list)){m.list.forEach(p=>{if(!D.leaderboard.find(x=>x.name===p.name))D.leaderboard.push(p)});saveGame()}}catch(e){}};onlineWS.onerror=()=>{clearTimeout(timeout);setOffline()};onlineWS.onclose=()=>{setOffline()}}
+function setOffline(){const el=document.getElementById('onlineStatus'),ns=document.getElementById('netStatus');if(el){el.innerText='📴 ОФЛАЙН';el.className='offline';setTimeout(()=>el.className='',3000)}if(ns)ns.innerText='📴 Не подключен';onlineWS=null}
+function sendOnline(d){if(onlineWS&&onlineWS.readyState===1){try{onlineWS.send(JSON.stringify(d))}catch(e){}}}// ========== БОЙ ==========
+const battle={canvas:null,ctx:null,player:null,playerHp:100,playerMaxHp:100,enemies:[],allies:[],bullets:[],enemyBullets:[],wave:1,kills:0,deaths:0,running:false,lastTime:0,cooldown:0,W:0,H:0,onStick:false,invisible:false,camoTimer:0,camoCooldown:0,startTime:0,duration:30*60*1000,turretAngle:0,bodyAngle:0,trackBroken:0,gunBroken:0,ammoWrecked:false,respawnsLeft:1,awaitingRespawn:false,listenersBound:false,isTournament:false}
+function openBattle(){showScreen('screen-battle')}
+function startRoulette(){const ov=document.createElement('div');ov.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;';ov.innerHTML='<div style="font-size:60px">🎰</div><div style="font-size:24px;font-weight:900;color:#ffcc00;margin:20px 0">ВЫБОР КАРТЫ...</div><div id="rText" style="font-size:28px;font-weight:900;color:#fff;padding:20px 40px;background:linear-gradient(180deg,#2a1a4a,#1a0a2e);border:3px solid #ff8c00;border-radius:16px;text-align:center">🏜️ ПУСТЫНЯ</div>';document.body.appendChild(ov);const maps=['🏜️ ПУСТЫНЯ','🌲 ЛЕС','🏙️ ГОРОД','🌑 ЗАТМЕНИЕ','☢️ САЭС'];let c=0;const iv=setInterval(()=>{document.getElementById('rText').innerText=maps[Math.floor(Math.random()*maps.length)];c++;if(c>=20){clearInterval(iv);const fm=maps[Math.floor(Math.random()*maps.length)];const rt=document.getElementById('rText');rt.innerText='🎯 '+fm;rt.style.background='linear-gradient(180deg,#ffcc00,#8b6500)';rt.style.color='#1a0a2e';setTimeout(()=>{ov.remove();startBattle()},1500)}},80)}
+function startBattle(){initAudio();battle.wave=1;battle.kills=0;battle.deaths=0;battle.playerMaxHp=isAdmin()?1e9:100;battle.playerHp=battle.playerMaxHp;battle.enemies=[];battle.allies=[];battle.bullets=[];battle.enemyBullets=[];battle.cooldown=0;battle.running=true;battle.onStick=false;battle.invisible=false;battle.camoTimer=0;battle.camoCooldown=0;battle.trackBroken=0;battle.gunBroken=0;battle.ammoWrecked=false;battle.respawnsLeft=1;battle.awaitingRespawn=false;battle.startTime=Date.now();battle.duration=30*60*1000;document.getElementById('battle-screen').classList.add('active');document.getElementById('respawnOverlay').classList.remove('active');document.getElementById('player-hp').innerText=Math.floor(battle.playerHp);document.getElementById('wave-num').innerText=1;document.getElementById('kills-count').innerText=0;document.getElementById('deaths-count').innerText=0;document.getElementById('battle-timer').innerText='30:00';document.getElementById('hitLog').innerHTML='';applyControlType();setTimeout(initBattleCanvas,50);initBattleControls()}
+function initBattleCanvas(){const cv=document.getElementById('battle-canvas');battle.canvas=cv;battle.ctx=cv.getContext('2d');battle.W=cv.width=window.innerWidth;battle.H=cv.height=window.innerHeight;const skin=SKINS.find(s=>s.id===D.currentSkin)||SKINS[0];const c=COUNTRIES[D.country]||COUNTRIES.ussr;battle.player={x:battle.W/2,y:battle.H/2,angle:0,turretAngle:0,color:skin.color,bodyColor:c.color,speed:3.5};battle.turretAngle=0;spawnWave();battle.lastTime=performance.now();requestAnimationFrame(battleLoop);if(!battle._resizeBound){battle._resizeBound=true;window.addEventListener('resize',()=>{if(!battle.canvas)return;battle.W=battle.canvas.width=window.innerWidth;battle.H=battle.canvas.height=window.innerHeight})}}
+function spawnWave(){if(battle.wave%5===0&&battle.wave>0){battle.enemies.push({x:battle.W/2,y:80,angle:Math.PI/2,turretAngle:Math.PI/2,hp:5000*battle.wave/5,maxHp:5000*battle.wave/5,speed:0.5,shootCooldown:0.8,color:'#8b0000',isBoss:true,name:'Астроафлефлан',trackHP:100,gunHP:100,ammoHP:100});showToast('😈 БОСС: Астроафлефлан!');document.getElementById('enemies-left').innerText=1;return}const count=6+Math.min(10,battle.wave);for(let i=0;i<count;i++){const a=(Math.PI*2/count)*i;const d=250+Math.random()*150;battle.enemies.push({x:battle.W/2+Math.cos(a)*d,y:battle.H/2+Math.sin(a)*d,angle:0,turretAngle:0,hp:40+battle.wave*10,maxHp:40+battle.wave*10,speed:0.7+battle.wave*0.04,shootCooldown:2.5,color:'#c62828',trackHP:100,gunHP:100,ammoHP:100})}for(let i=0;i<10;i++){const a=(Math.PI*2/10)*i+0.3;const d=100+Math.random()*80;battle.allies.push({x:battle.W/2+Math.cos(a)*d,y:battle.H/2+Math.sin(a)*d,angle:0,turretAngle:0,hp:60,maxHp:60,speed:1.5,shootCooldown:2,color:'#4caf50'})}document.getElementById('enemies-left').innerText=battle.enemies.length;document.getElementById('allies-count').innerText=battle.allies.length}
+
+const joystick={active:false,dx:0,dy:0,startX:0,startY:0}
+const JOY_MAX=60
+let aimPointer={x:0,y:0,active:false}
+function initBattleControls(){if(battle.listenersBound)return;battle.listenersBound=true;const zone=document.getElementById('joyZone'),knob=document.getElementById('joyKnob'),fireBtn=document.getElementById('fireBtn'),stickBtn=document.getElementById('stickBtn'),camoBtn=document.getElementById('camoBtn');if(!zone||!knob||!fireBtn)return;function getPos(e){const t=e.touches?e.touches[0]:e;return{x:t.clientX,y:t.clientY}}function startJoy(e){e.preventDefault();const r=zone.getBoundingClientRect();joystick.active=true;joystick.startX=r.left+r.width/2;joystick.startY=r.top+r.height/2}function moveJoy(e){if(!joystick.active)return;e.preventDefault();const p=getPos(e);let dx=p.x-joystick.startX,dy=p.y-joystick.startY;const d=Math.hypot(dx,dy);if(d>JOY_MAX){dx=dx/d*JOY_MAX;dy=dy/d*JOY_MAX}joystick.dx=dx/JOY_MAX;joystick.dy=dy/JOY_MAX;knob.style.transform='translate('+dx+'px,'+dy+'px)'}function endJoy(){joystick.active=false;joystick.dx=0;joystick.dy=0;knob.style.transform='translate(0,0)'}zone.addEventListener('touchstart',startJoy,{passive:false});zone.addEventListener('touchmove',moveJoy,{passive:false});zone.addEventListener('touchend',endJoy);zone.addEventListener('touchcancel',endJoy);zone.addEventListener('mousedown',startJoy);window.addEventListener('mousemove',moveJoy);window.addEventListener('mouseup',endJoy);const canvas=document.getElementById('battle-canvas');function aimAt(e){if(!battle.player)return;let px,py;if(e.touches){const t=e.touches[0];px=t.clientX;py=t.clientY}else{px=e.clientX;py=e.clientY}if(px<200&&py>window.innerHeight-220)return;if(px>window.innerWidth-160&&py>window.innerHeight-220)return;aimPointer.x=px;aimPointer.y=py;aimPointer.active=true}canvas.addEventListener('touchstart',aimAt,{passive:true});canvas.addEventListener('touchmove',aimAt,{passive:true});canvas.addEventListener('mousemove',aimAt);let fireInt=null;function startFire(e){e.preventDefault();fireBullet();if(fireInt)clearInterval(fireInt);fireInt=setInterval(fireBullet,200)}function stopFire(){if(fireInt){clearInterval(fireInt);fireInt=null}}fireBtn.addEventListener('touchstart',startFire,{passive:false});fireBtn.addEventListener('touchend',stopFire);fireBtn.addEventListener('mousedown',startFire);fireBtn.addEventListener('mouseup',stopFire);fireBtn.addEventListener('mouseleave',stopFire);if(stickBtn)stickBtn.addEventListener('click',toggleStick);if(camoBtn)camoBtn.addEventListener('click',toggleCamo)}
+function fireBullet(){if(!battle.running||!battle.player)return;if(battle.gunBroken>0)return;if(battle.cooldown>0)return;battle.cooldown=0.25;const ang=battle.turretAngle;battle.bullets.push({x:battle.player.x+Math.cos(ang)*38,y:battle.player.y+Math.sin(ang)*38,vx:Math.cos(ang)*14,vy:Math.sin(ang)*14,damage:getPlayerDamage(),friendly:true});playSound(800,.1,'square',.05)}
+function getPlayerDamage(){let b=15;if(isAdmin())b*=1e9;return b}
+function toggleStick(){if(!D.hasStick){showToast('❌ Купи палочку!');return}battle.onStick=!battle.onStick;showToast(battle.onStick?'🥢 Палочка!':'🔫 Убрана')}
+function toggleCamo(){if(!D.hasCamo){showToast('❌ Купи камуфляж!');return}if(battle.camoCooldown>0){showToast('⏱️ Перезарядка');return}if(battle.invisible)return;battle.invisible=true;battle.camoTimer=3;battle.camoCooldown=15;const b=document.getElementById('camoBtn');if(b)b.classList.add('active');showToast('🥷 НЕВИДИМОСТЬ!')}
+function addHitLog(t,c){const l=document.getElementById('hitLog');if(!l)return;const d=document.createElement('div');d.className='hit-log-item';d.style.color=c||'#fff';d.innerText=t;l.appendChild(d);setTimeout(()=>{d.style.opacity='0';setTimeout(()=>d.remove(),300)},700);while(l.children.length>5)l.removeChild(l.firstChild)}
+function getHitInfo(b,t){const atb=Math.atan2(b.y-t.y,b.x-t.x);let diff=Math.abs(((atb-t.angle+Math.PI*3)%(Math.PI*2))-Math.PI);let dir='side';if(diff<Math.PI/4)dir='front';else if(diff>Math.PI*3/4)dir='rear';let mod=null;const r=Math.random();if(r<0.20)mod='track';else if(r<0.35)mod='gun';else if(r<0.40)mod='ammo';return{dir,module:mod}}
+
+function battleLoop(now){if(!battle.running)return;requestAnimationFrame(battleLoop);const dt=Math.min((now-battle.lastTime)/1000,0.1);battle.lastTime=now;battle.cooldown=Math.max(0,battle.cooldown-dt);battle.camoCooldown=Math.max(0,battle.camoCooldown-dt);if(battle.trackBroken>0)battle.trackBroken=Math.max(0,battle.trackBroken-dt);if(battle.gunBroken>0)battle.gunBroken=Math.max(0,battle.gunBroken-dt);if(battle.awaitingRespawn)return;if(battle.invisible){battle.camoTimer-=dt;if(battle.camoTimer<=0){battle.invisible=false;const b=document.getElementById('camoBtn');if(b)b.classList.remove('active');showToast('🥷 Кончилась')}}const elapsed=Date.now()-battle.startTime;const left=Math.max(0,battle.duration-elapsed);const min=Math.floor(left/60000),sec=Math.floor((left%60000)/1000);document.getElementById('battle-timer').innerText=min+':'+String(sec).padStart(2,'0');if(left<=0){showToast('⏰ Время!');endBattle();return}const p=battle.player;if(battle.trackBroken<=0){if(D.controlType==='joystick'){if(joystick.active&&(Math.abs(joystick.dx)>0.15||Math.abs(joystick.dy)>0.15)){battle.bodyAngle=Math.atan2(joystick.dy,joystick.dx);p.x+=joystick.dx*p.speed;p.y+=joystick.dy*p.speed}}else if(D.controlType==='buttons'){let dx=0,dy=0;if(dirKeys.left)dx=-1;if(dirKeys.right)dx=1;if(dirKeys.up)dy=-1;if(dirKeys.down)dy=1;if(dx||dy){battle.bodyAngle=Math.atan2(dy,dx);p.x+=dx*p.speed;p.y+=dy*p.speed}}else if(D.controlType==='wasd'){const k=window._keys||{};let dx=0,dy=0;if(k['a'])dx=-1;if(k['d'])dx=1;if(k['w'])dy=-1;if(k['s'])dy=1;if(dx||dy){battle.bodyAngle=Math.atan2(dy,dx);p.x+=dx*p.speed;p.y+=dy*p.speed}}p.x=Math.max(30,Math.min(battle.W-30,p.x));p.y=Math.max(30,Math.min(battle.H-30,p.y))}if(aimPointer.active){const wa=Math.atan2(aimPointer.y-p.y,aimPointer.x-p.x);let df=wa-battle.turretAngle;while(df>Math.PI)df-=Math.PI*2;while(df<-Math.PI)df+=Math.PI*2;battle.turretAngle+=df*Math.min(1,dt*12)}p.angle=battle.bodyAngle;p.turretAngle=battle.turretAngle;
+battle.enemies.forEach(e=>{const dx=p.x-e.x,dy=p.y-e.y,dist=Math.hypot(dx,dy);const wa=Math.atan2(dy,dx);let df=wa-e.turretAngle;while(df>Math.PI)df-=Math.PI*2;while(df<-Math.PI)df+=Math.PI*2;e.turretAngle+=df*Math.min(1,dt*4);e.angle=wa;if(dist>180){e.x+=(dx/dist)*e.speed;e.y+=(dy/dist)*e.speed}e.x=Math.max(30,Math.min(battle.W-30,e.x));e.y=Math.max(30,Math.min(battle.H-30,e.y));e.shootCooldown-=dt;if(e.shootCooldown<=0&&dist<400&&!battle.invisible){e.shootCooldown=1.5+Math.random();battle.enemyBullets.push({x:e.x,y:e.y,vx:Math.cos(e.turretAngle)*5,vy:Math.sin(e.turretAngle)*5,damage:8})}if(battle.onStick&&dist<40)e.hp-=999;if(dist<28&&!battle.invisible)battle.playerHp-=20*dt});
+battle.allies.forEach(a=>{let cl=null,mD=1e9;battle.enemies.forEach(e=>{const d=Math.hypot(e.x-a.x,e.y-a.y);if(d<mD){mD=d;cl=e}});if(cl){a.turretAngle=Math.atan2(cl.y-a.y,cl.x-a.x);a.angle=a.turretAngle;if(mD>180){a.x+=Math.cos(a.turretAngle)*a.speed;a.y+=Math.sin(a.turretAngle)*a.speed}a.x=Math.max(30,Math.min(battle.W-30,a.x));a.y=Math.max(30,Math.min(battle.H-30,a.y));a.shootCooldown-=dt;if(a.shootCooldown<=0&&mD<380){a.shootCooldown=1.5;battle.bullets.push({x:a.x+Math.cos(a.turretAngle)*30,y:a.y+Math.sin(a.turretAngle)*30,vx:Math.cos(a.turretAngle)*10,vy:Math.sin(a.turretAngle)*10,damage:12,friendly:true})}}});
+for(let i=battle.bullets.length-1;i>=0;i--){const b=battle.bullets[i];b.x+=b.vx;b.y+=b.vy;if(b.x<0||b.x>battle.W||b.y<0||b.y>battle.H){battle.bullets.splice(i,1);continue}for(let j=battle.enemies.length-1;j>=0;j--){const e=battle.enemies[j];if(Math.hypot(b.x-e.x,b.y-e.y)<(e.isBoss?40:22)){const{dir,module}=getHitInfo(b,e);let dmg=b.damage,crit=false,ric=false;if(dir==='front'){dmg*=0.15;ric=true}else if(dir==='rear'){dmg*=2;crit=true}e.hp-=dmg;let mt='';if(module==='track'){e.trackBroken=2;mt=' ГУСЯ'}if(module==='gun'){e.gunBroken=3;mt=' ПУШКА'}if(module==='ammo'){e.hp-=e.maxHp*0.5;mt=' БК!'}const di=Math.floor(dmg);if(ric)addHitLog('🛡️ РИКОШЕТ '+di,'#ffaa00');else if(crit)addHitLog('💥 КРИТ '+di+mt,'#ff3333');else addHitLog('✓ '+di+mt,'#00ff88');playSound(ric?300:600,.1,'square',.08);battle.bullets.splice(i,1);break}}}
+for(let i=battle.enemyBullets.length-1;i>=0;i--){const b=battle.enemyBullets[i];b.x+=b.vx;b.y+=b.vy;if(b.x<0||b.x>battle.W||b.y<0||b.y>battle.H){battle.enemyBullets.splice(i,1);continue}if(Math.hypot(b.x-p.x,b.y-p.y)<22){if(!battle.invisible){const{dir,module}=getHitInfo(b,{x:p.x,y:p.y,angle:battle.bodyAngle});let dmg=b.damage;if(dir==='front'){dmg*=0.15;addHitLog('🛡️ РИКОШЕТ','#ffaa00')}else if(dir==='rear'){dmg*=2;addHitLog('💥 КРИТ','#ff3333')}else addHitLog('💔 -'+dmg,'#ff6666');if(module==='track'){battle.trackBroken=3;addHitLog('⛓️ ГУСЯ!','#ff3333')}if(module==='gun'){battle.gunBroken=3;addHitLog('🔫 ПУШКА!','#ff3333')}if(module==='ammo'){dmg*=2;addHitLog('💥 БК!','#ff0000')}battle.playerHp-=dmg}battle.enemyBullets.splice(i,1)}}
+for(let i=battle.enemies.length-1;i>=0;i--){if(battle.enemies[i].hp<=0){const wb=battle.enemies[i].isBoss;battle.enemies.splice(i,1);battle.kills++;document.getElementById('kills-count').innerText=battle.kills;document.getElementById('enemies-left').innerText=battle.enemies.length;if(wb){D.gold+=100000;saveGame();updateUI();showToast('🏆 БОСС! +100 000 🪙')}}}
+document.getElementById('player-hp').innerText=Math.max(0,Math.floor(battle.playerHp));if(battle.playerHp<=0){handlePlayerDeath();return}
+if(battle.enemies.length===0&&battle.allies.length>0){battle.wave++;document.getElementById('wave-num').innerText=battle.wave;D.gold+=battle.wave*200;D.researchXP+=50;addBpXp(100);saveGame();updateUI();showToast('🌊 Волна '+battle.wave+'!');spawnWave()}
+drawBattle()}
+
+function drawBattle(){const ctx=battle.ctx;ctx.fillStyle='#1a2a10';ctx.fillRect(0,0,battle.W,battle.H);if(!D.settings.lowGraphics){ctx.strokeStyle='rgba(100,200,100,0.1)';for(let x=0;x<battle.W;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,battle.H);ctx.stroke()}for(let y=0;y<battle.H;y+=50){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(battle.W,y);ctx.stroke()}}ctx.fillStyle='#ffff66';battle.bullets.forEach(b=>{ctx.beginPath();ctx.arc(b.x,b.y,4,0,Math.PI*2);ctx.fill()});ctx.fillStyle='#ff6666';battle.enemyBullets.forEach(b=>{ctx.beginPath();ctx.arc(b.x,b.y,4,0,Math.PI*2);ctx.fill()});battle.allies.forEach(a=>{drawTankRealistic(ctx,a.x,a.y,a.angle,a.turretAngle,'#4caf50','#3a7a3a');ctx.fillStyle='#333';ctx.fillRect(a.x-22,a.y-34,44,4);ctx.fillStyle='#00ccff';ctx.fillRect(a.x-22,a.y-34,44*(a.hp/a.maxHp),4)});battle.enemies.forEach(e=>{if(e.isBoss){ctx.save();ctx.translate(e.x,e.y);ctx.fillStyle='#8b0000';ctx.fillRect(-45,-24,90,48);ctx.beginPath();ctx.arc(0,0,28,0,Math.PI*2);ctx.fillStyle='#5c0000';ctx.fill();ctx.fillStyle='#111';ctx.fillRect(25,-7,50,14);ctx.restore();ctx.fillStyle='#ff0000';ctx.font='bold 14px Arial';ctx.textAlign='center';ctx.fillText('👾 АСТРОАФЛЕФЛАН',e.x,e.y-50);ctx.fillStyle='#333';ctx.fillRect(e.x-70,e.y-45,140,8);ctx.fillStyle='#ff0000';ctx.fillRect(e.x-70,e.y-45,140*(e.hp/e.maxHp),8)}else{drawTankRealistic(ctx,e.x,e.y,e.angle,e.turretAngle,'#c62828','#8b1010');ctx.fillStyle='#333';ctx.fillRect(e.x-22,e.y-34,44,4);ctx.fillStyle='#0f0';ctx.fillRect(e.x-22,e.y-34,44*(e.hp/e.maxHp),4)}});const p=battle.player;if(!battle.invisible){drawTankRealistic(ctx,p.x,p.y,p.angle,battle.turretAngle,p.color,p.bodyColor)}else{ctx.globalAlpha=0.35;drawTankRealistic(ctx,p.x,p.y,p.angle,battle.turretAngle,'#00ccff','#005577');ctx.globalAlpha=1;ctx.fillStyle='#00ccff';ctx.font='bold 14px Arial';ctx.textAlign='center';ctx.fillText('🥷',p.x,p.y-34)}}
+function drawTankRealistic(ctx,x,y,bodyAngle,turretAngle,color,bodyColor){ctx.save();ctx.translate(x,y);ctx.save();ctx.rotate(bodyAngle);ctx.fillStyle='#0a0a0a';ctx.fillRect(-22,-18,44,7);ctx.fillRect(-22,11,44,7);for(let i=-20;i<20;i+=5){ctx.fillStyle='#222';ctx.fillRect(i,-18,2,7);ctx.fillRect(i,11,2,7)}ctx.fillStyle=bodyColor||color;ctx.fillRect(-20,-12,40,24);ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(-20,-12,40,4);ctx.restore();ctx.save();ctx.rotate(turretAngle);ctx.fillStyle=color;ctx.beginPath();ctx.arc(0,0,13,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(0,0,0,0.25)';ctx.beginPath();ctx.arc(0,0,13,Math.PI,Math.PI*2);ctx.fill();ctx.fillStyle='#111';ctx.fillRect(10,-3,32,6);ctx.fillStyle='#333';ctx.fillRect(40,-4,4,8);ctx.restore();ctx.restore()}
+
+function handlePlayerDeath(){if(battle.awaitingRespawn)return;battle.deaths++;document.getElementById('deaths-count').innerText=battle.deaths;if(battle.respawnsLeft>0){battle.awaitingRespawn=true;const ov=document.getElementById('respawnOverlay');document.getElementById('respawnInfo').innerText='Дублёров: '+battle.respawnsLeft;ov.classList.add('active')}else{showToast('💀 Бой проигран!');setTimeout(()=>endBattle(),1500)}}
+function useRespawn(){if(battle.respawnsLeft<=0)return;battle.respawnsLeft--;battle.playerHp=battle.playerMaxHp;battle.awaitingRespawn=false;battle.trackBroken=0;battle.gunBroken=0;battle.invisible=false;battle.player.x=battle.W/2;battle.player.y=battle.H/2;document.getElementById('respawnOverlay').classList.remove('active');document.getElementById('player-hp').innerText=Math.floor(battle.playerHp);showToast('🚑 Возрождение!')}
+function endBattle(){battle.running=false;D.battles++;D.kills+=battle.kills;D.wins+=1;D.gold+=battle.kills*50;addBpXp(50+battle.kills*10);const me={name:D.nickname||'Ты',score:D.wins,kills:D.kills};const idx=D.leaderboard.findIndex(x=>x.name===me.name);if(idx>=0)D.leaderboard[idx]=me;else D.leaderboard.push(me);sendOnline({type:'score',name:me.name,wins:me.score,kills:me.kills});saveGame();updateUI();showToast('💀 Бой окончен! Убито: '+battle.kills);setTimeout(()=>exitBattle(),1500)}
+function forceExit(){if(battle.running){if(!confirm('Выйти из боя?'))return}battle.running=false;battle.awaitingRespawn=false;document.getElementById('respawnOverlay').classList.remove('active');exitBattle()}
+function exitBattle(){battle.running=false;battle.isTournament=false;document.getElementById('battle-screen').classList.remove('active');battle.enemies=[];battle.allies=[];battle.bullets=[];battle.enemyBullets=[];showScreen('screen-main')}
+function openInventory(){const p=document.getElementById('inventoryPanel');if(p)p.style.display='block'}
+function closeInventory(){const p=document.getElementById('inventoryPanel');if(p)p.style.display='none'}
+function toggleMenu(){const p=document.getElementById('menuPanel');if(p)p.style.display=p.style.display==='flex'?'none':'flex'}
+function exitGame(){if(confirm('Выйти?')){document.body.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;color:#ff8c00;font-size:24px;text-align:center;padding:20px;background:#0a0510;font-family:inherit"><div style="font-size:60px">🚜</div><div>До встречи, ${D.nickname||'игрок'}!</div><div style="font-size:14px;color:#8866aa;margin-top:20px">© 2026 Armor Thunder v28</div><div style="font-size:16px;color:#ffcc00;margin-top:5px">Автор: pixelfox56</div></div>`}}
+
+// ========== ТУРНИР 5 НА 5 ==========
+let tourneyWS=null,tourneyActive=false
+function enterTournament(){if(tourneyActive){showToast('⚔️ Ты уже в поиске!');return}tourneyActive=true;showScreen('screen-tournament-wait');const title=document.getElementById('tw-title'),status=document.getElementById('tw-status'),count=document.getElementById('tw-count');if(title)title.innerText='Поиск соперника...';if(status)status.innerText='Подключение к серверу...';if(count)count.innerText='1 / 2';if(battle.running)forceExit();try{tourneyWS=new WebSocket(SERVER_URL)}catch(e){showToast('❌ Не удалось подключиться');tourneyActive=false;showScreen('screen-main');return}const timeout=setTimeout(()=>{if(tourneyWS&&tourneyWS.readyState!==1){try{tourneyWS.close()}catch(e){}showToast('⏰ Сервер не отвечает');cancelTournament()}},8000);tourneyWS.onopen=()=>{clearTimeout(timeout);if(status)status.innerText='✅ Подключено. Отправка в лобби...';try{tourneyWS.send(JSON.stringify({type:'tournament_lobby',name:D.nickname||'Игрок',wins:D.wins,kills:D.kills,country:D.country}))}catch(e){}if(title)title.innerText='Ожидание соперника...'};tourneyWS.onmessage=(ev)=>{try{const m=JSON.parse(ev.data);if(m.type==='tournament_waiting'){if(count)count.innerText=(m.count||1)+' / 2'}if(m.type==='tournament_start'){if(title)title.innerText='🎯 Соперник найден!';if(status)status.innerText='Запуск боя...';if(count)count.innerText='2 / 2';setTimeout(()=>{try{tourneyWS.close()}catch(e){}tourneyWS=null;tourneyActive=false;startTournament5v5()},1000)}}catch(e){}};tourneyWS.onerror=()=>{clearTimeout(timeout);showToast('❌ Ошибка');cancelTournament()};tourneyWS.onclose=()=>{if(tourneyActive){tourneyActive=false;showScreen('screen-main')}}}
+function cancelTournament(){tourneyActive=false;if(tourneyWS){try{tourneyWS.close()}catch(e){}tourneyWS=null}showScreen('screen-main');showToast('✖ Поиск отменён')}
+function startTournament5v5(){battle.isTournament=true;const bs=SKINS.find(s=>s.id==='blue');if(bs){if(!D.unlockedSkins.includes('blue'))D.unlockedSkins.push('blue');D.currentSkin='blue';saveGame()}showToast('⚔️ ТУРНИР 5 НА 5 — В БОЙ!');showScreen('screen-main');setTimeout(()=>{startRoulette()},300)}
+
+// ========== КЛАВИАТУРА / СТАРТ ==========
+window.addEventListener('keydown',e=>{if(!window._keys)window._keys={};window._keys[e.key.toLowerCase()]=true})
+window.addEventListener('keyup',e=>{if(window._keys)window._keys[e.key.toLowerCase()]=false})
+checkSeasonReset();updateUI();saveGame();if(D.nickname)showToast('👋 Привет, '+D.nickname+'!')
+console.log('🚜 Armor Thunder v28 · ФРОНТИР + ТУРНИР')
 </script>
 </body>
 </html>
