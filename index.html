@@ -19,141 +19,38 @@ body{
   min-height:100vh;
   padding:15px;
 }
-.header{
-  max-width:900px;
-  margin:0 auto 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 20px;
-  background:linear-gradient(180deg, rgba(30,10,50,0.9), rgba(15,5,30,0.9));
-  border:2px solid #6a2b9a;
-  border-radius:12px;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.header-logo{
-  font-size:22px;
-  font-weight:900;
-  background:linear-gradient(180deg,#ffcc00,#ff6600);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-.header-btn{
-  padding:10px 18px;
-  font-size:14px;
-  font-weight:bold;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  font-family:inherit;
-  text-decoration:none;
-  background:linear-gradient(180deg,#4caf50,#1b5e20);
-  box-shadow:0 3px 0 #0d3010;
-  display:inline-block;
-}
+.header{max-width:900px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:linear-gradient(180deg, rgba(30,10,50,0.9), rgba(15,5,30,0.9));border:2px solid #6a2b9a;border-radius:12px;flex-wrap:wrap;gap:10px}
+.header-logo{font-size:22px;font-weight:900;background:linear-gradient(180deg,#ffcc00,#ff6600);-webkit-background-clip:text;background-clip:text;color:transparent}
+.header-btn{padding:10px 18px;font-size:14px;font-weight:bold;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;text-decoration:none;background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 3px 0 #0d3010;display:inline-block}
 .header-btn:active{transform:translateY(2px);box-shadow:none}
 .container{max-width:900px;margin:0 auto}
-.hero{
-  text-align:center;
-  padding:40px 20px;
-  margin-bottom:25px;
-  background:linear-gradient(180deg, rgba(30,10,50,0.95), rgba(15,5,30,0.95));
-  border:3px solid #ff8c00;
-  border-radius:20px;
-}
-.hero-title{
-  font-size:38px;
-  font-weight:900;
-  letter-spacing:2px;
-  background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  margin-bottom:10px;
-}
-.hero-subtitle{
-  font-size:16px;
-  color:#ff8c00;
-  letter-spacing:3px;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-.hero-btn{
-  display:inline-block;
-  padding:16px 40px;
-  font-size:18px;
-  font-weight:900;
-  color:#fff;
-  background:linear-gradient(180deg,#4caf50,#1b5e20);
-  box-shadow:0 4px 0 #0d3010;
-  border-radius:12px;
-  text-decoration:none;
-  margin:5px;
-}
+.hero{text-align:center;padding:40px 20px;margin-bottom:25px;background:linear-gradient(180deg, rgba(30,10,50,0.95), rgba(15,5,30,0.95));border:3px solid #ff8c00;border-radius:20px}
+.hero-title{font-size:38px;font-weight:900;letter-spacing:2px;background:linear-gradient(180deg,#ffcc00,#ff6600 50%,#cc0066);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px}
+.hero-subtitle{font-size:16px;color:#ff8c00;letter-spacing:3px;font-weight:bold;margin-bottom:20px}
+.hero-btn{display:inline-block;padding:16px 40px;font-size:18px;font-weight:900;color:#fff;background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 4px 0 #0d3010;border-radius:12px;text-decoration:none;margin:5px}
 .hero-btn:active{transform:translateY(3px);box-shadow:none}
-.menu{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-  gap:12px;
-  margin-bottom:25px;
-}
-.btn{
-  padding:18px;
-  font-size:16px;
-  font-weight:bold;
-  color:#fff;
-  border:none;
-  border-radius:14px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-family:inherit;
-  text-decoration:none;
-  text-align:center;
-}
+.menu{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px;margin-bottom:25px}
+.btn{padding:18px;font-size:16px;font-weight:bold;color:#fff;border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;text-decoration:none;text-align:center}
 .btn:active{transform:translateY(3px)}
 .btn-play{background:linear-gradient(180deg,#4caf50,#1b5e20);box-shadow:0 4px 0 #0d3010}
 .btn-news{background:linear-gradient(180deg,#9c27b0,#4a1259);box-shadow:0 4px 0 #2a0833}
 .btn-helper{background:linear-gradient(180deg,#d4a017,#5c460d);box-shadow:0 4px 0 #3a2c08}
 .btn-promo{background:linear-gradient(180deg,#ffcc00,#8b6500);box-shadow:0 4px 0 #5c4000;color:#1a0a2e}
 .btn-download{background:linear-gradient(180deg,#1e88e5,#0d47a1);box-shadow:0 4px 0 #082a5c}
-.section{
-  background:linear-gradient(180deg, rgba(30,10,50,0.9), rgba(15,5,30,0.9));
-  border:2px solid #5a3a8a;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:20px;
-}
-.section-title{
-  font-size:20px;
-  font-weight:bold;
-  color:#ffcc00;
-  margin-bottom:15px;
-  text-align:center;
-}
-.feature{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:10px;
-  margin-bottom:8px;
-  background:rgba(15,5,30,0.6);
-  border-radius:10px;
-  font-size:14px;
-}
+.section{background:linear-gradient(180deg, rgba(30,10,50,0.9), rgba(15,5,30,0.9));border:2px solid #5a3a8a;border-radius:16px;padding:20px;margin-bottom:20px}
+.section-title{font-size:20px;font-weight:bold;color:#ffcc00;margin-bottom:15px;text-align:center}
+.feature{display:flex;align-items:center;gap:12px;padding:10px;margin-bottom:8px;background:rgba(15,5,30,0.6);border-radius:10px;font-size:14px}
 .feature-icon{font-size:24px}
-.footer{
-  text-align:center;
-  padding:20px;
-  color:#8866aa;
-  font-size:12px;
-}
+.footer{text-align:center;padding:20px;color:#8866aa;font-size:12px}
 .footer b{color:#ffcc00}
+.footer-link{color:#ff8c00;text-decoration:none;margin:0 10px;cursor:pointer}
+.footer-link:hover{text-decoration:underline}
+/* Модальные окна */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center}
+.modal-content{background:#1a0a2e;border:2px solid #ff8c00;border-radius:12px;padding:20px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;text-align:left}
+.modal-content h2{color:#ffcc00;text-align:center;margin-top:0}
+.modal-content p{font-size:14px;line-height:1.6;color:#ccc}
+.modal-close{display:block;width:100%;padding:10px;margin-top:15px;background:#c62828;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-family:inherit}
 </style>
 </head>
 <body>
@@ -164,7 +61,6 @@ body{
 </div>
 
 <div class="container">
-
   <div class="hero">
     <div class="hero-title">🚜 ARMOR THUNDER 🚜</div>
     <div class="hero-subtitle">ТАНКОВАЯ АРКАДА ОТ 1-ГО ЛИЦА</div>
@@ -198,11 +94,37 @@ body{
     <div class="feature"><div class="feature-icon">🛡️</div><div><b>Олег</b> — Модератор</div></div>
     <div class="feature"><div class="feature-icon">🥕</div><div><b>Зенни</b> — Тестировщик (промокод МОРКОВКА)</div></div>
   </div>
-
 </div>
 
 <div class="footer">
   © 2026 <b>Armor Thunder</b> · Автор: <b>PixelMuha77</b>
+  <br><br>
+  <a onclick="document.getElementById('privacyModal').style.display='flex'" class="footer-link">Политика конфиденциальности</a> | 
+  <a onclick="document.getElementById('rulesModal').style.display='flex'" class="footer-link">Правила игры</a>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: ПРАВИЛА -->
+<div class="modal" id="rulesModal">
+  <div class="modal-content">
+    <h2>📜 Правила игры</h2>
+    <p><b>1. Общие положения</b><br>Игра создана в развлекательных целях. Используя сайт, вы соглашаетесь с правилами.</p>
+    <p><b>2. Запрещено</b><br>Использовать читы, оскорблять игроков, выдавать себя за администрацию, использовать баги для накрутки золота.</p>
+    <p><b>3. Ответственность</b><br>За нарушение — бан по IP без предупреждения.</p>
+    <p><b>4. Права</b><br>Все права принадлежат Thunder Tanks LLC (2026).</p>
+    <button class="modal-close" onclick="document.getElementById('rulesModal').style.display='none'">ЗАКРЫТЬ</button>
+  </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: КОНФИДЕНЦИАЛЬНОСТЬ -->
+<div class="modal" id="privacyModal">
+  <div class="modal-content">
+    <h2>🔒 Политика конфиденциальности</h2>
+    <p><b>1. Какие данные мы собираем:</b><br>Мы сохраняем ваш игровой прогресс (золото, уровень) в локальной памяти браузера (LocalStorage).</p>
+    <p><b>2. Передача данных:</b><br>Мы не передаем ваши данные третьим лицам. В турнирах ваш никнейм видят другие игроки.</p>
+    <p><b>3. Cookie:</b><br>Сайт не использует сторонние файлы cookie.</p>
+    <p><b>4. Согласие:</b><br>Используя сайт, вы соглашаетесь с этой политикой.</p>
+    <button class="modal-close" onclick="document.getElementById('privacyModal').style.display='none'">ЗАКРЫТЬ</button>
+  </div>
 </div>
 
 </body>
